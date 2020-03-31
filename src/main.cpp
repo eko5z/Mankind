@@ -10,16 +10,17 @@
 int main()
 {
 	std::cout << PACKAGE_STRING << std::endl;
-	Renderer r;
+	Renderer renderer;
 	Game g;
 
-	r.OpenWindow();
+	renderer.OpenWindow();
 
 	InputSystem input_system;
 	input_system.SetInputManager(std::make_unique<MainInputManager>(g));
 
 	while (g.KeepGoing()) {
 		input_system.ProcessEvents();
+		renderer.Render(g.GetWorld(), g.GetCamera());
 	}
 
 	return 0;

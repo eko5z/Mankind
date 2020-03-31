@@ -5,6 +5,6 @@ mankind_SOURCES=main.cpp\
 	InputSystem.cpp\
 	MainInputManager.cpp
 
-AM_LDFLAGS=-lSDL2
+AM_LDFLAGS=-lSDL2 -lGL
 AM_CPPFLAGS=--std=c++14
 
