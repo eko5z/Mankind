@@ -10,3 +10,5 @@
 
 #endif
 
+#define GL_GLEXT_PROTOTYPES
+

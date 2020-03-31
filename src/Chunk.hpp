@@ -1,7 +1,9 @@
 #pragma once
 #include "Cube.hpp"
 
-#define CHUNK_INCOORD(x, y, z) ((x) * 256 + (y) * 16 + (z))
+#define CHUNK_SIZE 16
+#define CHUNK_INCOORD(x, y, z) \
+	((x) * CHUNK_SIZE * CHUNK_SIZE + (y) * CHUNK_SIZE + (z))
 
 class Chunk
 {
@@ -13,8 +15,18 @@ public:
 	void SetCube(int x, int y, int z, Cube& c)
 	{
 		cubes[CHUNK_INCOORD(x, y, z)] = c;
+		dirty = true;
+	}
+	void SetClean()
+	{
+		dirty = false;
+	}
+	bool IsDirty()
+	{
+		return dirty;
 	}
 private:
-	Cube cubes[16*16*16];
+	Cube cubes[CHUNK_SIZE * CHUNK_SIZE * CHUNK_SIZE];
+	bool dirty;
 };
 

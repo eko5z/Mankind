@@ -1,7 +1,6 @@
 #pragma once
 
-struct Camera
-{
+struct Camera {
 	int x, y, z;
 	float yaw, pitch, roll;
 	float fov;

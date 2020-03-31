@@ -1,6 +1,6 @@
 #pragma once
 
 struct Cube {
-	int typeID;
+	char typeID;
 };
 

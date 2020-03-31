@@ -15,8 +15,14 @@ public:
 	{
 		keep_going = false;
 	}
-	World& GetWorld() { return world; }
-	Camera& GetCamera() { return camera; }
+	World& GetWorld()
+	{
+		return world;
+	}
+	Camera& GetCamera()
+	{
+		return camera;
+	}
 private:
 	World world;
 	Camera camera;
