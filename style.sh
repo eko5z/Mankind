@@ -1,2 +1,2 @@
 #!/usr/env bash
-astyle --style=1tbs --indent=tab -r "src/*.cpp"
+astyle --style=1tbs --indent=tab -r "src/*.cpp" "src/*.hpp"
