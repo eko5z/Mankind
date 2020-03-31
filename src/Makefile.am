@@ -1,2 +1,2 @@
 bin_PROGRAMS=mankind
-mankind_SOURCES=main.cpp
+mankind_SOURCES=main.cpp test.cpp
