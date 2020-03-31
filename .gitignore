@@ -1,10 +1,26 @@
 # For NixOS users, or the only single user on Earth
 nixos-deps.sh
+
+# trash files
+
 *.o
 *~
+*.swp
+*.orig
+
+# Autotool-generated files
 Makefile
 src/Makefile
 config.log
 config.status
 autom4te.cache/*
+*.in
+aclocal.m4
+config.h
+configure
+depcomp
+install-sh
+missing
+stamp-h1
+src/.deps/*
 
