@@ -23,7 +23,7 @@ Renderer::~Renderer()
 void Renderer::OpenWindow()
 {
 	LOG("Opening window");
-	window = SDL_CreateWindow("Mankind" PACKAGE_STRING,
+	window = SDL_CreateWindow(PACKAGE_STRING,
 	                          SDL_WINDOWPOS_CENTERED,
 	                          SDL_WINDOWPOS_CENTERED,
 	                          500, 500, SDL_WINDOW_SHOWN);
