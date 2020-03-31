@@ -1,376 +1,514 @@
-main.o: main.cpp /usr/include/stdc-predef.h /usr/include/c++/6/iostream \
- /usr/include/x86_64-linux-gnu/c++/6/bits/c++config.h \
- /usr/include/x86_64-linux-gnu/c++/6/bits/os_defines.h \
- /usr/include/features.h /usr/include/x86_64-linux-gnu/sys/cdefs.h \
- /usr/include/x86_64-linux-gnu/bits/wordsize.h \
- /usr/include/x86_64-linux-gnu/gnu/stubs.h \
- /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
- /usr/include/x86_64-linux-gnu/c++/6/bits/cpu_defines.h \
- /usr/include/c++/6/ostream /usr/include/c++/6/ios \
- /usr/include/c++/6/iosfwd /usr/include/c++/6/bits/stringfwd.h \
- /usr/include/c++/6/bits/memoryfwd.h /usr/include/c++/6/bits/postypes.h \
- /usr/include/c++/6/cwchar /usr/include/wchar.h /usr/include/stdio.h \
- /usr/lib/gcc/x86_64-linux-gnu/6/include/stdarg.h \
- /usr/include/x86_64-linux-gnu/bits/wchar.h \
- /usr/lib/gcc/x86_64-linux-gnu/6/include/stddef.h /usr/include/xlocale.h \
- /usr/include/c++/6/exception \
- /usr/include/c++/6/bits/atomic_lockfree_defines.h \
- /usr/include/c++/6/bits/exception_ptr.h \
- /usr/include/c++/6/bits/exception_defines.h \
- /usr/include/c++/6/bits/nested_exception.h \
- /usr/include/c++/6/bits/move.h /usr/include/c++/6/bits/concept_check.h \
- /usr/include/c++/6/type_traits /usr/include/c++/6/bits/char_traits.h \
- /usr/include/c++/6/bits/stl_algobase.h \
- /usr/include/c++/6/bits/functexcept.h \
- /usr/include/c++/6/bits/cpp_type_traits.h \
- /usr/include/c++/6/ext/type_traits.h \
- /usr/include/c++/6/ext/numeric_traits.h \
- /usr/include/c++/6/bits/stl_pair.h \
- /usr/include/c++/6/bits/stl_iterator_base_types.h \
- /usr/include/c++/6/bits/stl_iterator_base_funcs.h \
- /usr/include/c++/6/debug/assertions.h \
- /usr/include/c++/6/bits/stl_iterator.h \
- /usr/include/c++/6/bits/ptr_traits.h /usr/include/c++/6/debug/debug.h \
- /usr/include/c++/6/bits/predefined_ops.h /usr/include/c++/6/cstdint \
- /usr/lib/gcc/x86_64-linux-gnu/6/include/stdint.h /usr/include/stdint.h \
- /usr/include/c++/6/bits/localefwd.h \
- /usr/include/x86_64-linux-gnu/c++/6/bits/c++locale.h \
- /usr/include/c++/6/clocale /usr/include/locale.h \
- /usr/include/x86_64-linux-gnu/bits/locale.h /usr/include/c++/6/cctype \
- /usr/include/ctype.h /usr/include/x86_64-linux-gnu/bits/types.h \
- /usr/include/x86_64-linux-gnu/bits/typesizes.h /usr/include/endian.h \
- /usr/include/x86_64-linux-gnu/bits/endian.h \
- /usr/include/x86_64-linux-gnu/bits/byteswap.h \
- /usr/include/x86_64-linux-gnu/bits/byteswap-16.h \
- /usr/include/c++/6/bits/ios_base.h /usr/include/c++/6/ext/atomicity.h \
- /usr/include/x86_64-linux-gnu/c++/6/bits/gthr.h \
- /usr/include/x86_64-linux-gnu/c++/6/bits/gthr-default.h \
- /usr/include/pthread.h /usr/include/sched.h /usr/include/time.h \
- /usr/include/x86_64-linux-gnu/bits/sched.h \
- /usr/include/x86_64-linux-gnu/bits/time.h \
- /usr/include/x86_64-linux-gnu/bits/timex.h \
- /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h \
- /usr/include/x86_64-linux-gnu/bits/setjmp.h \
- /usr/include/x86_64-linux-gnu/c++/6/bits/atomic_word.h \
- /usr/include/c++/6/bits/locale_classes.h /usr/include/c++/6/string \
- /usr/include/c++/6/bits/allocator.h \
- /usr/include/x86_64-linux-gnu/c++/6/bits/c++allocator.h \
- /usr/include/c++/6/ext/new_allocator.h /usr/include/c++/6/new \
- /usr/include/c++/6/bits/ostream_insert.h \
- /usr/include/c++/6/bits/cxxabi_forced.h \
- /usr/include/c++/6/bits/stl_function.h \
- /usr/include/c++/6/backward/binders.h \
- /usr/include/c++/6/bits/range_access.h \
- /usr/include/c++/6/initializer_list \
- /usr/include/c++/6/bits/basic_string.h \
- /usr/include/c++/6/ext/alloc_traits.h \
- /usr/include/c++/6/bits/alloc_traits.h \
- /usr/include/c++/6/ext/string_conversions.h /usr/include/c++/6/cstdlib \
- /usr/include/stdlib.h /usr/include/x86_64-linux-gnu/bits/waitflags.h \
- /usr/include/x86_64-linux-gnu/bits/waitstatus.h \
- /usr/include/x86_64-linux-gnu/sys/types.h \
- /usr/include/x86_64-linux-gnu/sys/select.h \
- /usr/include/x86_64-linux-gnu/bits/select.h \
- /usr/include/x86_64-linux-gnu/bits/sigset.h \
- /usr/include/x86_64-linux-gnu/sys/sysmacros.h /usr/include/alloca.h \
- /usr/include/x86_64-linux-gnu/bits/stdlib-bsearch.h \
- /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
- /usr/include/c++/6/cstdio /usr/include/libio.h /usr/include/_G_config.h \
- /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
- /usr/include/x86_64-linux-gnu/bits/sys_errlist.h \
- /usr/include/x86_64-linux-gnu/bits/stdio.h /usr/include/c++/6/cerrno \
- /usr/include/errno.h /usr/include/x86_64-linux-gnu/bits/errno.h \
- /usr/include/linux/errno.h /usr/include/x86_64-linux-gnu/asm/errno.h \
- /usr/include/asm-generic/errno.h /usr/include/asm-generic/errno-base.h \
- /usr/include/c++/6/bits/functional_hash.h \
- /usr/include/c++/6/bits/hash_bytes.h \
- /usr/include/c++/6/bits/basic_string.tcc \
- /usr/include/c++/6/bits/locale_classes.tcc \
- /usr/include/c++/6/system_error \
- /usr/include/x86_64-linux-gnu/c++/6/bits/error_constants.h \
- /usr/include/c++/6/stdexcept /usr/include/c++/6/streambuf \
- /usr/include/c++/6/bits/streambuf.tcc \
- /usr/include/c++/6/bits/basic_ios.h \
- /usr/include/c++/6/bits/locale_facets.h /usr/include/c++/6/cwctype \
- /usr/include/wctype.h \
- /usr/include/x86_64-linux-gnu/c++/6/bits/ctype_base.h \
- /usr/include/c++/6/bits/streambuf_iterator.h \
- /usr/include/x86_64-linux-gnu/c++/6/bits/ctype_inline.h \
- /usr/include/c++/6/bits/locale_facets.tcc \
- /usr/include/c++/6/bits/basic_ios.tcc \
- /usr/include/c++/6/bits/ostream.tcc /usr/include/c++/6/istream \
- /usr/include/c++/6/bits/istream.tcc ../config.h
+main.o: main.cpp \
+ /nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/stdc-predef.h \
+ /nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/iostream \
+ /nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/x86_64-unknown-linux-gnu/bits/c++config.h \
+ /nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/x86_64-unknown-linux-gnu/bits/os_defines.h \
+ /nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/features.h \
+ /nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/sys/cdefs.h \
+ /nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/wordsize.h \
+ /nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/long-double.h \
+ /nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/gnu/stubs.h \
+ /nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/gnu/stubs-64.h \
+ /nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/x86_64-unknown-linux-gnu/bits/cpu_defines.h \
+ /nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/ostream \
+ /nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/ios \
+ /nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/iosfwd \
+ /nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/bits/stringfwd.h \
+ /nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/bits/memoryfwd.h \
+ /nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/bits/postypes.h \
+ /nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/cwchar \
+ /nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/wchar.h \
+ /nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/libc-header-start.h \
+ /nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/floatn.h \
+ /nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/floatn-common.h \
+ /nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/lib/gcc/x86_64-unknown-linux-gnu/8.3.0/include/stddef.h \
+ /nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/lib/gcc/x86_64-unknown-linux-gnu/8.3.0/include/stdarg.h \
+ /nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/wchar.h \
+ /nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/types/wint_t.h \
+ /nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/types/mbstate_t.h \
+ /nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/types/__mbstate_t.h \
+ /nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/types/__FILE.h \
+ /nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/types/FILE.h \
+ /nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/types/locale_t.h \
+ /nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/types/__locale_t.h \
+ /nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/wchar2.h \
+ /nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/exception \
+ /nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/bits/exception.h \
+ /nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/bits/exception_ptr.h \
+ /nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/bits/exception_defines.h \
+ /nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/bits/cxxabi_init_exception.h \
+ /nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/typeinfo \
+ /nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/bits/hash_bytes.h \
+ /nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/new \
+ /nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/bits/nested_exception.h \
+ /nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/bits/move.h \
+ /nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/bits/concept_check.h \
+ /nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/type_traits \
+ /nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/bits/char_traits.h \
+ /nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/bits/stl_algobase.h \
+ /nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/bits/functexcept.h \
+ /nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/bits/cpp_type_traits.h \
+ /nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/ext/type_traits.h \
+ /nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/ext/numeric_traits.h \
+ /nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/bits/stl_pair.h \
+ /nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/bits/stl_iterator_base_types.h \
+ /nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/bits/stl_iterator_base_funcs.h \
+ /nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/debug/assertions.h \
+ /nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/bits/stl_iterator.h \
+ /nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/bits/ptr_traits.h \
+ /nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/debug/debug.h \
+ /nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/bits/predefined_ops.h \
+ /nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/cstdint \
+ /nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/lib/gcc/x86_64-unknown-linux-gnu/8.3.0/include/stdint.h \
+ /nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/stdint.h \
+ /nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/types.h \
+ /nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/typesizes.h \
+ /nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/stdint-intn.h \
+ /nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/stdint-uintn.h \
+ /nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/bits/localefwd.h \
+ /nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/x86_64-unknown-linux-gnu/bits/c++locale.h \
+ /nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/clocale \
+ /nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/locale.h \
+ /nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/locale.h \
+ /nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/cctype \
+ /nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/ctype.h \
+ /nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/endian.h \
+ /nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/endian.h \
+ /nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/byteswap.h \
+ /nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/byteswap-16.h \
+ /nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/uintn-identity.h \
+ /nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/bits/ios_base.h \
+ /nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/ext/atomicity.h \
+ /nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/x86_64-unknown-linux-gnu/bits/gthr.h \
+ /nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/x86_64-unknown-linux-gnu/bits/gthr-default.h \
+ /nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/pthread.h \
+ /nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/sched.h \
+ /nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/types/time_t.h \
+ /nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/types/struct_timespec.h \
+ /nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/sched.h \
+ /nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/cpu-set.h \
+ /nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/time.h \
+ /nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/time.h \
+ /nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/timex.h \
+ /nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/types/struct_timeval.h \
+ /nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/types/clock_t.h \
+ /nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/types/struct_tm.h \
+ /nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/types/clockid_t.h \
+ /nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/types/timer_t.h \
+ /nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/types/struct_itimerspec.h \
+ /nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/pthreadtypes.h \
+ /nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/thread-shared-types.h \
+ /nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/pthreadtypes-arch.h \
+ /nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/setjmp.h \
+ /nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/x86_64-unknown-linux-gnu/bits/atomic_word.h \
+ /nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/bits/locale_classes.h \
+ /nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/string \
+ /nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/bits/allocator.h \
+ /nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/x86_64-unknown-linux-gnu/bits/c++allocator.h \
+ /nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/ext/new_allocator.h \
+ /nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/bits/ostream_insert.h \
+ /nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/bits/cxxabi_forced.h \
+ /nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/bits/stl_function.h \
+ /nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/backward/binders.h \
+ /nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/bits/range_access.h \
+ /nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/initializer_list \
+ /nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/bits/basic_string.h \
+ /nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/ext/alloc_traits.h \
+ /nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/bits/alloc_traits.h \
+ /nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/ext/string_conversions.h \
+ /nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/cstdlib \
+ /nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/stdlib.h \
+ /nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/waitflags.h \
+ /nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/waitstatus.h \
+ /nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/sys/types.h \
+ /nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/sys/select.h \
+ /nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/select.h \
+ /nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/types/sigset_t.h \
+ /nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/types/__sigset_t.h \
+ /nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/select2.h \
+ /nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/sys/sysmacros.h \
+ /nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/sysmacros.h \
+ /nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/alloca.h \
+ /nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/stdlib-bsearch.h \
+ /nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/stdlib-float.h \
+ /nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/stdlib.h \
+ /nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/bits/std_abs.h \
+ /nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/cstdio \
+ /nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/stdio.h \
+ /nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/libio.h \
+ /nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/_G_config.h \
+ /nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/stdio_lim.h \
+ /nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/sys_errlist.h \
+ /nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/stdio.h \
+ /nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/stdio2.h \
+ /nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/cerrno \
+ /nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/errno.h \
+ /nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/errno.h \
+ /nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/linux/errno.h \
+ /nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/asm/errno.h \
+ /nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/asm-generic/errno.h \
+ /nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/asm-generic/errno-base.h \
+ /nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/bits/functional_hash.h \
+ /nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/bits/basic_string.tcc \
+ /nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/bits/locale_classes.tcc \
+ /nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/system_error \
+ /nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/x86_64-unknown-linux-gnu/bits/error_constants.h \
+ /nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/stdexcept \
+ /nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/streambuf \
+ /nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/bits/streambuf.tcc \
+ /nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/bits/basic_ios.h \
+ /nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/bits/locale_facets.h \
+ /nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/cwctype \
+ /nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/wctype.h \
+ /nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/wctype-wchar.h \
+ /nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/x86_64-unknown-linux-gnu/bits/ctype_base.h \
+ /nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/bits/streambuf_iterator.h \
+ /nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/x86_64-unknown-linux-gnu/bits/ctype_inline.h \
+ /nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/bits/locale_facets.tcc \
+ /nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/bits/basic_ios.tcc \
+ /nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/bits/ostream.tcc \
+ /nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/istream \
+ /nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/bits/istream.tcc \
+ ../config.h
 
-/usr/include/stdc-predef.h:
+/nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/stdc-predef.h:
 
-/usr/include/c++/6/iostream:
+/nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/iostream:
 
-/usr/include/x86_64-linux-gnu/c++/6/bits/c++config.h:
+/nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/x86_64-unknown-linux-gnu/bits/c++config.h:
 
-/usr/include/x86_64-linux-gnu/c++/6/bits/os_defines.h:
+/nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/x86_64-unknown-linux-gnu/bits/os_defines.h:
 
-/usr/include/features.h:
+/nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/features.h:
 
-/usr/include/x86_64-linux-gnu/sys/cdefs.h:
+/nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/sys/cdefs.h:
 
-/usr/include/x86_64-linux-gnu/bits/wordsize.h:
+/nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/wordsize.h:
 
-/usr/include/x86_64-linux-gnu/gnu/stubs.h:
+/nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/long-double.h:
 
-/usr/include/x86_64-linux-gnu/gnu/stubs-64.h:
+/nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/gnu/stubs.h:
 
-/usr/include/x86_64-linux-gnu/c++/6/bits/cpu_defines.h:
+/nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/gnu/stubs-64.h:
 
-/usr/include/c++/6/ostream:
+/nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/x86_64-unknown-linux-gnu/bits/cpu_defines.h:
 
-/usr/include/c++/6/ios:
+/nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/ostream:
 
-/usr/include/c++/6/iosfwd:
+/nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/ios:
 
-/usr/include/c++/6/bits/stringfwd.h:
+/nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/iosfwd:
 
-/usr/include/c++/6/bits/memoryfwd.h:
+/nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/bits/stringfwd.h:
 
-/usr/include/c++/6/bits/postypes.h:
+/nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/bits/memoryfwd.h:
 
-/usr/include/c++/6/cwchar:
+/nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/bits/postypes.h:
 
-/usr/include/wchar.h:
+/nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/cwchar:
 
-/usr/include/stdio.h:
+/nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/wchar.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/6/include/stdarg.h:
+/nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/libc-header-start.h:
 
-/usr/include/x86_64-linux-gnu/bits/wchar.h:
+/nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/floatn.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/6/include/stddef.h:
+/nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/floatn-common.h:
 
-/usr/include/xlocale.h:
+/nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/lib/gcc/x86_64-unknown-linux-gnu/8.3.0/include/stddef.h:
 
-/usr/include/c++/6/exception:
+/nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/lib/gcc/x86_64-unknown-linux-gnu/8.3.0/include/stdarg.h:
 
-/usr/include/c++/6/bits/atomic_lockfree_defines.h:
+/nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/wchar.h:
 
-/usr/include/c++/6/bits/exception_ptr.h:
+/nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/types/wint_t.h:
 
-/usr/include/c++/6/bits/exception_defines.h:
+/nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/types/mbstate_t.h:
 
-/usr/include/c++/6/bits/nested_exception.h:
+/nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/types/__mbstate_t.h:
 
-/usr/include/c++/6/bits/move.h:
+/nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/types/__FILE.h:
 
-/usr/include/c++/6/bits/concept_check.h:
+/nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/types/FILE.h:
 
-/usr/include/c++/6/type_traits:
+/nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/types/locale_t.h:
 
-/usr/include/c++/6/bits/char_traits.h:
+/nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/types/__locale_t.h:
 
-/usr/include/c++/6/bits/stl_algobase.h:
+/nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/wchar2.h:
 
-/usr/include/c++/6/bits/functexcept.h:
+/nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/exception:
 
-/usr/include/c++/6/bits/cpp_type_traits.h:
+/nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/bits/exception.h:
 
-/usr/include/c++/6/ext/type_traits.h:
+/nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/bits/exception_ptr.h:
 
-/usr/include/c++/6/ext/numeric_traits.h:
+/nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/bits/exception_defines.h:
 
-/usr/include/c++/6/bits/stl_pair.h:
+/nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/bits/cxxabi_init_exception.h:
 
-/usr/include/c++/6/bits/stl_iterator_base_types.h:
+/nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/typeinfo:
 
-/usr/include/c++/6/bits/stl_iterator_base_funcs.h:
+/nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/bits/hash_bytes.h:
 
-/usr/include/c++/6/debug/assertions.h:
+/nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/new:
 
-/usr/include/c++/6/bits/stl_iterator.h:
+/nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/bits/nested_exception.h:
 
-/usr/include/c++/6/bits/ptr_traits.h:
+/nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/bits/move.h:
 
-/usr/include/c++/6/debug/debug.h:
+/nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/bits/concept_check.h:
 
-/usr/include/c++/6/bits/predefined_ops.h:
+/nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/type_traits:
 
-/usr/include/c++/6/cstdint:
+/nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/bits/char_traits.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/6/include/stdint.h:
+/nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/bits/stl_algobase.h:
 
-/usr/include/stdint.h:
+/nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/bits/functexcept.h:
 
-/usr/include/c++/6/bits/localefwd.h:
+/nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/bits/cpp_type_traits.h:
 
-/usr/include/x86_64-linux-gnu/c++/6/bits/c++locale.h:
+/nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/ext/type_traits.h:
 
-/usr/include/c++/6/clocale:
+/nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/ext/numeric_traits.h:
 
-/usr/include/locale.h:
+/nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/bits/stl_pair.h:
 
-/usr/include/x86_64-linux-gnu/bits/locale.h:
+/nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/bits/stl_iterator_base_types.h:
 
-/usr/include/c++/6/cctype:
+/nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/bits/stl_iterator_base_funcs.h:
 
-/usr/include/ctype.h:
+/nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/debug/assertions.h:
 
-/usr/include/x86_64-linux-gnu/bits/types.h:
+/nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/bits/stl_iterator.h:
 
-/usr/include/x86_64-linux-gnu/bits/typesizes.h:
+/nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/bits/ptr_traits.h:
 
-/usr/include/endian.h:
+/nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/debug/debug.h:
 
-/usr/include/x86_64-linux-gnu/bits/endian.h:
+/nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/bits/predefined_ops.h:
 
-/usr/include/x86_64-linux-gnu/bits/byteswap.h:
+/nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/cstdint:
 
-/usr/include/x86_64-linux-gnu/bits/byteswap-16.h:
+/nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/lib/gcc/x86_64-unknown-linux-gnu/8.3.0/include/stdint.h:
 
-/usr/include/c++/6/bits/ios_base.h:
+/nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/stdint.h:
 
-/usr/include/c++/6/ext/atomicity.h:
+/nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/types.h:
 
-/usr/include/x86_64-linux-gnu/c++/6/bits/gthr.h:
+/nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/typesizes.h:
 
-/usr/include/x86_64-linux-gnu/c++/6/bits/gthr-default.h:
+/nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/stdint-intn.h:
 
-/usr/include/pthread.h:
+/nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/stdint-uintn.h:
 
-/usr/include/sched.h:
+/nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/bits/localefwd.h:
 
-/usr/include/time.h:
+/nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/x86_64-unknown-linux-gnu/bits/c++locale.h:
 
-/usr/include/x86_64-linux-gnu/bits/sched.h:
+/nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/clocale:
 
-/usr/include/x86_64-linux-gnu/bits/time.h:
+/nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/locale.h:
 
-/usr/include/x86_64-linux-gnu/bits/timex.h:
+/nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/locale.h:
 
-/usr/include/x86_64-linux-gnu/bits/pthreadtypes.h:
+/nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/cctype:
 
-/usr/include/x86_64-linux-gnu/bits/setjmp.h:
+/nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/ctype.h:
 
-/usr/include/x86_64-linux-gnu/c++/6/bits/atomic_word.h:
+/nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/endian.h:
 
-/usr/include/c++/6/bits/locale_classes.h:
+/nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/endian.h:
 
-/usr/include/c++/6/string:
+/nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/byteswap.h:
 
-/usr/include/c++/6/bits/allocator.h:
+/nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/byteswap-16.h:
 
-/usr/include/x86_64-linux-gnu/c++/6/bits/c++allocator.h:
+/nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/uintn-identity.h:
 
-/usr/include/c++/6/ext/new_allocator.h:
+/nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/bits/ios_base.h:
 
-/usr/include/c++/6/new:
+/nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/ext/atomicity.h:
 
-/usr/include/c++/6/bits/ostream_insert.h:
+/nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/x86_64-unknown-linux-gnu/bits/gthr.h:
 
-/usr/include/c++/6/bits/cxxabi_forced.h:
+/nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/x86_64-unknown-linux-gnu/bits/gthr-default.h:
 
-/usr/include/c++/6/bits/stl_function.h:
+/nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/pthread.h:
 
-/usr/include/c++/6/backward/binders.h:
+/nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/sched.h:
 
-/usr/include/c++/6/bits/range_access.h:
+/nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/types/time_t.h:
 
-/usr/include/c++/6/initializer_list:
+/nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/types/struct_timespec.h:
 
-/usr/include/c++/6/bits/basic_string.h:
+/nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/sched.h:
 
-/usr/include/c++/6/ext/alloc_traits.h:
+/nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/cpu-set.h:
 
-/usr/include/c++/6/bits/alloc_traits.h:
+/nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/time.h:
 
-/usr/include/c++/6/ext/string_conversions.h:
+/nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/time.h:
 
-/usr/include/c++/6/cstdlib:
+/nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/timex.h:
 
-/usr/include/stdlib.h:
+/nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/types/struct_timeval.h:
 
-/usr/include/x86_64-linux-gnu/bits/waitflags.h:
+/nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/types/clock_t.h:
 
-/usr/include/x86_64-linux-gnu/bits/waitstatus.h:
+/nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/types/struct_tm.h:
 
-/usr/include/x86_64-linux-gnu/sys/types.h:
+/nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/types/clockid_t.h:
 
-/usr/include/x86_64-linux-gnu/sys/select.h:
+/nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/types/timer_t.h:
 
-/usr/include/x86_64-linux-gnu/bits/select.h:
+/nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/types/struct_itimerspec.h:
 
-/usr/include/x86_64-linux-gnu/bits/sigset.h:
+/nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/pthreadtypes.h:
 
-/usr/include/x86_64-linux-gnu/sys/sysmacros.h:
+/nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/thread-shared-types.h:
 
-/usr/include/alloca.h:
+/nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/pthreadtypes-arch.h:
 
-/usr/include/x86_64-linux-gnu/bits/stdlib-bsearch.h:
+/nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/setjmp.h:
 
-/usr/include/x86_64-linux-gnu/bits/stdlib-float.h:
+/nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/x86_64-unknown-linux-gnu/bits/atomic_word.h:
 
-/usr/include/c++/6/cstdio:
+/nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/bits/locale_classes.h:
 
-/usr/include/libio.h:
+/nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/string:
 
-/usr/include/_G_config.h:
+/nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/bits/allocator.h:
 
-/usr/include/x86_64-linux-gnu/bits/stdio_lim.h:
+/nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/x86_64-unknown-linux-gnu/bits/c++allocator.h:
 
-/usr/include/x86_64-linux-gnu/bits/sys_errlist.h:
+/nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/ext/new_allocator.h:
 
-/usr/include/x86_64-linux-gnu/bits/stdio.h:
+/nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/bits/ostream_insert.h:
 
-/usr/include/c++/6/cerrno:
+/nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/bits/cxxabi_forced.h:
 
-/usr/include/errno.h:
+/nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/bits/stl_function.h:
 
-/usr/include/x86_64-linux-gnu/bits/errno.h:
+/nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/backward/binders.h:
 
-/usr/include/linux/errno.h:
+/nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/bits/range_access.h:
 
-/usr/include/x86_64-linux-gnu/asm/errno.h:
+/nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/initializer_list:
 
-/usr/include/asm-generic/errno.h:
+/nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/bits/basic_string.h:
 
-/usr/include/asm-generic/errno-base.h:
+/nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/ext/alloc_traits.h:
 
-/usr/include/c++/6/bits/functional_hash.h:
+/nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/bits/alloc_traits.h:
 
-/usr/include/c++/6/bits/hash_bytes.h:
+/nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/ext/string_conversions.h:
 
-/usr/include/c++/6/bits/basic_string.tcc:
+/nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/cstdlib:
 
-/usr/include/c++/6/bits/locale_classes.tcc:
+/nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/stdlib.h:
 
-/usr/include/c++/6/system_error:
+/nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/waitflags.h:
 
-/usr/include/x86_64-linux-gnu/c++/6/bits/error_constants.h:
+/nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/waitstatus.h:
 
-/usr/include/c++/6/stdexcept:
+/nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/sys/types.h:
 
-/usr/include/c++/6/streambuf:
+/nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/sys/select.h:
 
-/usr/include/c++/6/bits/streambuf.tcc:
+/nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/select.h:
 
-/usr/include/c++/6/bits/basic_ios.h:
+/nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/types/sigset_t.h:
 
-/usr/include/c++/6/bits/locale_facets.h:
+/nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/types/__sigset_t.h:
 
-/usr/include/c++/6/cwctype:
+/nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/select2.h:
 
-/usr/include/wctype.h:
+/nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/sys/sysmacros.h:
 
-/usr/include/x86_64-linux-gnu/c++/6/bits/ctype_base.h:
+/nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/sysmacros.h:
 
-/usr/include/c++/6/bits/streambuf_iterator.h:
+/nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/alloca.h:
 
-/usr/include/x86_64-linux-gnu/c++/6/bits/ctype_inline.h:
+/nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/stdlib-bsearch.h:
 
-/usr/include/c++/6/bits/locale_facets.tcc:
+/nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/stdlib-float.h:
 
-/usr/include/c++/6/bits/basic_ios.tcc:
+/nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/stdlib.h:
 
-/usr/include/c++/6/bits/ostream.tcc:
+/nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/bits/std_abs.h:
 
-/usr/include/c++/6/istream:
+/nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/cstdio:
 
-/usr/include/c++/6/bits/istream.tcc:
+/nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/stdio.h:
+
+/nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/libio.h:
+
+/nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/_G_config.h:
+
+/nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/stdio_lim.h:
+
+/nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/sys_errlist.h:
+
+/nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/stdio.h:
+
+/nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/stdio2.h:
+
+/nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/cerrno:
+
+/nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/errno.h:
+
+/nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/errno.h:
+
+/nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/linux/errno.h:
+
+/nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/asm/errno.h:
+
+/nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/asm-generic/errno.h:
+
+/nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/asm-generic/errno-base.h:
+
+/nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/bits/functional_hash.h:
+
+/nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/bits/basic_string.tcc:
+
+/nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/bits/locale_classes.tcc:
+
+/nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/system_error:
+
+/nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/x86_64-unknown-linux-gnu/bits/error_constants.h:
+
+/nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/stdexcept:
+
+/nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/streambuf:
+
+/nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/bits/streambuf.tcc:
+
+/nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/bits/basic_ios.h:
+
+/nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/bits/locale_facets.h:
+
+/nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/cwctype:
+
+/nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/wctype.h:
+
+/nix/store/jk3nrdm3jd67i897db9dcpam75gh3iw6-glibc-2.27-dev/include/bits/wctype-wchar.h:
+
+/nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/x86_64-unknown-linux-gnu/bits/ctype_base.h:
+
+/nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/bits/streambuf_iterator.h:
+
+/nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/x86_64-unknown-linux-gnu/bits/ctype_inline.h:
+
+/nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/bits/locale_facets.tcc:
+
+/nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/bits/basic_ios.tcc:
+
+/nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/bits/ostream.tcc:
+
+/nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/istream:
+
+/nix/store/62x7m20m7lm8y8s17cbgha0sf3cmma19-gcc-8.3.0/include/c++/8.3.0/bits/istream.tcc:
 
 ../config.h:
