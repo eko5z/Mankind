@@ -10,6 +10,10 @@ public:
 	{
 		return cubes[CHUNK_INCOORD(x, y, z)];
 	}
+	void SetCube(int x, int y, int z, Cube& c)
+	{
+		cubes[CHUNK_INCOORD(x, y, z)] = c;
+	}
 private:
 	Cube cubes[16*16*16];
 };
