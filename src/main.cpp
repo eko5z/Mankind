@@ -9,7 +9,7 @@
 
 int main()
 {
-	std::cout << "Starting " << PACKAGE_STRING << std::endl;
+	std::cout << PACKAGE_STRING << std::endl;
 	Renderer r;
 	Game g;
 
