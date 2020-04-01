@@ -15,7 +15,7 @@ private:
 	GLuint texture_id, program_id;
 	GLint uniform;
 public:
-	Texture(std::string& path);
+	Texture(std::string path);
 	~Texture();
 };
 

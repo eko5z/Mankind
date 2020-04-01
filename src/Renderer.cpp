@@ -53,11 +53,20 @@ void Renderer::OpenWindow()
 
 	chunk_program = std::make_unique<Program>("res/shaders/cube.vert", "res/shaders/cube.frag");
 	LOG("Window correctly opened");
+
+	texture = std::make_unique<Texture>("res/tex/stone.png");
+	attribute_coord = chunk_program->GetAttrib("coord");
+	glClearColor(0.6, 0.8, 1.0, 0.0);
+	glEnableVertexAttribArray(attribute_coord);
 }
 
 void Renderer::Render(World& world, Camera& camera)
 {
 	glClear(GL_COLOR_BUFFER_BIT);
+	chunk_program->Use();
+	glUniform1i(uniform_texture, 0);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	AddChunk(0, 0, 0, world.GetChunk(0, 0, 0));
 	for (auto kc : chunk_meshes) {
 		kc.second.Render(*chunk_program);

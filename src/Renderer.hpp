@@ -7,6 +7,7 @@
 #include "Camera.hpp"
 #include "Program.hpp"
 #include "ChunkMesh.hpp"
+#include "Texture.hpp"
 
 class Renderer
 {
@@ -21,6 +22,9 @@ private:
 	SDL_Window* window;
 	SDL_GLContext context;
 	std::unique_ptr<Program> chunk_program;
+	std::unique_ptr<Texture> texture;
 	std::map<int, ChunkMesh> chunk_meshes;
+	GLint uniform_texture;
+	GLint attribute_coord;
 };
 

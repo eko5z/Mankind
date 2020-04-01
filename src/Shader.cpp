@@ -15,7 +15,6 @@ Shader::Shader(std::string& path, GLenum type)
 	}
 	std::stringstream buffer;
 	buffer << source_file.rdbuf();
-	std::cerr << buffer.str() << std::endl;
 	std::string src = buffer.str();
 	const char* source = src.c_str();
 	source_file.close();

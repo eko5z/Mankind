@@ -1,6 +1,6 @@
 #include "Texture.hpp"
 
-Texture::Texture(std::string& path) :
+Texture::Texture(std::string path) :
 	res(IMG_Load(path.c_str()))
 {
 	if (res == nullptr) {

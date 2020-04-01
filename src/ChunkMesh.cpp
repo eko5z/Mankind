@@ -108,14 +108,11 @@ void ChunkMesh::Render(Program& program)
 		Update();
 	}
 
-	GLint attribute_coord = program.GetAttrib("coord");
-	GLint uniform_mvp = program.GetUniform("mvp");
-
 	glEnable(GL_CULL_FACE);
 	glEnable(GL_DEPTH_TEST);
 
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	glVertexAttribPointer(attribute_coord, 4, GL_BYTE, GL_FALSE, 0, 0);
+	glVertexAttribPointer(program.GetAttrib("coord"), 4, GL_BYTE, GL_FALSE, 0, 0);
 	glDrawArrays(GL_TRIANGLES, 0, elements);
 }
 
