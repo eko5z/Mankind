@@ -10,12 +10,12 @@
 class ChunkMesh
 {
 private:
-  Chunk& chunk;
-  std::unique_ptr<Mesh> mesh;
-  void Update();
+	Chunk& chunk;
+	std::unique_ptr<Mesh> mesh;
+	void Update();
 public:
 	ChunkMesh(Chunk& chunk);
-
-  void Render();
+	std::vector<glm::vec3> vertices;
+	void Render();
 };
 

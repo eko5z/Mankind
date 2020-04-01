@@ -4,129 +4,88 @@
 
 #include "Log.hpp"
 
+#define INDEX(x, y, z) ((x) * CHUNK_SIZE * CHUNK_SIZE + (y) * CHUNK_SIZE + (z))
+
 ChunkMesh::ChunkMesh(Chunk& chunk) :
-  chunk(chunk),
-  mesh(nullptr)
+	chunk(chunk),
+	mesh(nullptr)
 {
+	/* We only need to generate vertices once*/
+	/* They could be static, too */
+	for (int i(0); i <= CHUNK_SIZE; ++i) {
+		for (int j(0); j <= CHUNK_SIZE; ++j) {
+			for (int k(0); k <= CHUNK_SIZE; ++k) {
+				vertices.push_back(glm::vec3(i, j, k));
+			}
+		}
+	}
+
 }
 
 void ChunkMesh::Update()
 {
 	chunk.SetClean();
 
-	std::vector<glm::vec3> vertices;
 	std::vector<glm::vec3> normals;
 	std::vector<glm::vec2> uvs;
 	std::vector<GLuint> indices;
 
-	// for (int x(0); x < CHUNK_SIZE; ++x) {
-	// 	for (int y(0); y < CHUNK_SIZE; ++y) {
-	// 		for (int z(0); z < CHUNK_SIZE; ++z) {
-	// 			int typeID = chunk.GetCube(x, y, z).typeID;
+	/*
+		Y  Z
+		^ /
+		|/
+		0--> X
 
-	// 			if (typeID == 0) {
-	// 				continue;
-	// 			}
+		  3 -- 7
+		 /|   /|
+		2 +- 6 |
+		| |  | |
+		| 1 -+ 5
+		|/   |/
+		0 -- 4
+	 */
 
-	// 			/*
-	// 				Y  Z
-	// 				^ /
-	// 				|/
-	// 				0--> X
-
-	// 			      4 -- 8
-	// 			     /|   /|
-	// 			    3 +- 7 |
-	// 				| |  | |
-	// 				| 2 -+ 6
-	// 				|/   |/
-	// 				1 -- 5
-	// 			 */
-
-	// 			// -X face
-	// 		        vertices.push_back(glm::vec3{x, y, z});
-	// 			vertices.push_back(glm::vec3{x, y, z + 1});
-	// 			vertices.push_back(glm::vec3{x, y + 1, z});
-	// 			vertices.push_back(glm::vec3{x, y + 1, z});
-	// 			vertices.push_back(glm::vec3{x, y, z + 1});
-	// 			vertices.push_back(glm::vec3{x, y + 1, z + 1});
-
-	// 			// +X face
-	// 			vertices.push_back(glm::vec3{x + 1, y, z});
-	// 			vertices.push_back(glm::vec3{x + 1, y, z + 1});
-	// 			vertices.push_back(glm::vec3{x + 1, y + 1, z});
-	// 			vertices.push_back(glm::vec3{x + 1, y + 1, z});
-	// 			vertices.push_back(glm::vec3{x + 1, y, z});
-	// 			vertices.push_back(glm::vec3{x + 1, y + 1, z + 1});
-
-	// 			// -Y face
-	// 		        vertices.push_back(glm::vec3{x, y, z});
-	// 			vertices.push_back(glm::vec3{x + 1, y, z});
-	// 			vertices.push_back(glm::vec3{x + 1, y + 1, z});
-	// 			vertices.push_back(glm::vec3{x + 1, y + 1, z});
-	// 			vertices.push_back(glm::vec3{x, y, z});
-	// 			vertices.push_back(glm::vec3{x, y + 1, z});
-
-	// 			// +Y face
-	// 		        vertices.push_back(glm::vec3{x, y, z + 1});
-	// 			vertices.push_back(glm::vec3{x + 1, y, z + 1});
-	// 			vertices.push_back(glm::vec3{x + 1, y + 1, z + 1});
-	// 			vertices.push_back(glm::vec3{x + 1, y + 1, z + 1});
-	// 			vertices.push_back(glm::vec3{x, y, z + 1});
-	// 			vertices.push_back(glm::vec3{x, y + 1, z + 1});
-
-	// 			// -Z face
-	// 		        vertices.push_back(glm::vec3{x, y, z});
-	// 			vertices.push_back(glm::vec3{x, y, z + 1});
-	// 			vertices.push_back(glm::vec3{x + 1, y, z + 1});
-	// 			vertices.push_back(glm::vec3{x + 1, y, z + 1});
-	// 			vertices.push_back(glm::vec3{x, y, z + 1});
-	// 			vertices.push_back(glm::vec3{x + 1, y, z});
-
-	// 			// +Z face
-	// 		        vertices.push_back(glm::vec3{x, y + 1, z});
-	// 			vertices.push_back(glm::vec3{x, y + 1, z + 1});
-	// 			vertices.push_back(glm::vec3{x + 1, y + 1, z + 1});
-	// 			vertices.push_back(glm::vec3{x + 1, y + 1, z + 1});
-	// 			vertices.push_back(glm::vec3{x, y + 1, z + 1});
-	// 			vertices.push_back(glm::vec3{x + 1, y + 1, z});
-
-	// 			// Indices
-	// 			indices.push_back(2);
-	// 		}
-	// 	}
-	// }
-
-	for (int i(0); i <= 16; ++i) {
-	  for (int j(0); j <= 16; ++j) {
-	    for (int k(0); k <= 16; ++k) {
-	      vertices.push_back(glm::vec3(i, j, k));
-	    }
-	  }
-	}
-	
 	for (int i(0); i <= 15; ++i) {
-	  for (int j(0); j <= 15; ++j) {
-	    for (int k(0); k <= 15; ++k) {
-	      int typeID = chunk.GetCube(i, j, k).typeID;
-	      
-	      if (typeID != 0)
-		{
-		  indices.push_back(CHUNK_INDEX(i, j, k));
-		  indices.push_back(CHUNK_INDEX(i, j, k + 1));
-		  indices.push_back(CHUNK_INDEX(i, j + 1, k));
-		  indices.push_back(CHUNK_INDEX(i, j + 1, k + 1));
-		  indices.push_back(CHUNK_INDEX(i + 1, j, k));
-		  indices.push_back(CHUNK_INDEX(i + 1, j, k + 1));
-		  indices.push_back(CHUNK_INDEX(i + 1, j + 1, k));
-		  indices.push_back(CHUNK_INDEX(i + 1, j + 1, k + 1));
+		for (int j(0); j <= 15; ++j) {
+			for (int k(0); k <= 15; ++k) {
+				int typeID = chunk.GetCube(i, j, k).typeID;
+				if (typeID != 0) {
+					/* Aliasing the vertices will make it easier */
+					int v_indices[8] = {
+						INDEX(i,   j,   k  ), // 0
+						INDEX(i,   j,   k+1), // 1
+						INDEX(i,   j+1, k  ), // 2
+						INDEX(i,   j+1, k+1), // 3
+						INDEX(i+1, j,   k  ), // 4
+						INDEX(i+1, j,   k+1), // 5
+						INDEX(i+1, j+1, k  ), // 6
+						INDEX(i+1, j+1, k+1), // 7
+					};
+
+					/* -X face = 0,1,2 and 1,2,3*/
+					indices.push_back(indices[0]);
+					indices.push_back(indices[1]);
+					indices.push_back(indices[2]);
+
+					indices.push_back(indices[1]);
+					indices.push_back(indices[2]);
+					indices.push_back(indices[3]);
+
+					/* +X face = same as -X but +4 so 4,5,6 and 5,6,7*/
+					indices.push_back(indices[4]);
+					indices.push_back(indices[5]);
+					indices.push_back(indices[6]);
+
+					indices.push_back(indices[5]);
+					indices.push_back(indices[6]);
+					indices.push_back(indices[7]);
+				}
+			}
 		}
-	    }
-	  }
 	}
 
 
-	this->mesh = std::make_unique<Mesh>(vertices, normals, uvs, indices);	
+	this->mesh = std::make_unique<Mesh>(vertices, normals, uvs, indices);
 	this->mesh->Initialize();
 }
 

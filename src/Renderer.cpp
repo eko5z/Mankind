@@ -31,7 +31,7 @@ Renderer::Renderer() :
 Renderer::~Renderer()
 {
 	LOG("Destroying renderer");
-	
+
 	SDL_GL_DeleteContext(context);
 	SDL_DestroyWindow(window);
 	SDL_Quit();
@@ -70,7 +70,7 @@ void Renderer::OpenWindow()
 
 	// Load the default program.
 	this->default_program = std::make_unique<Program>("res/shaders/default.vert", "res/shaders/default.frag");
-	  
+
 	LOG("Window correctly opened");
 
 	glClearColor(0.6, 0.8, 1.0, 0.0);
@@ -109,18 +109,17 @@ void Renderer::Render(World& world, Camera& camera)
 
 	glm::mat4 mvp = projection * view;
 	glUniformMatrix4fv(uniform_mvp, 1, GL_FALSE, glm::value_ptr(mvp));
-	
+
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_POLYGON_OFFSET_FILL);
 
 	this->default_program->Use();
 
-	for(auto& kc : this->chunk_meshes)
-	  {
-	    kc.second.Render();
-	  }
-	
+	for(auto& kc : this->chunk_meshes) {
+		kc.second.Render();
+	}
+
 	SDL_GL_SwapWindow(window);
 }
 
