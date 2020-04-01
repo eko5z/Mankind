@@ -1,14 +1,25 @@
 #include "MainInputManager.hpp"
 #include "Log.hpp"
+#include <glm/glm.hpp>
 
 void MainInputManager::OnKeyDown(char key)
 {
+	Camera& c = game.GetCamera();
+	glm::vec3 lookat;
+	lookat.x = sinf(c.yaw) * cosf(c.pitch);
+	lookat.y = sinf(c.pitch);
+	lookat.z = cosf(c.yaw) * cosf(c.pitch);
+
 	switch (key) {
 	case 'w':
-		game.GetCamera().z += 1;
+		game.GetCamera().x += lookat.x * 2;
+		game.GetCamera().y += lookat.y * 2;
+		game.GetCamera().z += lookat.z * 2;
 		break;
 	case 's':
-		game.GetCamera().z -= 1;
+		game.GetCamera().x -= lookat.x * 2;
+		game.GetCamera().y -= lookat.y * 2;
+		game.GetCamera().z -= lookat.z * 2;
 		break;
 	case 'a':
 		game.GetCamera().x -= 1;
