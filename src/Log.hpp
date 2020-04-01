@@ -2,5 +2,5 @@
 
 #include <iostream>
 
-#define LOG(s) do { std::cerr << (s) << std::endl; } while (0)
+#define LOG(s) do { std::cerr << "[" << __FILE__ << ":" << __LINE__ << "] " << (s) << std::endl; } while (0)
 
