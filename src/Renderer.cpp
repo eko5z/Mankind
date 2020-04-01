@@ -45,7 +45,7 @@ void Renderer::OpenWindow()
 	window = SDL_CreateWindow(PACKAGE_STRING,
 	                          SDL_WINDOWPOS_CENTERED,
 	                          SDL_WINDOWPOS_CENTERED,
-	                          500, 500,
+	                          900, 700,
 	                          SDL_WINDOW_SHOWN |
 	                          SDL_WINDOW_OPENGL);
 
