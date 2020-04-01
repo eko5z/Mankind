@@ -13,17 +13,27 @@ Program::Program(std::string vshader_path, std::string fshader_path) :
 	glAttachShader(program_id, v_shader.GetShaderId());
 	glAttachShader(program_id, f_shader.GetShaderId());
 
+	// Binding attribute locations to the program.
+	glBindAttribLocation(program_id, 0, "position");
+	glBindAttribLocation(program_id, 1, "normal");
+	glBindAttribLocation(program_id, 2, "uv");
+
 	LOG("Linking program");
+
 	glLinkProgram(program_id);
 	GLint link_ok = GL_FALSE;
 	glGetProgramiv(program_id, GL_LINK_STATUS, &link_ok);
+
 	if (!link_ok) {
 		GLint maxLength(0);
 		glGetProgramiv(program_id, GL_INFO_LOG_LENGTH, &maxLength);
+
 		std::string errorLog(maxLength, '\0');
 		glGetProgramInfoLog(program_id, maxLength, &maxLength, &errorLog[0]);
+
 		throw std::runtime_error(errorLog);
 	}
+
 }
 
 Program::~Program()
