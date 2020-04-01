@@ -51,7 +51,7 @@ void ChunkMesh::Update()
 				int typeID = chunk.GetCube(i, j, k).typeID;
 				if (typeID != 0) {
 					/* Aliasing the vertices will make it easier */
-					int v_indices[8] = {
+					unsigned int v_indices[8] = {
 						INDEX(i,   j,   k  ), // 0
 						INDEX(i,   j,   k+1), // 1
 						INDEX(i,   j+1, k  ), // 2
@@ -63,22 +63,22 @@ void ChunkMesh::Update()
 					};
 
 					/* -X face = 0,1,2 and 1,2,3*/
-					indices.push_back(indices[0]);
-					indices.push_back(indices[1]);
-					indices.push_back(indices[2]);
+					indices.push_back(v_indices[0]);
+					indices.push_back(v_indices[1]);
+					indices.push_back(v_indices[2]);
 
-					indices.push_back(indices[1]);
-					indices.push_back(indices[2]);
-					indices.push_back(indices[3]);
+					indices.push_back(v_indices[1]);
+					indices.push_back(v_indices[2]);
+					indices.push_back(v_indices[3]);
 
 					/* +X face = same as -X but +4 so 4,5,6 and 5,6,7*/
-					indices.push_back(indices[4]);
-					indices.push_back(indices[5]);
-					indices.push_back(indices[6]);
+					indices.push_back(v_indices[4]);
+					indices.push_back(v_indices[5]);
+					indices.push_back(v_indices[6]);
 
-					indices.push_back(indices[5]);
-					indices.push_back(indices[6]);
-					indices.push_back(indices[7]);
+					indices.push_back(v_indices[5]);
+					indices.push_back(v_indices[6]);
+					indices.push_back(v_indices[7]);
 				}
 			}
 		}
