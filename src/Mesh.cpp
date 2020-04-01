@@ -1,12 +1,13 @@
 #include "Mesh.hpp"
 
-Mesh::Mesh(std::vector<glm::vec3> vertices, std::vector<glm::vec3> normals, std::vector<glm::vec2> uvs, std::vector<unsigned int> indices):
-	texture("res/tex/stone.png")
+Mesh::Mesh(std::vector<glm::vec3> vertices, std::vector<glm::vec3> normals, std::vector<glm::vec2> uvs, std::vector<unsigned int> indices, std::string texture_path):
+	texture(nullptr)
 {
 	this->vertices = vertices;
 	this->normals = normals;
 	this->uvs = uvs;
 	this->indices = indices;
+	this->texture = std::make_unique<Texture>(texture_path);
 }
 
 void Mesh::Initialize()
@@ -48,7 +49,7 @@ void Mesh::Initialize()
 	glEnableVertexAttribArray(1);
 	glBindBuffer(GL_ARRAY_BUFFER, this->NBO);
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, (void*) 0);
-
+	
 	// UVBO
 	glEnableVertexAttribArray(2);
 	glBindBuffer(GL_ARRAY_BUFFER, this->VBO);
@@ -62,7 +63,7 @@ Mesh::~Mesh()
 
 void Mesh::Render()
 {
-	glBindTexture(GL_TEXTURE_2D, this->texture.texture_id);
+	glBindTexture(GL_TEXTURE_2D, this->texture->texture_id);
 	glBindVertexArray(this->VAO);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->EBO);
 
