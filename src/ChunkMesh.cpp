@@ -20,7 +20,6 @@ ChunkMesh::ChunkMesh(Chunk& chunk, int x, int y, int z) :
 			}
 		}
 	}
-
 }
 
 void ChunkMesh::Update()

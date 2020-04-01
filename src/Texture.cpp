@@ -6,19 +6,16 @@ Texture::Texture(std::string path) :
 	if (res == nullptr) {
 		throw std::runtime_error(SDL_GetError());
 	}
-	glActiveTexture(GL_TEXTURE0);
-	glGenTextures(1, &texture_id);
-	glBindTexture(GL_TEXTURE_2D, texture_id);
+
+	glGenTextures(1, &this->texture_id);
+	glBindTexture(GL_TEXTURE_2D, this->texture_id);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexImage2D(GL_TEXTURE_2D,
-	             0,
-	             GL_RGBA,
-	             res->w,
-	             res->h,
-	             0,
-	             GL_RGBA,
-	             GL_UNSIGNED_BYTE,
-	             res->pixels);
+	glTexImage2D(
+		     GL_TEXTURE_2D, 0, GL_RGBA, res->w, res->h,
+		     0, GL_RGBA, GL_UNSIGNED_BYTE, res->pixels
+		     );
+	glGenerateMipmap(GL_TEXTURE_2D);
+
 	SDL_FreeSurface(res);
 }
 

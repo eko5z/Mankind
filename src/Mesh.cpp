@@ -1,6 +1,7 @@
 #include "Mesh.hpp"
 
-Mesh::Mesh(std::vector<glm::vec3> vertices, std::vector<glm::vec3> normals, std::vector<glm::vec2> uvs, std::vector<unsigned int> indices)
+Mesh::Mesh(std::vector<glm::vec3> vertices, std::vector<glm::vec3> normals, std::vector<glm::vec2> uvs, std::vector<unsigned int> indices):
+  texture("res/tex/stone.png")
 {
 	this->vertices = vertices;
 	this->normals = normals;
@@ -10,11 +11,11 @@ Mesh::Mesh(std::vector<glm::vec3> vertices, std::vector<glm::vec3> normals, std:
 
 void Mesh::Initialize()
 {
-	// Generate the VAO.
+	/// Generate the VAO.
 	glGenVertexArrays(1, &this->VAO);
 	glBindVertexArray(this->VAO);
 
-	// Generate the buffer objects.
+	/// Generate the buffer objects.
 
 	// VBO
 	glGenBuffers(1, &this->VBO);
@@ -36,8 +37,8 @@ void Mesh::Initialize()
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->EBO);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, this->indices.size() * sizeof(GLuint), &this->indices[0], GL_STATIC_DRAW);
 
-	// Now, I don't understand what's going on here.
-
+	/// Set up the vertex attributes.
+	
 	// VBO
 	glEnableVertexAttribArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, this->VBO);
@@ -61,6 +62,7 @@ Mesh::~Mesh()
 
 void Mesh::Render()
 {
+  glBindTexture(GL_TEXTURE_2D, this->texture.texture_id);
 	glBindVertexArray(this->VAO);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->EBO);
 

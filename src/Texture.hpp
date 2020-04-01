@@ -12,9 +12,9 @@ class Texture
 {
 private:
 	SDL_Surface* res;
-	GLuint texture_id, program_id;
-	GLint uniform;
 public:
+  GLuint texture_id;
+  
 	Texture(std::string path);
 	~Texture();
 };

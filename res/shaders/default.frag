@@ -1,8 +1,14 @@
 #version 130
 
-out vec4 fragment_color;
+in vec3 position;
+in vec3 normal;
+in vec2 uv;
+
+uniform sampler2D texture_1;
+
+out vec4 out_fragment_color;
 
 void main()
 {
-    fragment_color = vec4(1.0f, 0.5f, 0.2f, 1.0f);
+	out_fragment_color = texture(texture_1, uv);
 } 
