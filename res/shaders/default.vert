@@ -1,15 +1,15 @@
-#version 130
+#version 330 core
 
 in vec3 position;
 in vec3 normal;
-in vec2 vertex_uv;
+in vec2 uv;
 
 uniform mat4 MVP;
 
-out vec2 uv;
+out vec2 fragment_uv;
 
 void main()
 {
     gl_Position = MVP * vec4(position, 1.0);
-    uv = vertex_uv;
+    fragment_uv = uv;
 }
