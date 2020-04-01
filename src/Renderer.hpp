@@ -6,6 +6,7 @@
 #include "Game.hpp"
 #include "Camera.hpp"
 #include "Program.hpp"
+#include "ChunkMesh.hpp"
 
 class Renderer
 {
@@ -15,9 +16,11 @@ public:
 
 	void OpenWindow();
 	void Render(World& world, Camera& camera);
+	void AddChunk(int x, int y, int z, Chunk& c);
 private:
 	SDL_Window* window;
 	SDL_GLContext context;
 	std::unique_ptr<Program> chunk_program;
+	std::map<int, ChunkMesh> chunk_meshes;
 };
 

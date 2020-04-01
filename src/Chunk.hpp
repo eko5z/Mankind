@@ -12,7 +12,7 @@ public:
 	{
 		return cubes[CHUNK_INCOORD(x, y, z)];
 	}
-	void SetCube(int x, int y, int z, Cube& c)
+	void SetCube(int x, int y, int z, Cube c)
 	{
 		cubes[CHUNK_INCOORD(x, y, z)] = c;
 		dirty = true;
@@ -25,6 +25,7 @@ public:
 	{
 		return dirty;
 	}
+	void Generate(int seed);
 private:
 	Cube cubes[CHUNK_SIZE * CHUNK_SIZE * CHUNK_SIZE];
 	bool dirty;

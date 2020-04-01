@@ -8,7 +8,9 @@ mankind_SOURCES=\
 	Texture.cpp\
 	Shader.cpp\
 	ChunkMesh.cpp\
-	Program.cpp
+	Program.cpp\
+	Chunk.cpp\
+	World.cpp
 
 AM_LDFLAGS=-lSDL2 -lSDL2_image -lGL -lGLEW
 AM_CPPFLAGS=--std=c++14 -g

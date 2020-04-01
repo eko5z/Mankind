@@ -58,6 +58,15 @@ void Renderer::OpenWindow()
 void Renderer::Render(World& world, Camera& camera)
 {
 	glClear(GL_COLOR_BUFFER_BIT);
+	AddChunk(0, 0, 0, world.GetChunk(0, 0, 0));
+	for (auto kc : chunk_meshes) {
+		kc.second.Render(*chunk_program);
+	}
 	SDL_GL_SwapWindow(window);
+}
+
+void Renderer::AddChunk(int x, int y, int z, Chunk& c)
+{
+	chunk_meshes.insert(std::make_pair(CHUNK_ID(x, y, z), ChunkMesh(c)));
 }
 

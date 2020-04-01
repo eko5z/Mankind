@@ -1,6 +1,8 @@
 #include <iostream>
 #include <config.h>
 #include <memory>
+#include <cstdlib>
+#include <ctime>
 
 #include "Renderer.hpp"
 #include "Game.hpp"
@@ -17,6 +19,8 @@ int main()
 
 	InputSystem input_system;
 	input_system.SetInputManager(std::make_unique<MainInputManager>(g));
+
+	g.GetWorld().Generate(0);
 
 	while (g.KeepGoing()) {
 		input_system.ProcessEvents();
