@@ -3,6 +3,8 @@
 #include "Font.hpp"
 #include "Program.hpp"
 
+#include <memory>
+
 #include <GL/gl.h>
 
 class TextRenderer
@@ -12,7 +14,7 @@ public:
 	~TextRenderer();
 	void Draw(int x, int y);
 private:
-	Program text_program;
+	std::unique_ptr<Program> text_program;
 	TextRenderer(Font& font, const char* fmt, va_list args);
 	GLuint texture_id;
 	GLuint vbo;

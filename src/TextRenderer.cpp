@@ -1,8 +1,8 @@
 #include "TextRenderer.hpp"
 
-TextRenderer::TextRenderer(Font& font, const char* fmt, ...) :
-	text_program("res/shaders/text.vert", "res/shaders/text.frag")
+TextRenderer::TextRenderer(Font& font, const char* fmt, ...)
 {
+	text_program = std::make_unique<Program>("res/shaders/text.frag", "res/shaders/text.vert");
 	va_list args;
 	va_start(args, fmt);
 	TextRenderer(font, fmt, args);
@@ -17,8 +17,7 @@ TextRenderer::~TextRenderer()
 	glDeleteBuffers(1, &ebo);
 }
 
-TextRenderer::TextRenderer(Font& font, const char* fmt, va_list args) :
-	text_program("res/shaders/text.frag", "res/shaders/text.vert")
+TextRenderer::TextRenderer(Font& font, const char* fmt, va_list args)
 {
 	SDL_Color color{255, 255, 255, 255};
 
@@ -68,7 +67,7 @@ TextRenderer::TextRenderer(Font& font, const char* fmt, va_list args) :
 
 void TextRenderer::Draw(int x, int y)
 {
-	text_program.Use();
+	text_program->Use();
 	glBindVertexArray(vao);
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 }
