@@ -10,6 +10,8 @@
 #include "Program.hpp"
 #include "ChunkMesh.hpp"
 #include "Texture.hpp"
+#include "Font.hpp"
+#include "TextRenderer.hpp"
 
 class Renderer
 {
@@ -21,6 +23,8 @@ public:
 	void Render(World& world, Camera& camera);
 	void AddChunk(int x, int y, int z, Chunk& c);
 private:
+	std::unique_ptr<Font> debug_font;
+	std::unique_ptr<TextRenderer> coords_text;
 	int view_height, view_width;
 	SDL_Window* window;
 	SDL_GLContext context;

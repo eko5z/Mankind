@@ -36,8 +36,6 @@ void MainInputManager::OnMouseMotion(int x, int y, int dx, int dy)
 	Camera& c = game.GetCamera();
 	c.yaw -= dx / 500.;
 	c.pitch -= dy / 500.;
-	LOG(c.yaw);
-	LOG(c.pitch);
 }
 
 void MainInputManager::OnQuit()

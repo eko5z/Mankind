@@ -25,6 +25,8 @@ Renderer::Renderer() :
 
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
+
+	debug_font = std::make_unique<Font>("res/fonts/DejaVuSansMono.ttf", 16);
 }
 
 Renderer::~Renderer()
@@ -70,6 +72,8 @@ void Renderer::OpenWindow()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	chunk_program->Use();
 	glUniform1i(uniform_texture, 0);
+
+	coords_text = std::make_unique<TextRenderer>(*debug_font, "Position: (0, 0, 0)");
 }
 
 void Renderer::UpdateVectors(glm::vec3& angle, glm::vec3& forward,
@@ -110,6 +114,7 @@ void Renderer::Render(World& world, Camera& camera)
 	for (auto kc : chunk_meshes) {
 		kc.second.Render(*chunk_program);
 	}
+	coords_text->Draw(0, 0);
 	//DrawCrosshair();
 	SDL_GL_SwapWindow(window);
 }

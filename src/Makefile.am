@@ -10,7 +10,9 @@ mankind_SOURCES=\
 	ChunkMesh.cpp\
 	Program.cpp\
 	Chunk.cpp\
-	World.cpp
+	World.cpp\
+	Font.cpp\
+	TextRenderer.cpp
 
 AM_LDFLAGS=`pkg-config --libs sdl2`\
 		   `pkg-config --libs SDL2_image`\
