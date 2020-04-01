@@ -11,6 +11,9 @@ public:
 	Shader(std::string& path, GLenum type);
 	~Shader();
 
-	GLint GetShaderId() { return shader_id; }
+	GLint GetShaderId()
+	{
+		return shader_id;
+	}
 };
 

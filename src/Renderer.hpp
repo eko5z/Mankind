@@ -12,7 +12,7 @@ class Renderer
 public:
 	Renderer();
 	~Renderer();
-	
+
 	void OpenWindow();
 	void Render(World& world, Camera& camera);
 private:
