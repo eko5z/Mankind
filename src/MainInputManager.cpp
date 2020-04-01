@@ -16,6 +16,12 @@ void MainInputManager::OnKeyDown(char key)
 	case 'd':
 		game.GetCamera().x += 1;
 		break;
+	case 'q':
+		game.GetCamera().y += 1;
+		break;
+	case 'e':
+		game.GetCamera().y -= 1;
+		break;
 	}
 }
 

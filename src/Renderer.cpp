@@ -123,8 +123,8 @@ void Renderer::Render(World& world, Camera& camera)
 
 	for(auto& kc : this->chunk_meshes) {
 		int x(kc.second.GetX() * CHUNK_SIZE),
-			y(kc.second.GetY() * CHUNK_SIZE),
-			z(kc.second.GetZ() * CHUNK_SIZE);
+		    y(kc.second.GetY() * CHUNK_SIZE),
+		    z(kc.second.GetZ() * CHUNK_SIZE);
 		glm::mat4 translate = glm::translate(glm::mat4(), glm::vec3(x, y, z));
 		glm::mat4 mvp = projection * view * translate;
 		glUniformMatrix4fv(uniform_mvp, 1, GL_FALSE, glm::value_ptr(mvp));

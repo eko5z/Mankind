@@ -19,8 +19,17 @@ public:
 	ChunkMesh(Chunk& chunk, int x, int y, int z);
 	void Render();
 
-	int GetX() { return x; }
-	int GetY() { return y; }
-	int GetZ() { return z; }
+	int GetX()
+	{
+		return x;
+	}
+	int GetY()
+	{
+		return y;
+	}
+	int GetZ()
+	{
+		return z;
+	}
 };
 
