@@ -1,7 +1,7 @@
 #include "Mesh.hpp"
 
 Mesh::Mesh(std::vector<glm::vec3> vertices, std::vector<glm::vec3> normals, std::vector<glm::vec2> uvs, std::vector<unsigned int> indices):
-  texture("res/tex/stone.png")
+	texture("res/tex/stone.png")
 {
 	this->vertices = vertices;
 	this->normals = normals;
@@ -38,7 +38,7 @@ void Mesh::Initialize()
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, this->indices.size() * sizeof(GLuint), &this->indices[0], GL_STATIC_DRAW);
 
 	/// Set up the vertex attributes.
-	
+
 	// VBO
 	glEnableVertexAttribArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, this->VBO);
@@ -62,7 +62,7 @@ Mesh::~Mesh()
 
 void Mesh::Render()
 {
-  glBindTexture(GL_TEXTURE_2D, this->texture.texture_id);
+	glBindTexture(GL_TEXTURE_2D, this->texture.texture_id);
 	glBindVertexArray(this->VAO);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->EBO);
 

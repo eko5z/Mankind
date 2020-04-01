@@ -11,9 +11,9 @@ Texture::Texture(std::string path) :
 	glBindTexture(GL_TEXTURE_2D, this->texture_id);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexImage2D(
-		     GL_TEXTURE_2D, 0, GL_RGBA, res->w, res->h,
-		     0, GL_RGBA, GL_UNSIGNED_BYTE, res->pixels
-		     );
+	    GL_TEXTURE_2D, 0, GL_RGBA, res->w, res->h,
+	    0, GL_RGBA, GL_UNSIGNED_BYTE, res->pixels
+	);
 	glGenerateMipmap(GL_TEXTURE_2D);
 
 	SDL_FreeSurface(res);
