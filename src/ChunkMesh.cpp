@@ -122,7 +122,7 @@ void ChunkMesh::Update()
 	}
 
 
-	this->mesh = std::make_unique<Mesh>(vertices, normals, uvs, indices);
+	this->mesh = std::make_unique<Mesh>(vertices, normals, uvs, indices, "res/tex/stone.png");
 	this->mesh->Initialize();
 }
 
