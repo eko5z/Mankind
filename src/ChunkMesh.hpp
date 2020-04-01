@@ -2,6 +2,7 @@
 
 #include "GraphX.hpp"
 #include "Chunk.hpp"
+#include "Program.hpp"
 
 class ChunkMesh
 {
@@ -11,7 +12,7 @@ private:
 	int elements;
 	void Update();
 public:
-	ChunkMesh();
-	void Render();
-}
+	ChunkMesh(Chunk& chunk);
+	void Render(Program& program);
+};
 

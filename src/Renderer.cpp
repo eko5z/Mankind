@@ -6,7 +6,8 @@
 #include "Log.hpp"
 
 Renderer::Renderer() :
-	window(nullptr)
+	window(nullptr),
+	chunk_program(nullptr)
 {
 	LOG("Initializing renderer");
 	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
@@ -39,10 +40,19 @@ void Renderer::OpenWindow()
 	if (window == nullptr) {
 		throw std::runtime_error(SDL_GetError());
 	}
+	LOG("Creating GL context");
 	context = SDL_GL_CreateContext(window);
 	if (context == nullptr) {
 		throw std::runtime_error(SDL_GetError());
 	}
+	LOG("Initializing GLEW");
+	if (glewInit() != GLEW_OK) {
+		throw std::runtime_error("Error initializing GLEW");
+	}
+	LOG("All initialized. Loading resources");
+
+	chunk_program = std::make_unique<Program>("res/shaders/cube.vert", "res/shaders/cube.frag");
+	LOG("Window correctly opened");
 }
 
 void Renderer::Render(World& world, Camera& camera)

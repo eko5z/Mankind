@@ -1,14 +1,16 @@
 #pragma once
 
-#include <string>
 #include "GraphX.hpp"
+#include <string>
 
 class Shader
 {
 private:
-	int shader_id;
+	GLint shader_id;
 public:
 	Shader(std::string& path, GLenum type);
 	~Shader();
+
+	GLint GetShaderId() { return shader_id; }
 };
 

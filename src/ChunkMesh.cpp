@@ -1,23 +1,23 @@
 #include "ChunkMesh.hpp"
 
-typedef glm::tvec4<GLByte> byte4;
+#include <glm/glm.hpp>
 
-ChunkMesh::ChunkMesh()
-{
-}
+typedef glm::tvec4<GLbyte> byte4;
 
-ChunkMesh::~ChunkMesh()
+ChunkMesh::ChunkMesh(Chunk& chunk) :
+	chunk(chunk)
 {
 }
 
 void ChunkMesh::Update()
 {
 	chunk.SetClean();
+	byte4 vertex[CHUNK_SIZE * CHUNK_SIZE * CHUNK_SIZE * 6 * 6];
 	int i = 0;
 	for (int x(0); x < CHUNK_SIZE; ++x) {
 		for (int y(0); y < CHUNK_SIZE; ++y) {
 			for (int z(0); z < CHUNK_SIZE; ++z) {
-				int typeID = chunk.GetCube().typeID;
+				int typeID = chunk.GetCube(x, y, z).typeID;
 
 				if (typeID == 0) {
 					continue;
@@ -102,11 +102,14 @@ void ChunkMesh::Update()
 	             vertex, GL_STATIC_DRAW);
 }
 
-void ChunkMesh::Render()
+void ChunkMesh::Render(Program& program)
 {
 	if (chunk.IsDirty()) {
 		Update();
 	}
+
+	GLint attribute_coord = program.GetAttrib("coord");
+	GLint uniform_mvp = program.GetUniform("mvp");
 
 	glEnable(GL_CULL_FACE);
 	glEnable(GL_DEPTH_TEST);
