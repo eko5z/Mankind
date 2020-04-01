@@ -16,6 +16,10 @@ Renderer::Renderer() :
 	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
 		throw std::runtime_error(SDL_GetError());
 	}
+
+	if (TTF_Init() == -1) {
+		throw std::runtime_error(TTF_GetError());
+	}
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
 
@@ -29,6 +33,7 @@ Renderer::~Renderer()
 	SDL_GL_DeleteContext(context);
 	SDL_DestroyWindow(window);
 	SDL_Quit();
+	TTF_Quit();
 }
 
 void Renderer::OpenWindow()
