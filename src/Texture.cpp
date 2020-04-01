@@ -6,6 +6,7 @@ Texture::Texture(std::string path) :
 	if (res == nullptr) {
 		throw std::runtime_error(SDL_GetError());
 	}
+	glActiveTexture(GL_TEXTURE0);
 	glGenTextures(1, &texture_id);
 	glBindTexture(GL_TEXTURE_2D, texture_id);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
