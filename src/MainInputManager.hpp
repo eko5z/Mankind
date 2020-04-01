@@ -9,6 +9,11 @@ class MainInputManager : public InputManager
 	void OnKeyUp(char key);
 	void OnMouseButtonDown(MouseButton button);
 	void OnMouseButtonUp(MouseButton button);
+	void OnMouseMotion(int x, int y, int dx, int dy);
 	void OnQuit();
+	bool LockMouse()
+	{
+		return true;
+	}
 };
 

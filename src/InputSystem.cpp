@@ -8,6 +8,8 @@ InputSystem::InputSystem() :
 
 void InputSystem::ProcessEvent(SDL_Event e)
 {
+	if (input_manager->LockMouse()) {
+	}
 	MouseButton mb;
 	switch (e.type) {
 	case SDL_QUIT:
@@ -56,13 +58,18 @@ void InputSystem::ProcessEvent(SDL_Event e)
 		}
 		input_manager->OnMouseButtonUp(mb);
 		break;
-	}
 
+	case SDL_MOUSEMOTION:
+		input_manager->OnMouseMotion(e.motion.x, e.motion.y, e.motion.xrel, e.motion.yrel);
+	}
 }
 
 void InputSystem::ProcessEvents()
 {
 	SDL_Event e;
+	if (input_manager->LockMouse()) {
+
+	}
 	while (SDL_PollEvent(&e)) {
 		ProcessEvent(e);
 	}

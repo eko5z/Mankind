@@ -21,6 +21,7 @@ int main()
 	input_system.SetInputManager(std::make_unique<MainInputManager>(g));
 
 	g.GetWorld().Generate(0);
+	SDL_SetRelativeMouseMode(SDL_TRUE);
 
 	while (g.KeepGoing()) {
 		input_system.ProcessEvents();

@@ -105,7 +105,7 @@ void Renderer::Render(World& world, Camera& camera)
 	for (auto kc : chunk_meshes) {
 		kc.second.Render(*chunk_program);
 	}
-	DrawCrosshair();
+	//DrawCrosshair();
 	SDL_GL_SwapWindow(window);
 }
 
