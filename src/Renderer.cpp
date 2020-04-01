@@ -138,5 +138,6 @@ void Renderer::Render(World& world, Camera& camera)
 
 void Renderer::AddChunk(int x, int y, int z, Chunk& c)
 {
+	std::cerr << "Adding chunk " << CHUNK_ID(x, y, z) << "("<<x<<", "<<y<<", "<<z<<")" << std::endl;
 	this->chunk_meshes.insert(std::make_pair(CHUNK_ID(x, y, z), ChunkMesh(c, x, y, z)));
 }
