@@ -16,5 +16,7 @@ public:
 	void Generate(int seed);
 private:
 	std::map<int, std::unique_ptr<Chunk>> chunks;
+	void LoadChunk(int);
+	int seed;
 };
 

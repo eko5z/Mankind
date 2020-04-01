@@ -6,9 +6,10 @@
 
 #define INDEX(x, y, z) ((z) * (CHUNK_SIZE+1) * (CHUNK_SIZE+1) + (y) * (CHUNK_SIZE+1) + (x))
 
-ChunkMesh::ChunkMesh(Chunk& chunk) :
+ChunkMesh::ChunkMesh(Chunk& chunk, int x, int y, int z) :
 	chunk(chunk),
-	mesh(nullptr)
+	mesh(nullptr),
+	x(x), y(y), z(z)
 {
 	/* We only need to generate vertices once*/
 	/* They could be static, too */

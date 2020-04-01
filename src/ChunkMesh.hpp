@@ -13,9 +13,14 @@ private:
 	Chunk& chunk;
 	std::unique_ptr<Mesh> mesh;
 	void Update();
-public:
-	ChunkMesh(Chunk& chunk);
 	std::vector<glm::vec3> vertices;
+	int x, y, z;
+public:
+	ChunkMesh(Chunk& chunk, int x, int y, int z);
 	void Render();
+
+	int GetX() { return x; }
+	int GetY() { return y; }
+	int GetZ() { return z; }
 };
 

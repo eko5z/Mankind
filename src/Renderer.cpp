@@ -95,7 +95,15 @@ void Renderer::UpdateVectors(glm::vec3& angle, glm::vec3& forward,
 void Renderer::Render(World& world, Camera& camera)
 {
 	// Add a chunk.
-	this->AddChunk(0, 0, 0, world.GetChunk(0, 0, 0));
+	for (int i(0); i < 10; ++i) {
+		for (int j(0); j < 10; ++j) {
+			for (int k(0); k < 10; ++k) {
+				if (chunk_meshes.find(CHUNK_ID(i, j, k)) == chunk_meshes.end()) {
+					this->AddChunk(i, j, k, world.GetChunk(i, j, k));
+				}
+			}
+		}
+	}
 
 	GLint uniform_mvp = default_program->GetUniform("MVP");
 	SDL_GetWindowSize(window, &view_width, &view_height);
@@ -107,9 +115,6 @@ void Renderer::Render(World& world, Camera& camera)
 	glm::mat4 view = glm::lookAt(position, position + lookat, up);
 	glm::mat4 projection = glm::perspective(45.0f, 1.0f*view_width/view_height, 0.01f, 1000.0f);
 
-	glm::mat4 mvp = projection * view;
-	glUniformMatrix4fv(uniform_mvp, 1, GL_FALSE, glm::value_ptr(mvp));
-
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_POLYGON_OFFSET_FILL);
@@ -117,6 +122,13 @@ void Renderer::Render(World& world, Camera& camera)
 	this->default_program->Use();
 
 	for(auto& kc : this->chunk_meshes) {
+		int x(kc.second.GetX() * CHUNK_SIZE),
+			y(kc.second.GetY() * CHUNK_SIZE),
+			z(kc.second.GetZ() * CHUNK_SIZE);
+		glm::mat4 translate = glm::translate(glm::mat4(), glm::vec3(x, y, z));
+		glm::mat4 mvp = projection * view * translate;
+		glUniformMatrix4fv(uniform_mvp, 1, GL_FALSE, glm::value_ptr(mvp));
+
 		kc.second.Render();
 	}
 
@@ -125,5 +137,5 @@ void Renderer::Render(World& world, Camera& camera)
 
 void Renderer::AddChunk(int x, int y, int z, Chunk& c)
 {
-	this->chunk_meshes.insert(std::make_pair(CHUNK_ID(x, y, z), ChunkMesh(c)));
+	this->chunk_meshes.insert(std::make_pair(CHUNK_ID(x, y, z), ChunkMesh(c, x, y, z)));
 }
