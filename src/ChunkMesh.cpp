@@ -2,6 +2,8 @@
 
 #include <glm/glm.hpp>
 
+#include "Log.hpp"
+
 typedef glm::tvec4<GLbyte> byte4;
 
 ChunkMesh::ChunkMesh(Chunk& chunk) :

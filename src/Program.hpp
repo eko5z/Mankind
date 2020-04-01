@@ -13,6 +13,9 @@ public:
 	~Program();
 	GLint GetAttrib(const char* name);
 	GLint GetUniform(const char* name);
-	void Use() { glUseProgram(program_id); }
+	void Use()
+	{
+		glUseProgram(program_id);
+	}
 };
 

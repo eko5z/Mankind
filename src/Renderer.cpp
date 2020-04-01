@@ -3,6 +3,9 @@
 #include <stdexcept>
 #include <config.h>
 
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
 #include "Log.hpp"
 
 Renderer::Renderer() :
@@ -64,17 +67,63 @@ void Renderer::OpenWindow()
 	glUniform1i(uniform_texture, 0);
 }
 
+void Renderer::UpdateVectors(glm::vec3& angle, glm::vec3& forward,
+                             glm::vec3& right, glm::vec3& lookat,
+                             glm::vec3& up)
+{
+	forward.x = sinf(angle.x);
+	forward.y = 0;
+	forward.z = cosf(angle.x);
+	right.x = -cosf(angle.x);
+	right.y = 0;
+	right.z = sinf(angle.x);
+	lookat.x = sinf(angle.x) * cosf(angle.y);
+	lookat.y = sinf(angle.y);
+	lookat.z = cosf(angle.x) * cosf(angle.y);
+	up = glm::cross(right, lookat);
+}
+
 void Renderer::Render(World& world, Camera& camera)
 {
 	AddChunk(0, 0, 0, world.GetChunk(0, 0, 0));
+	GLint uniform_mvp = chunk_program->GetUniform("mvp");
+	SDL_GetWindowSize(window, &view_width, &view_height);
 
-	glm::mat4 view = glm::LookAt(position, position + lookat, up);
+	glm::vec3 position(camera.x, camera.y, camera.z);
+	glm::vec3 angle(camera.yaw, camera.pitch, camera.roll);
+	glm::vec3 forward, right, lookat, up;
+	UpdateVectors(angle, forward, right, lookat, up);
+	glm::mat4 view = glm::lookAt(position, position + lookat, up);
+	glm::mat4 projection = glm::perspective(45.0f, 1.0f*view_width/view_height, 0.01f, 1000.0f);
 
-	glClear(GL_COLOR_BUFFER_BIT);
+	glm::mat4 mvp = projection * view;
+	glUniformMatrix4fv(uniform_mvp, 1, GL_FALSE, glm::value_ptr(mvp));
+
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_POLYGON_OFFSET_FILL);
 	for (auto kc : chunk_meshes) {
 		kc.second.Render(*chunk_program);
 	}
+	DrawCrosshair();
 	SDL_GL_SwapWindow(window);
+}
+
+void Renderer::DrawCrosshair()
+{
+	static float cross[4][4] = {
+		{-0.05, 0, 0, 13},
+		{+0.05, 0, 0, 13},
+		{0, -0.05, 0, 13},
+		{0, +0.05, 0, 13},
+	};
+	GLint uniform_mvp = chunk_program->GetUniform("mvp");
+	glDisable(GL_DEPTH_TEST);
+	glm::mat4 one(1);
+	glUniformMatrix4fv(uniform_mvp, 1, GL_FALSE, glm::value_ptr(one));
+	glBufferData(GL_ARRAY_BUFFER, sizeof(cross), cross, GL_DYNAMIC_DRAW);
+	glVertexAttribPointer(attribute_coord, 4, GL_FLOAT, GL_FALSE, 0, 0);
+	glDrawArrays(GL_LINES, 0, 4);
 }
 
 void Renderer::AddChunk(int x, int y, int z, Chunk& c)
