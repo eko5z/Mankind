@@ -3,6 +3,20 @@
 
 void MainInputManager::OnKeyDown(char key)
 {
+	switch (key) {
+	case 'w':
+		game.GetCamera().z += 1;
+		break;
+	case 's':
+		game.GetCamera().z -= 1;
+		break;
+	case 'a':
+		game.GetCamera().x -= 1;
+		break;
+	case 'd':
+		game.GetCamera().x += 1;
+		break;
+	}
 }
 
 void MainInputManager::OnKeyUp(char key)

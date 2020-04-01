@@ -20,7 +20,9 @@ int main()
 	InputSystem input_system;
 	input_system.SetInputManager(std::make_unique<MainInputManager>(g));
 
-	g.GetWorld().Generate(0);
+	int seed = time(0);
+
+	g.GetWorld().Generate(seed);
 	SDL_SetRelativeMouseMode(SDL_TRUE);
 
 	while (g.KeepGoing()) {
