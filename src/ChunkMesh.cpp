@@ -4,7 +4,7 @@
 
 #include "Log.hpp"
 
-#define INDEX(x, y, z) ((x) * CHUNK_SIZE * CHUNK_SIZE + (y) * CHUNK_SIZE + (z))
+#define INDEX(x, y, z) ((z) * (CHUNK_SIZE+1) * (CHUNK_SIZE+1) + (y) * (CHUNK_SIZE+1) + (x))
 
 ChunkMesh::ChunkMesh(Chunk& chunk) :
 	chunk(chunk),
