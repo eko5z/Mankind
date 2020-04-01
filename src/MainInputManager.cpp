@@ -1,14 +1,19 @@
 #include "MainInputManager.hpp"
 #include "Log.hpp"
+#include <cmath>
 
 void MainInputManager::OnKeyDown(char key)
 {
+	float lookAtX(sinf(game.GetCamera().yaw));
+	float lookAtZ(cosf(game.GetCamera().yaw));
 	switch (key) {
 	case 'w':
-		game.GetCamera().z += 1;
+		game.GetCamera().x += lookAtX;
+		game.GetCamera().z += lookAtZ;
 		break;
 	case 's':
-		game.GetCamera().z -= 1;
+		game.GetCamera().x -= lookAtX;
+		game.GetCamera().z -= lookAtZ;
 		break;
 	case 'a':
 		game.GetCamera().x -= 1;
