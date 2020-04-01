@@ -13,6 +13,8 @@
 #include "Font.hpp"
 #include "TextRenderer.hpp"
 
+#include "Mesh.hpp"
+
 class Renderer
 {
 public:
@@ -21,22 +23,15 @@ public:
 
 	void OpenWindow();
 	void Render(World& world, Camera& camera);
-	void AddChunk(int x, int y, int z, Chunk& c);
+  void AddChunk(int x, int y, int z, Chunk& c);
 private:
-	std::unique_ptr<Font> debug_font;
-	std::unique_ptr<TextRenderer> coords_text;
 	int view_height, view_width;
 	SDL_Window* window;
 	SDL_GLContext context;
-	std::unique_ptr<Program> chunk_program;
-	std::unique_ptr<Texture> texture;
-	std::map<int, ChunkMesh> chunk_meshes;
-	GLint uniform_texture;
-	GLint attribute_coord;
 	void UpdateVectors(glm::vec3& angle, glm::vec3& forward,
 	                   glm::vec3& right, glm::vec3& lookat,
 	                   glm::vec3& up);
-
-	void DrawCrosshair();
+  std::unique_ptr<Program> default_program;
+  std::map<int, ChunkMesh> chunk_meshes;
 };
 

@@ -4,18 +4,16 @@
 
 #include "Log.hpp"
 
-typedef glm::tvec4<GLbyte> byte4;
-
 ChunkMesh::ChunkMesh(Chunk& chunk) :
-	chunk(chunk)
+  chunk(chunk),
+  mesh(nullptr)
 {
 }
 
 void ChunkMesh::Update()
 {
 	chunk.SetClean();
-	byte4 vertex[CHUNK_SIZE * CHUNK_SIZE * CHUNK_SIZE * 6 * 6];
-	int i = 0;
+	int i = -1;
 	for (int x(0); x < CHUNK_SIZE; ++x) {
 		for (int y(0); y < CHUNK_SIZE; ++y) {
 			for (int z(0); z < CHUNK_SIZE; ++z) {
@@ -39,82 +37,67 @@ void ChunkMesh::Update()
 					|/   |/
 					1 -- 5
 				 */
-				byte4 v1 = byte4(x,   y,   z,   typeID),
-				      v2 = byte4(x,   y,   z+1, typeID),
-				      v3 = byte4(x,   y+1, z,   typeID),
-				      v4 = byte4(x,   y+1, z+1, typeID),
-				      v5 = byte4(x+1, y,   z,   typeID),
-				      v6 = byte4(x+1, y,   z+1, typeID),
-				      v7 = byte4(x+1, y+1, z,   typeID),
-				      v8 = byte4(x+1, y+1, z+1, typeID);
 
 				// -X face
-				vertex[i++] = v1;
-				vertex[i++] = v2;
-				vertex[i++] = v3;
-				vertex[i++] = v3;
-				vertex[i++] = v2;
-				vertex[i++] = v4;
+				this->mesh->vertices[i++] = glm::vec3{x, y, z};
+				this->mesh->vertices[i++] = glm::vec3{x, y, z + 1};
+				this->mesh->vertices[i++] = glm::vec3{x, y + 1, z};
+				this->mesh->vertices[i++] = glm::vec3{x, y + 1, z};
+				this->mesh->vertices[i++] = glm::vec3{x, y, z + 1};
+				this->mesh->vertices[i++] = glm::vec3{x, y + 1, z + 1};
 
 				// +X face
-				vertex[i++] = v5;
-				vertex[i++] = v6;
-				vertex[i++] = v7;
-				vertex[i++] = v7;
-				vertex[i++] = v5;
-				vertex[i++] = v8;
+				this->mesh->vertices[i++] = glm::vec3{x + 1, y, z};
+				this->mesh->vertices[i++] = glm::vec3{x + 1, y, z + 1};
+				this->mesh->vertices[i++] = glm::vec3{x + 1, y + 1, z};
+				this->mesh->vertices[i++] = glm::vec3{x + 1, y + 1, z};
+				this->mesh->vertices[i++] = glm::vec3{x + 1, y, z};
+				this->mesh->vertices[i++] = glm::vec3{x + 1, y + 1, z + 1};
 
 				// -Y face
-				vertex[i++] = v1;
-				vertex[i++] = v5;
-				vertex[i++] = v7;
-				vertex[i++] = v7;
-				vertex[i++] = v1;
-				vertex[i++] = v3;
+			        this->mesh->vertices[i++] = glm::vec3{x, y, z};
+				this->mesh->vertices[i++] = glm::vec3{x + 1, y, z};
+				this->mesh->vertices[i++] = glm::vec3{x + 1, y + 1, z};
+				this->mesh->vertices[i++] = glm::vec3{x + 1, y + 1, z};
+				this->mesh->vertices[i++] = glm::vec3{x, y, z};
+				this->mesh->vertices[i++] = glm::vec3{x, y + 1, z};
 
 				// +Y face
-				vertex[i++] = v2;
-				vertex[i++] = v6;
-				vertex[i++] = v8;
-				vertex[i++] = v8;
-				vertex[i++] = v2;
-				vertex[i++] = v4;
+			        this->mesh->vertices[i++] = glm::vec3{x, y, z + 1};
+				this->mesh->vertices[i++] = glm::vec3{x + 1, y, z + 1};
+				this->mesh->vertices[i++] = glm::vec3{x + 1, y + 1, z + 1};
+				this->mesh->vertices[i++] = glm::vec3{x + 1, y + 1, z + 1};
+				this->mesh->vertices[i++] = glm::vec3{x, y, z + 1};
+				this->mesh->vertices[i++] = glm::vec3{x, y + 1, z + 1};
 
 				// -Z face
-				vertex[i++] = v1;
-				vertex[i++] = v2;
-				vertex[i++] = v6;
-				vertex[i++] = v6;
-				vertex[i++] = v2;
-				vertex[i++] = v5;
+			        this->mesh->vertices[i++] = glm::vec3{x, y, z};
+				this->mesh->vertices[i++] = glm::vec3{x, y, z + 1};
+				this->mesh->vertices[i++] = glm::vec3{x + 1, y, z + 1};
+				this->mesh->vertices[i++] = glm::vec3{x + 1, y, z + 1};
+				this->mesh->vertices[i++] = glm::vec3{x, y, z + 1};
+				this->mesh->vertices[i++] = glm::vec3{x + 1, y, z};
 
 				// +Z face
-				vertex[i++] = v3;
-				vertex[i++] = v4;
-				vertex[i++] = v8;
-				vertex[i++] = v8;
-				vertex[i++] = v4;
-				vertex[i++] = v7;
+			        this->mesh->vertices[i++] = glm::vec3{x, y + 1, z};
+				this->mesh->vertices[i++] = glm::vec3{x, y + 1, z + 1};
+				this->mesh->vertices[i++] = glm::vec3{x + 1, y + 1, z + 1};
+				this->mesh->vertices[i++] = glm::vec3{x + 1, y + 1, z + 1};
+				this->mesh->vertices[i++] = glm::vec3{x, y + 1, z + 1};
+				this->mesh->vertices[i++] = glm::vec3{x + 1, y + 1, z};
 			}
 		}
 	}
-	elements = i;
-	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	glBufferData(GL_ARRAY_BUFFER, elements * sizeof *vertex,
-	             vertex, GL_STATIC_DRAW);
+
+	this->mesh->Initialize();
 }
 
-void ChunkMesh::Render(Program& program)
+void ChunkMesh::Render()
 {
 	if (chunk.IsDirty()) {
 		Update();
 	}
 
-	glEnable(GL_CULL_FACE);
-	glEnable(GL_DEPTH_TEST);
-
-	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	glVertexAttribPointer(program.GetAttrib("coord"), 4, GL_BYTE, GL_FALSE, 0, 0);
-	glDrawArrays(GL_TRIANGLES, 0, elements);
+	this->mesh->Render();
 }
 

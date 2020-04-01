@@ -3,16 +3,17 @@
 #include "GraphX.hpp"
 #include "Chunk.hpp"
 #include "Program.hpp"
+#include "Mesh.hpp"
 
 class ChunkMesh
 {
 private:
-	Chunk& chunk;
-	GLuint vbo;
-	int elements;
-	void Update();
+  Chunk& chunk;
+  std::unique_ptr<Mesh> mesh;
+  void Update();
 public:
 	ChunkMesh(Chunk& chunk);
-	void Render(Program& program);
+
+  void Render();
 };
 
