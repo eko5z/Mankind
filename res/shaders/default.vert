@@ -1,6 +1,6 @@
-#version 330 core
+#version 130
 
-layout (location = 0) in vec3 coordinates;
+in vec3 coordinates;
 
 uniform mat4 MVP;
 
