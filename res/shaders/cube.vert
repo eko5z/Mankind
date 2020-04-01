@@ -1,4 +1,4 @@
-#version 120
+#version 130
 
 attribute vec4 coord;
 uniform mat4 mvp;

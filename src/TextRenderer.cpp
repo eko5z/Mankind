@@ -2,7 +2,7 @@
 
 TextRenderer::TextRenderer(Font& font, const char* fmt, ...)
 {
-	text_program = std::make_unique<Program>("res/shaders/text.frag", "res/shaders/text.vert");
+	text_program = std::make_unique<Program>("res/shaders/text.vert", "res/shaders/text.frag");
 	va_list args;
 	va_start(args, fmt);
 	TextRenderer(font, fmt, args);

@@ -4,8 +4,8 @@
 #include "Log.hpp"
 
 Program::Program(std::string vshader_path, std::string fshader_path) :
-	v_shader(vshader_path, GL_VERTEX_SHADER),
-	f_shader(fshader_path, GL_FRAGMENT_SHADER)
+	f_shader(fshader_path, GL_FRAGMENT_SHADER),
+	v_shader(vshader_path, GL_VERTEX_SHADER)
 {
 	LOG("Creating program");
 	program_id = glCreateProgram();
