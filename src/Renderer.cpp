@@ -73,7 +73,7 @@ void Renderer::OpenWindow()
 
 	// Load the default program.
 	this->default_program = std::make_unique<Program>("res/shaders/default.vert", "res/shaders/default.frag");
-	
+
 	LOG("Window correctly opened");
 
 	glClearColor(0.6, 0.8, 1.0, 0.0);

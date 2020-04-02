@@ -13,7 +13,7 @@ private:
 public:
 	Program(std::string vshader_path, std::string fshader_path);
 	~Program();
-  
+
 	GLint GetAttrib(const char* name);
 	GLint GetUniform(const char* name);
 	void Use()
@@ -26,14 +26,14 @@ public:
 		return glGetUniformLocation(program_id, name);
 	}
 
-  void SetFloat(const char *name, float value)
-  {
-    glUniform1f(this->GetUniformLocation(name), value);
-  }
-  
-  void SetVec3(const char *name, glm::vec3 value)
-  {
-    glUniform3f(this->GetUniformLocation(name), value.x, value.y, value.z);
-  }
+	void SetFloat(const char *name, float value)
+	{
+		glUniform1f(this->GetUniformLocation(name), value);
+	}
+
+	void SetVec3(const char *name, glm::vec3 value)
+	{
+		glUniform3f(this->GetUniformLocation(name), value.x, value.y, value.z);
+	}
 };
 
