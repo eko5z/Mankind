@@ -1,5 +1,7 @@
 #pragma once
 
+#include <glm/glm.hpp>
+
 #include "Shader.hpp"
 
 class Program
@@ -11,6 +13,7 @@ private:
 public:
 	Program(std::string vshader_path, std::string fshader_path);
 	~Program();
+  
 	GLint GetAttrib(const char* name);
 	GLint GetUniform(const char* name);
 	void Use()
@@ -22,5 +25,10 @@ public:
 	{
 		return glGetUniformLocation(program_id, name);
 	}
+
+  void SetVec3(const char *name, glm::vec3 vector)
+  {
+    glUniform3f(this->GetUniform(name), vector.x, vector.y, vector.z);
+  }
 };
 
