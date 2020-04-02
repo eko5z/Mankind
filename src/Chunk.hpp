@@ -42,8 +42,14 @@ public:
 	{
 		return z;
 	}
-	bool IsEmpty() { return empty; }
-	void SetEmpty(bool s) { empty = s; }
+	bool IsEmpty()
+	{
+		return empty;
+	}
+	void SetEmpty(bool s)
+	{
+		empty = s;
+	}
 private:
 	Cube cubes[CHUNK_SIZE * CHUNK_SIZE * CHUNK_SIZE];
 	bool dirty;

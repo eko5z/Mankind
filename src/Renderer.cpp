@@ -73,7 +73,7 @@ void Renderer::OpenWindow()
 
 	// Load the default program.
 	this->default_program = std::make_unique<Program>("res/shaders/default.vert", "res/shaders/default.frag");
-	
+
 	LOG("Window correctly opened");
 
 	glClearColor(0.6, 0.8, 1.0, 0.0);
@@ -124,6 +124,8 @@ void Renderer::Render(World& world, Camera& camera)
 	glm::mat4 view = glm::lookAt(position, position + lookat, up);
 	glm::mat4 projection = glm::perspective(45.0f, 1.0f*view_width/view_height, 0.01f, 1000.0f);
 
+	ComputeFrustrum(position, lookat);
+
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_POLYGON_OFFSET_FILL);
@@ -143,6 +145,13 @@ void Renderer::Render(World& world, Camera& camera)
 	}
 
 	SDL_GL_SwapWindow(window);
+}
+
+void Renderer::ComputeFrustrum(glm::vec3 position, glm::vec3 lookAt)
+{
+	static glm::vec3 up(0., 1., 0.), right(1., 0., 0.);
+	lookAt = glm::normalize(lookAt);
+	glm::vec3 far_center = position + lookAt * far_distance;
 }
 
 void Renderer::AddChunk(World& world, int x, int y, int z, Chunk& c)

@@ -34,5 +34,14 @@ private:
 	std::unique_ptr<Program> default_program;
 	std::shared_ptr<Texture> diffuse, specular;
 	std::map<int, ChunkMesh> chunk_meshes;
+	struct frustrum {
+		glm::vec3 ntl, ntr, nbl, nbr;
+		glm::vec3 ftl, ftr, fbl, fbr;
+		float near_dist;
+		float height_near, width_near;
+		float far_dist;
+		float height_far, width_far;
+	};
+	void ComputeFrustrum(glm::vec3 position, glm::vec3 lookAt);
 };
 
