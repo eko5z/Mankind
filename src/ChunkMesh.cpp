@@ -31,19 +31,23 @@ ChunkMesh::ChunkMesh(Chunk& chunk, int x, int y, int z, std::shared_ptr<Texture>
    /
  v2 v3
 */
-void ChunkMesh::PushFace(int v0, int v1, int v2, int v3)
+void ChunkMesh::PushFace(int v0, int v1, int v2, int v3, glm::vec3 norm)
 {
+	for (int i(0); i < 6; ++i) {
+		normals.push_back(norm);
+	}
+
 	indices.push_back(v0);
 	indices.push_back(v1);
 	indices.push_back(v2);
 
-	indices.push_back(v3);
-	indices.push_back(v2);
-	indices.push_back(v1);
-
 	uvs.push_back(top_left);     // v0
 	uvs.push_back(top_right);    // v1
 	uvs.push_back(bottom_left);  // v2
+
+	indices.push_back(v3);
+	indices.push_back(v2);
+	indices.push_back(v1);
 
 	uvs.push_back(bottom_right); // v3
 	uvs.push_back(bottom_left);  // v2
@@ -95,7 +99,8 @@ void ChunkMesh::Update()
 						PushFace(v_indices[3],
 						         v_indices[2],
 						         v_indices[1],
-						         v_indices[0]);
+						         v_indices[0],
+								 glm::vec3(-1, 0, 0));
 					}
 
 					if ((i < 15 and chunk.GetCube(i+1, j, k).typeID == 0) or i == 15) {
@@ -106,7 +111,8 @@ void ChunkMesh::Update()
 						PushFace(v_indices[6],
 						         v_indices[7],
 						         v_indices[4],
-						         v_indices[5]);
+						         v_indices[5],
+								 glm::vec3(+1, 0, 0));
 					}
 
 					if ((k > 0 and chunk.GetCube(i, j, k-1).typeID == 0) or k == 0) {
@@ -117,7 +123,8 @@ void ChunkMesh::Update()
 						PushFace(v_indices[2],
 						         v_indices[6],
 						         v_indices[0],
-						         v_indices[4]);
+						         v_indices[4],
+								 glm::vec3(0, 0, -1));
 					}
 
 					if ((k < 15 and chunk.GetCube(i, j, k+1).typeID == 0) or k == 15) {
@@ -128,7 +135,8 @@ void ChunkMesh::Update()
 						PushFace(v_indices[7],
 						         v_indices[3],
 						         v_indices[5],
-						         v_indices[1]);
+						         v_indices[1],
+								 glm::vec3(0, 0, +1));
 					}
 
 					if ((j > 0 and chunk.GetCube(i, j-1, k).typeID == 0) or j == 0) {
@@ -139,7 +147,8 @@ void ChunkMesh::Update()
 						PushFace(v_indices[0],
 						         v_indices[4],
 						         v_indices[1],
-						         v_indices[5]);
+						         v_indices[5],
+								 glm::vec3(0, -1, 0));
 					}
 
 					if ((j < 15 and chunk.GetCube(i, j+1, k).typeID == 0) or j == 15) {
@@ -150,7 +159,8 @@ void ChunkMesh::Update()
 						PushFace(v_indices[3],
 						         v_indices[7],
 						         v_indices[2],
-						         v_indices[6]);
+						         v_indices[6],
+								 glm::vec3(0, +1, 0));
 					}
 				}
 			}

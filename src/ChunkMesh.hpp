@@ -23,7 +23,7 @@ private:
 	std::vector<glm::vec3> normals;
 	std::vector<glm::vec2> uvs;
 	std::vector<GLuint> indices;
-	void PushFace(int v0, int v1, int v2, int v3);
+	void PushFace(int v0, int v1, int v2, int v3, glm::vec3 norm);
 public:
 	ChunkMesh(Chunk& chunk, int x, int y, int z, std::shared_ptr<Texture> texture);
 	void Render();
