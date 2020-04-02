@@ -14,7 +14,6 @@
 #include "TextRenderer.hpp"
 
 #include "Mesh.hpp"
-#include "Light.hpp"
 
 class Renderer
 {
@@ -35,7 +34,5 @@ private:
 	std::unique_ptr<Program> default_program;
 	std::shared_ptr<Texture> diffuse, specular;
 	std::map<int, ChunkMesh> chunk_meshes;
-
-  DirectionalLight light_1;
 };
 

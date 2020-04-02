@@ -9,11 +9,7 @@
 
 Renderer::Renderer() :
 	window(nullptr),
-	default_program(nullptr),
-	light_1(glm::vec3{0.3, 1.0, 0.8},
-		glm::vec3{0.1, 0.1, 0.1},
-		glm::vec3{0.3, 0.3, 0.3},
-		glm::vec3{0.5, 0.5, 0.5})
+	default_program(nullptr)
 {
 	LOG("Initializing renderer");
 
@@ -118,8 +114,7 @@ void Renderer::Render(World& world, Camera& camera)
 	}
 
 	GLint uniform_mvp = default_program->GetUniform("MVP");
-	GLint uniform_camera_position = default_program->GetUniform("camera_position");
-	glUniform3f(uniform_camera_position, camera.x, camera.y, camera.z);
+
 	SDL_GetWindowSize(window, &view_width, &view_height);
 
 	glm::vec3 position(camera.x, camera.y, camera.z);
@@ -134,8 +129,7 @@ void Renderer::Render(World& world, Camera& camera)
 	glEnable(GL_POLYGON_OFFSET_FILL);
 
 	this->default_program->Use();
-	light_1.AddToProgram(*(this->default_program), 0);
-	glUniform1f(default_program->GetUniform("shininess"), 32.0);
+	glUniform3f(default_program->GetUniform("camera_position"), camera.x, camera.y, camera.z);
 
 	for(auto& kc : this->chunk_meshes) {
 		int x(kc.second.GetX() * CHUNK_SIZE),
