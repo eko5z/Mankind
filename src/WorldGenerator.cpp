@@ -90,7 +90,7 @@ void WorldGenerator::GenerateChunk(Chunk& c)
 			}
 			for (int k(0); k < in_chunk_height; ++k) {
 				int typeID = 1;
-				if (k + baseX == newHeight - 1) {
+				if (k + baseY == newHeight - 1) {
 					typeID = 2;
 				}
 				c.SetCube(i, k, j, Cube{typeID});
