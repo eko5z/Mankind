@@ -60,7 +60,14 @@ void Mesh::Initialize()
 
 Mesh::~Mesh()
 {
-	// ok do nutan 4 now
+  // Delete the buffer objects.
+  glDeleteBuffers(1, &this->VBO);
+  glDeleteBuffers(1, &this->NBO);
+  glDeleteBuffers(1, &this->UVBO);
+  glDeleteBuffers(1, &this->EBO);
+
+  // Delete the vertex array.
+  glDeleteVertexArrays(1, &this->VAO);
 }
 
 void Mesh::Render()
