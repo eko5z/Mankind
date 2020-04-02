@@ -107,7 +107,7 @@ void Renderer::Render(World& world, Camera& camera)
 		for (int j(ccy-3); j < ccz+3; ++j) {
 			for (int k(ccz-3); k < ccz+3; ++k) {
 				if (chunk_meshes.find(CHUNK_ID(i, j, k)) == chunk_meshes.end()) {
-					this->AddChunk(i, j, k, world.GetChunk(i, j, k));
+					this->AddChunk(world, i, j, k, world.GetChunk(i, j, k));
 				}
 			}
 		}
@@ -145,8 +145,8 @@ void Renderer::Render(World& world, Camera& camera)
 	SDL_GL_SwapWindow(window);
 }
 
-void Renderer::AddChunk(int x, int y, int z, Chunk& c)
+void Renderer::AddChunk(World& world, int x, int y, int z, Chunk& c)
 {
 	std::cerr << "Adding chunk " << CHUNK_ID(x, y, z) << "("<<x<<", "<<y<<", "<<z<<")" << std::endl;
-	this->chunk_meshes.insert(std::make_pair(CHUNK_ID(x, y, z), ChunkMesh(c, x, y, z, diffuse, specular)));
+	this->chunk_meshes.insert(std::make_pair(CHUNK_ID(x, y, z), ChunkMesh(world, c, x, y, z, diffuse, specular)));
 }

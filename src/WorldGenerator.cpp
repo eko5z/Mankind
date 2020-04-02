@@ -78,16 +78,12 @@ int WorldGenerator::HeightAt(int x, int z)
 
 void WorldGenerator::GenerateChunk(Chunk& c)
 {
-	LOG("Generating chunk");
 	int baseX(c.GetX() * CHUNK_SIZE),
 	    baseY(c.GetY() * CHUNK_SIZE),
 	    baseZ(c.GetZ() * CHUNK_SIZE);
 	for (int i(0); i < CHUNK_SIZE; ++i) {
 		for (int j(0); j < CHUNK_SIZE; ++j) {
 			int newHeight = HeightAt(baseX+i, baseZ+j);
-			if (rand() % 100 == 0) {
-				std::cerr<<"Height("<<baseX+i << ", " << baseZ+j <<") = "<<newHeight<<std::endl;
-			}
 			int in_chunk_height = std::min(newHeight - baseY, 16);
 			if (in_chunk_height < 0) {
 				in_chunk_height = 0;

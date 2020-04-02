@@ -2,12 +2,30 @@
 
 #include "Log.hpp"
 
+#include <cmath>
+
 Cube& World::GetCube(int x, int y, int z)
 {
+	int cx(floor((float)x / CHUNK_SIZE)),
+	    cy(floor((float)y / CHUNK_SIZE)),
+	    cz(floor((float)z / CHUNK_SIZE));
+	int ix( ((x % CHUNK_SIZE) + CHUNK_SIZE) % CHUNK_SIZE),
+	    iy( ((y % CHUNK_SIZE) + CHUNK_SIZE) % CHUNK_SIZE),
+	    iz( ((z % CHUNK_SIZE) + CHUNK_SIZE) % CHUNK_SIZE);
+	Chunk& c = GetChunk(cx, cy, cz);
+	return c.GetCube(ix, iy, iz);
 }
 
-void World::SetCube(int x, int y, int z)
+void World::SetCube(int x, int y, int z, Cube cu)
 {
+	int cx(floor((float)x / CHUNK_SIZE)),
+	    cy(floor((float)y / CHUNK_SIZE)),
+	    cz(floor((float)z / CHUNK_SIZE));
+	int ix( ((x % CHUNK_SIZE) + CHUNK_SIZE) % CHUNK_SIZE),
+	    iy( ((y % CHUNK_SIZE) + CHUNK_SIZE) % CHUNK_SIZE),
+	    iz( ((z % CHUNK_SIZE) + CHUNK_SIZE) % CHUNK_SIZE);
+	Chunk& c = GetChunk(cx, cy, cz);
+	c.SetCube(ix, iy, iz, cu);
 }
 
 Chunk& World::GetChunk(int x, int y, int z)
@@ -22,12 +40,9 @@ Chunk& World::GetChunk(int x, int y, int z)
 void World::LoadChunk(int x, int y, int z)
 {
 	int id = CHUNK_ID(x, y, z);
-	LOG("Load chunk--");
-	LOG(id);
 
 	std::unique_ptr<Chunk> new_chunk;
 	new_chunk = std::make_unique<Chunk>();
-	LOG("emplacing");
 	chunks.emplace(id, std::move(new_chunk));
 
 	chunks[id]->Generate(x, y, z);

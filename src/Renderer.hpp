@@ -23,7 +23,7 @@ public:
 
 	void OpenWindow();
 	void Render(World& world, Camera& camera);
-	void AddChunk(int x, int y, int z, Chunk& c);
+	void AddChunk(World& w, int x, int y, int z, Chunk& c);
 private:
 	int view_height, view_width;
 	SDL_Window* window;

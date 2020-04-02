@@ -5,12 +5,12 @@
 #include "Program.hpp"
 #include "Mesh.hpp"
 #include "TileManager.hpp"
-
-#define CHUNK_INDEX(x, y, z) ((x) * 256 + (y) * 16 + (z))
+#include "World.hpp"
 
 class ChunkMesh
 {
 private:
+	World& world;
 	Chunk& chunk;
 	std::unique_ptr<Mesh> mesh;
 	void Update();
@@ -27,7 +27,7 @@ private:
 	/* v MUST MOVE ASAP */
 	TileManager tile_manager;
 public:
-	ChunkMesh(Chunk& chunk, int x, int y, int z, std::shared_ptr<Texture> diffuse,
+	ChunkMesh(World& w, Chunk& chunk, int x, int y, int z, std::shared_ptr<Texture> diffuse,
 	          std::shared_ptr<Texture> specular);
 	void Render();
 

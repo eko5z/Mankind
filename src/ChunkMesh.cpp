@@ -4,9 +4,10 @@
 
 #include "Log.hpp"
 
-#define INDEX(x, y, z) ((z) * (CHUNK_SIZE+1) * (CHUNK_SIZE+1) + (y) * (CHUNK_SIZE+1) + (x))
+#define INDEX(x, y, z) ((x) * (CHUNK_SIZE+1) * (CHUNK_SIZE+1) + (y) * (CHUNK_SIZE+1) + (z))
 
-ChunkMesh::ChunkMesh(Chunk& chunk, int x, int y, int z, std::shared_ptr<Texture> diffuse, std::shared_ptr<Texture> specular) :
+ChunkMesh::ChunkMesh(World& w, Chunk& chunk, int x, int y, int z, std::shared_ptr<Texture> diffuse, std::shared_ptr<Texture> specular) :
+	world(w),
 	chunk(chunk),
 	mesh(nullptr),
 	x(x), y(y), z(z),
@@ -96,100 +97,104 @@ void ChunkMesh::Update()
 	uvs.clear();
 	normals.clear();
 
-	for (int i(0); i <= 15; ++i) {
-		for (int j(0); j <= 15; ++j) {
-			for (int k(0); k <= 15; ++k) {
-				int typeID = chunk.GetCube(i, j, k).typeID;
-				if (typeID != 0) {
-					/* Aliasing the vertices will make it easier */
-					glm::vec3 vertex_alias[8] = {
-						vertices[INDEX(i,   j,   k  )], // 0
-						vertices[INDEX(i,   j,   k+1)], // 1
-						vertices[INDEX(i,   j+1, k  )], // 2
-						vertices[INDEX(i,   j+1, k+1)], // 3
-						vertices[INDEX(i+1, j,   k  )], // 4
-						vertices[INDEX(i+1, j,   k+1)], // 5
-						vertices[INDEX(i+1, j+1, k  )], // 6
-						vertices[INDEX(i+1, j+1, k+1)], // 7
-					};
+	for (int i(0); i < 16; ++i) {
+		for (int j(0); j < 16; ++j) {
+			for (int k(0); k < 16; ++k) {
+				/* Aliasing the vertices will make it easier */
+				glm::vec3 vertex_alias[8] = {
+					vertices[INDEX(i,   j,   k  )], // 0
+					vertices[INDEX(i,   j,   k+1)], // 1
+					vertices[INDEX(i,   j+1, k  )], // 2
+					vertices[INDEX(i,   j+1, k+1)], // 3
+					vertices[INDEX(i+1, j,   k  )], // 4
+					vertices[INDEX(i+1, j,   k+1)], // 5
+					vertices[INDEX(i+1, j+1, k  )], // 6
+					vertices[INDEX(i+1, j+1, k+1)], // 7
+				};
+				int bx(x * CHUNK_SIZE + i),
+				    by(y * CHUNK_SIZE + j),
+				    bz(z * CHUNK_SIZE + k);
+				int typeID = world.GetCube(bx, by, bz).typeID;
+				if (typeID == 0) {
+					continue;
+				}
 
-					if ((i > 0 and chunk.GetCube(i-1, j, k).typeID == 0) or i == 0) {
-						/* -X or left face
-							3 2
-							1 0
-						*/
-						PushFace(vertex_alias[3],
-						         vertex_alias[2],
-						         vertex_alias[1],
-						         vertex_alias[0],
-						         glm::vec3(-1, 0, 0),
-						         typeID);
-					}
+				if (world.GetCube(bx-1, by, bz).typeID == 0) {
+					/* -X or left face
+						3 2
+						1 0
+					*/
+					PushFace(vertex_alias[3],
+					         vertex_alias[2],
+					         vertex_alias[1],
+					         vertex_alias[0],
+					         glm::vec3(-1, 0, 0),
+					         typeID);
+				}
 
-					if ((i < 15 and chunk.GetCube(i+1, j, k).typeID == 0) or i == 15) {
-						/* +X or right face
-							6 7
-							4 5
-						*/
-						PushFace(vertex_alias[6],
-						         vertex_alias[7],
-						         vertex_alias[4],
-						         vertex_alias[5],
-						         glm::vec3(+1, 0, 0),
-						         typeID);
-					}
+				if (world.GetCube(bx+1, by, bz).typeID == 0) {
+					/* +X or right face
+						6 7
+						4 5
+					*/
+					PushFace(vertex_alias[6],
+					         vertex_alias[7],
+					         vertex_alias[4],
+					         vertex_alias[5],
+					         glm::vec3(+1, 0, 0),
+					         typeID);
+				}
 
-					if ((k > 0 and chunk.GetCube(i, j, k-1).typeID == 0) or k == 0) {
-						/* -Z or front face
-							2 6
-							0 4
-						*/
-						PushFace(vertex_alias[2],
-						         vertex_alias[6],
-						         vertex_alias[0],
-						         vertex_alias[4],
-						         glm::vec3(0, 0, -1),
-						         typeID);
-					}
+				if (world.GetCube(bx, by, bz-1).typeID == 0) {
+					/* -Z or front face
+						2 6
+						0 4
+					*/
+					PushFace(vertex_alias[2],
+					         vertex_alias[6],
+					         vertex_alias[0],
+					         vertex_alias[4],
+					         glm::vec3(0, 0, -1),
+					         typeID);
+				}
 
-					if ((k < 15 and chunk.GetCube(i, j, k+1).typeID == 0) or k == 15) {
-						/* +Z or back face
-							7 3
-							5 1
-						*/
-						PushFace(vertex_alias[7],
-						         vertex_alias[3],
-						         vertex_alias[5],
-						         vertex_alias[1],
-						         glm::vec3(0, 0, +1),
-						         typeID);
-					}
+				if (world.GetCube(bx, by, bz+1).typeID == 0) {
+					/* +Z or back face
+						7 3
+						5 1
+					*/
+					PushFace(vertex_alias[7],
+					         vertex_alias[3],
+					         vertex_alias[5],
+					         vertex_alias[1],
+					         glm::vec3(0, 0, +1),
+					         typeID);
+				}
 
-					if ((j > 0 and chunk.GetCube(i, j-1, k).typeID == 0) or j == 0) {
-						/* -Y or bottom face
-							0 4
-							1 5
-						*/
-						PushFace(vertex_alias[0],
-						         vertex_alias[4],
-						         vertex_alias[1],
-						         vertex_alias[5],
-						         glm::vec3(0, -1, 0),
-						         typeID);
-					}
+				if (world.GetCube(bx, by-1, bz).typeID == 0) {
+					/* -Y or bottom face
+						0 4
+						1 5
+					*/
+					PushFace(vertex_alias[0],
+					         vertex_alias[4],
+					         vertex_alias[1],
+					         vertex_alias[5],
+					         glm::vec3(0, -1, 0),
+					         typeID);
+				}
 
-					if ((j < 15 and chunk.GetCube(i, j+1, k).typeID == 0) or j == 15) {
-						/* +Y or top face
-							3 7
-							2 6
-						*/
-						PushFace(vertex_alias[3],
-						         vertex_alias[7],
-						         vertex_alias[2],
-						         vertex_alias[6],
-						         glm::vec3(0, +1, 0),
-						         typeID);
-					}
+				if (world.GetCube(bx, by+1, bz).typeID == 0) {
+					/* +Y or top face
+						3 7
+						2 6
+					*/
+					PushFace(vertex_alias[3],
+					         vertex_alias[7],
+					         vertex_alias[2],
+					         vertex_alias[6],
+					         glm::vec3(0, +1, 0),
+					         typeID);
 				}
 			}
 		}

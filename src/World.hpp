@@ -7,13 +7,13 @@
 #include <memory>
 
 #define N_CHUNKS 1024
-#define CHUNK_ID(x, y, z) ((z) * N_CHUNKS * N_CHUNKS + (y) * N_CHUNKS + (x))
+#define CHUNK_ID(x, y, z) ((x) * N_CHUNKS * N_CHUNKS + (y) * N_CHUNKS + (z))
 
 class World
 {
 public:
 	Cube& GetCube(int x, int y, int z);
-	void SetCube(int x, int y, int z);
+	void SetCube(int x, int y, int z, Cube c);
 	Chunk& GetChunk(int x, int y, int z);
 	void Generate(int seed);
 private:
