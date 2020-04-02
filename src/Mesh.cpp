@@ -4,9 +4,9 @@
 
 Mesh::Mesh(std::vector<glm::vec3> vertices, std::vector<glm::vec3> normals,
            std::vector<glm::vec2> uvs, std::vector<unsigned int> indices, std::shared_ptr<Texture> diffuse,
-	   std::shared_ptr<Texture> specular):
-  diffuse(std::move(diffuse)),
-  specular(std::move(specular))
+           std::shared_ptr<Texture> specular):
+	diffuse(std::move(diffuse)),
+	specular(std::move(specular))
 {
 	this->vertices = vertices;
 	this->normals = normals;
@@ -62,19 +62,19 @@ void Mesh::Initialize()
 
 Mesh::~Mesh()
 {
-  // Delete the buffer objects.
-  glDeleteBuffers(1, &this->VBO);
-  glDeleteBuffers(1, &this->NBO);
-  glDeleteBuffers(1, &this->UVBO);
-  glDeleteBuffers(1, &this->EBO);
+	// Delete the buffer objects.
+	glDeleteBuffers(1, &this->VBO);
+	glDeleteBuffers(1, &this->NBO);
+	glDeleteBuffers(1, &this->UVBO);
+	glDeleteBuffers(1, &this->EBO);
 
-  // Delete the vertex array.
-  glDeleteVertexArrays(1, &this->VAO);
+	// Delete the vertex array.
+	glDeleteVertexArrays(1, &this->VAO);
 }
 
 void Mesh::Render()
 {
-  // Activate diffuse texture.
+	// Activate diffuse texture.
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, this->diffuse->texture_id);
 

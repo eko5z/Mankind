@@ -71,7 +71,7 @@ void Renderer::OpenWindow()
 
 	diffuse = std::make_shared<Texture>("res/tex/stone_diffuse.png");
 	specular = std::make_shared<Texture>("res/tex/stone_specular.png");
-	
+
 	// Load the default program.
 	this->default_program = std::make_unique<Program>("res/shaders/default.vert", "res/shaders/default.frag");
 
