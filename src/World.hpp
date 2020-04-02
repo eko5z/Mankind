@@ -5,7 +5,8 @@
 #include <tuple>
 #include <memory>
 
-#define CHUNK_ID(x, y, z) ((x)<<20 + (y)<<10 + (z))
+#define N_CHUNKS 1<<10
+#define CHUNK_ID(x, y, z) ((x) * CHUNK_SIZE * CHUNK_SIZE + (y) * CHUNK_SIZE + (z))
 
 class World
 {
