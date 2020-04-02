@@ -1,6 +1,6 @@
 #version 130
 
-in mat4 fragment_MVP;
+in vec3 fragment_camera_position;
 in vec3 fragment_position;
 in vec3 fragment_normal;
 in vec2 fragment_uv;
@@ -24,7 +24,7 @@ void main()
 	vec3 diffuse = diffuse_color * difference * texture(diffuse_texture, fragment_uv).rgb;
 	vec3 ambient = ambient_color * texture(diffuse_texture, fragment_uv).rgb;
 
-	vec3 view_direction = vec3(normalize(fragment_MVP[0] - vec4(fragment_position, 0.0)));
+	vec3 view_direction = normalize(fragment_camera_position - fragment_position);
 	vec3 reflection_direction = reflect(-light_direction, normal);
 	float spec = pow(max(dot(view_direction, reflection_direction), 0.0), shininess);
 	vec3 specular = specular_color * spec * texture(specular_texture, fragment_uv).rgb;

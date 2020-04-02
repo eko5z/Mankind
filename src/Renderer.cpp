@@ -115,6 +115,8 @@ void Renderer::Render(World& world, Camera& camera)
 	}
 
 	GLint uniform_mvp = default_program->GetUniform("MVP");
+	GLint uniform_camera_position = default_program->GetUniform("camera_position");
+	glUniform3f(uniform_camera_position, camera.x, camera.y, camera.z);
 	SDL_GetWindowSize(window, &view_width, &view_height);
 
 	glm::vec3 position(camera.x, camera.y, camera.z);
