@@ -9,7 +9,11 @@
 
 Renderer::Renderer() :
 	window(nullptr),
-	default_program(nullptr)
+	default_program(nullptr),
+	sun(glm::vec3{0.3, 1.0, 0.8},
+	    glm::vec3{0.2, 0.2, 0.2},
+	    glm::vec3{0.5, 0.5, 0.5},
+	    glm::vec3{0.5, 0.5, 0.5})
 {
 	LOG("Initializing renderer");
 
@@ -131,10 +135,7 @@ void Renderer::Render(World& world, Camera& camera)
 	this->default_program->Use();
 	default_program->SetVec3("camera_position", position);
 	// Lighting things.
-	default_program->SetVec3("directional_lights[0].direction", glm::vec3{0.3f, 1.0f, 0.3f});
-	default_program->SetVec3("directional_lights[0].ambient", glm::vec3{0.2f, 0.2f, 0.2f});
-	default_program->SetVec3("directional_lights[0].diffuse", glm::vec3{0.5f, 0.5f, 0.5f});
-	default_program->SetVec3("directional_lights[0].specular", glm::vec3{0.5f, 0.5f, 0.5f});
+	this->sun.AddToProgram(*(this->default_program), 0);
 
 	default_program->SetFloat("shininess", 32.0f);
 

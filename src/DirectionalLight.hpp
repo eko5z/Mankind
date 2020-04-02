@@ -1,5 +1,7 @@
 #pragma once
 
+#include <sstream>
+
 #include <glm/glm.hpp>
 
 #include "Program.hpp"
