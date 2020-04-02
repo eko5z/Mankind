@@ -16,14 +16,18 @@ private:
 	std::vector<glm::vec3> vertices;
 	int x, y, z;
 	std::shared_ptr<Texture> texture;
-	glm::vec2 bottom_left{0, 0},
-	    bottom_right{1, 0},
-	    top_left{0, 1},
-	    top_right{1, 1};
+	glm::vec2
+	bottom_left{0, 0},
+	            bottom_right{1, 0},
+	            top_left{0, 1},
+	            top_right{1, 1};
 	std::vector<glm::vec3> normals;
 	std::vector<glm::vec2> uvs;
 	std::vector<GLuint> indices;
-	void PushFace(int v0, int v1, int v2, int v3, glm::vec3 norm);
+	std::vector<GLuint> real_indices;
+	std::vector<glm::vec3> real_vertices;
+	int global_index;
+	void PushFace(glm::vec3 v0, glm::vec3 v1, glm::vec3 v2, glm::vec3 v3, glm::vec3 norm);
 public:
 	ChunkMesh(Chunk& chunk, int x, int y, int z, std::shared_ptr<Texture> texture);
 	void Render();

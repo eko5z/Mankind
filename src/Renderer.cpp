@@ -97,9 +97,9 @@ void Renderer::UpdateVectors(glm::vec3& angle, glm::vec3& forward,
 void Renderer::Render(World& world, Camera& camera)
 {
 	// Add a chunk.
-	for (int i(-0); i < 1; ++i) {
-		for (int j(-0); j < 1; ++j) {
-			for (int k(-0); k < 1; ++k) {
+	for (int i(-5); i < 1; ++i) {
+		for (int j(-5); j < 1; ++j) {
+			for (int k(-5); k < 1; ++k) {
 				if (chunk_meshes.find(CHUNK_ID(i, j, k)) == chunk_meshes.end()) {
 					this->AddChunk(i, j, k, world.GetChunk(i, j, k));
 				}

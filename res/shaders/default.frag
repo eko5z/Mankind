@@ -11,7 +11,7 @@ void main()
 {
 	vec3 light_color = vec3(1., 1., 1.);
 	vec3 norm = normalize(fragment_normal);
-	vec3 light_dir = normalize(vec3(-1, -1, 0));
+	vec3 light_dir = normalize(vec3(-1, -1, -1));
 	float diff = max(dot(norm, light_dir), 0.0);
-	out_fragment_color = diff * texture(texture_1, fragment_uv);
+	out_fragment_color = texture(texture_1, fragment_uv);
 } 
