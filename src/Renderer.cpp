@@ -129,7 +129,14 @@ void Renderer::Render(World& world, Camera& camera)
 	glEnable(GL_POLYGON_OFFSET_FILL);
 
 	this->default_program->Use();
-	glUniform3f(default_program->GetUniform("camera_position"), camera.x, camera.y, camera.z);
+	default_program->SetVec3("camera_position", position);
+	// Lighting things.
+	default_program->SetVec3("directional_lights[0].direction", glm::vec3{0.3f, 1.0f, 0.3f});
+	default_program->SetVec3("directional_lights[0].ambient", glm::vec3{0.2f, 0.2f, 0.2f});
+	default_program->SetVec3("directional_lights[0].diffuse", glm::vec3{0.5f, 0.5f, 0.5f});
+	default_program->SetVec3("directional_lights[0].specular", glm::vec3{0.5f, 0.5f, 0.5f});
+
+	default_program->SetFloat("shininess", 32.0f);
 
 	for(auto& kc : this->chunk_meshes) {
 		int x(kc.second.GetX() * CHUNK_SIZE),
