@@ -5,10 +5,10 @@
 void MainInputManager::OnKeyDown(char key)
 {
 	Camera& c = game.GetCamera();
-	glm::vec3 lookat, right;
-	lookat.x = sinf(c.yaw) * cosf(c.pitch);
-	lookat.y = sinf(c.pitch);
-	lookat.z = cosf(c.yaw) * cosf(c.pitch);
+	glm::vec3 forward, right;
+	forward.x = sinf(c.yaw); 
+	forward.y = 0;
+	forward.z = cosf(c.yaw);
 
 	right.x = -cosf(c.yaw);
 	right.y = 0;
@@ -16,14 +16,14 @@ void MainInputManager::OnKeyDown(char key)
 
 	switch (key) {
 	case 'w':
-		game.GetCamera().x += lookat.x * 2;
-		game.GetCamera().y += lookat.y * 2;
-		game.GetCamera().z += lookat.z * 2;
+		game.GetCamera().x += forward.x * 2;
+		game.GetCamera().y += forward.y * 2;
+		game.GetCamera().z += forward.z * 2;
 		break;
 	case 's':
-		game.GetCamera().x -= lookat.x * 2;
-		game.GetCamera().y -= lookat.y * 2;
-		game.GetCamera().z -= lookat.z * 2;
+		game.GetCamera().x -= forward.x * 2;
+		game.GetCamera().y -= forward.y * 2;
+		game.GetCamera().z -= forward.z * 2;
 		break;
 	case 'a':
 		game.GetCamera().x -= right.x * 2;
