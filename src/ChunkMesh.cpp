@@ -195,12 +195,12 @@ void ChunkMesh::Update()
 	this->mesh->Initialize();
 }
 
-void ChunkMesh::Render()
+void ChunkMesh::Render(Program& p)
 {
 	if (chunk.IsDirty()) {
 		Update();
 	}
 
-	this->mesh->Render();
+	this->mesh->Render(p);
 }
 

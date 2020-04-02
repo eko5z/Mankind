@@ -8,6 +8,7 @@
 
 #include "GraphX.hpp"
 #include "Texture.hpp"
+#include "Program.hpp"
 
 class Mesh
 {
@@ -21,7 +22,7 @@ public:
 	~Mesh();
 
 	void Initialize();
-	void Render();
+	void Render(Program& p);
 
 	std::vector<glm::vec3> vertices;
 	std::vector<glm::vec3> normals;

@@ -17,5 +17,10 @@ public:
 	{
 		glUseProgram(program_id);
 	}
+
+	GLuint GetUniformLocation(const char* name)
+	{
+		return glGetUniformLocation(program_id, name);
+	}
 };
 

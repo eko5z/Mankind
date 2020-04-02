@@ -130,7 +130,7 @@ void Renderer::Render(World& world, Camera& camera)
 		glm::mat4 mvp = projection * view * translate;
 		glUniformMatrix4fv(uniform_mvp, 1, GL_FALSE, glm::value_ptr(mvp));
 
-		kc.second.Render();
+		kc.second.Render(*default_program);
 	}
 
 	SDL_GL_SwapWindow(window);
