@@ -23,13 +23,37 @@ ChunkMesh::ChunkMesh(Chunk& chunk, int x, int y, int z, std::shared_ptr<Texture>
 	}
 }
 
+
+/*
+ Pushes indices as so:
+
+ v0 v1
+   /
+ v2 v3
+*/
+void ChunkMesh::PushFace(int v0, int v1, int v2, int v3)
+{
+	indices.push_back(v0);
+	indices.push_back(v1);
+	indices.push_back(v2);
+
+	indices.push_back(v3);
+	indices.push_back(v2);
+	indices.push_back(v1);
+
+	uvs.push_back(top_left);     // v0
+	uvs.push_back(top_right);    // v1
+	uvs.push_back(bottom_left);  // v2
+
+	uvs.push_back(bottom_right); // v3
+	uvs.push_back(bottom_left);  // v2
+	uvs.push_back(top_right);    // v1
+}
+
 void ChunkMesh::Update()
 {
 	chunk.SetClean();
 
-	std::vector<glm::vec3> normals;
-	std::vector<glm::vec2> uvs;
-	std::vector<GLuint> indices;
 
 	/*
 		Y  Z
@@ -62,153 +86,71 @@ void ChunkMesh::Update()
 						INDEX(i+1, j+1, k  ), // 6
 						INDEX(i+1, j+1, k+1), // 7
 					};
-					glm::vec2 bottom_left{0, 0};
-					glm::vec2 bottom_right{1, 0};
-					glm::vec2 top_left{0, 1};
-					glm::vec2 top_right{1, 1};
 
 					if ((i > 0 and chunk.GetCube(i-1, j, k).typeID == 0) or i == 0) {
-						/* -X or left face = 0,1,2 and 1,2,3*/
-						/* UV indices
+						/* -X or left face
 							3 2
-							 /
 							1 0
 						*/
-						indices.push_back(v_indices[0]);
-						indices.push_back(v_indices[1]);
-						indices.push_back(v_indices[2]);
-
-						indices.push_back(v_indices[1]);
-						indices.push_back(v_indices[2]);
-						indices.push_back(v_indices[3]);
-
-						uvs.push_back(bottom_right); // 0
-						uvs.push_back(bottom_left);  // 1
-						uvs.push_back(top_right);    // 2
-
-						uvs.push_back(bottom_left);  // 1
-						uvs.push_back(top_right);    // 2
-						uvs.push_back(top_left);     // 3
+						PushFace(v_indices[3],
+						         v_indices[2],
+						         v_indices[1],
+						         v_indices[0]);
 					}
 
 					if (true or (i < 15 and chunk.GetCube(i+1, j, k).typeID == 0) or i == 15) {
-						/* +X or right face = same as -X but +4 so 4,5,6 and 5,6,7*/
-						/* UV indices
+						/* +X or right face
 							6 7
-							 \
 							4 5
 						*/
-						indices.push_back(v_indices[4]);
-						indices.push_back(v_indices[5]);
-						indices.push_back(v_indices[6]);
-
-						indices.push_back(v_indices[5]);
-						indices.push_back(v_indices[6]);
-						indices.push_back(v_indices[7]);
-
-						uvs.push_back(bottom_left);  // 4
-						uvs.push_back(bottom_right); // 5
-						uvs.push_back(top_left);     // 6
-
-						uvs.push_back(bottom_right); // 5
-						uvs.push_back(top_left);     // 6
-						uvs.push_back(top_right);    // 7
+						PushFace(v_indices[6],
+						         v_indices[7],
+						         v_indices[4],
+						         v_indices[5]);
 					}
 
 					if ((k > 0 and chunk.GetCube(i, j, k-1).typeID == 0) or k == 0) {
-						/* -Z or front face = 0,2,6 and 0,4,6 */
-						/* UV indices
+						/* -Z or front face
 							2 6
-							 /
 							0 4
 						*/
-						indices.push_back(v_indices[0]);
-						indices.push_back(v_indices[2]);
-						indices.push_back(v_indices[6]);
-
-						indices.push_back(v_indices[0]);
-						indices.push_back(v_indices[4]);
-						indices.push_back(v_indices[6]);
-
-						uvs.push_back(bottom_left);  // 0
-						uvs.push_back(top_left);     // 2
-						uvs.push_back(top_right);    // 6
-
-						uvs.push_back(bottom_left);  // 0
-						uvs.push_back(bottom_right); // 4
-						uvs.push_back(top_right);    // 6
+						PushFace(v_indices[2],
+						         v_indices[6],
+						         v_indices[0],
+						         v_indices[4]);
 					}
 
 					if ((k < 15 and chunk.GetCube(i, j, k+1).typeID == 0) or k == 15) {
-						/* +Z or back face = same as -Y but +1 so 1,3,7 and 1,5,7 */
-						/*  UV indices
+						/* +Z or back face
 							7 3
-							 \
 							5 1
 						*/
-						indices.push_back(v_indices[1]);
-						indices.push_back(v_indices[3]);
-						indices.push_back(v_indices[7]);
-
-						indices.push_back(v_indices[1]);
-						indices.push_back(v_indices[5]);
-						indices.push_back(v_indices[7]);
-
-						uvs.push_back(bottom_left);  // 1
-						uvs.push_back(top_left);     // 3
-						uvs.push_back(top_right);    // 7
-
-						uvs.push_back(bottom_left);  // 1
-						uvs.push_back(bottom_right); // 5
-						uvs.push_back(top_right);    // 7
+						PushFace(v_indices[7],
+						         v_indices[3],
+						         v_indices[5],
+						         v_indices[1]);
 					}
 
 					if ((j > 0 and chunk.GetCube(i, j-1, k).typeID == 0) or j == 0) {
-						/* -Y or bottom face = 0,1,5 and 0,4,5 */
-						/* UV indices
+						/* -Y or bottom face
 							0 4
-							 \
 							1 5
 						*/
-						indices.push_back(v_indices[0]);
-						indices.push_back(v_indices[1]);
-						indices.push_back(v_indices[5]);
-
-						indices.push_back(v_indices[0]);
-						indices.push_back(v_indices[4]);
-						indices.push_back(v_indices[5]);
-
-						uvs.push_back(top_right);    // 0
-						uvs.push_back(bottom_right); // 1
-						uvs.push_back(bottom_left);  // 5
-
-						uvs.push_back(top_right);    // 0
-						uvs.push_back(top_left);     // 4
-						uvs.push_back(bottom_right); // 5
+						PushFace(v_indices[0],
+						         v_indices[4],
+						         v_indices[1],
+						         v_indices[5]);
 					}
 
 					if ((j < 15 and chunk.GetCube(i, j+1, k).typeID == 0) or j == 15) {
-						/* +Y or top face = same as -Z but +2 so 2,3,7 and 2,6,7 */
-						/* UV indices
+						/* +Y or top face
 							3 7
-							 /
 							2 6
 						*/
-						indices.push_back(v_indices[2]);
-						indices.push_back(v_indices[3]);
-						indices.push_back(v_indices[7]);
-
-						indices.push_back(v_indices[2]);
-						indices.push_back(v_indices[6]);
-						indices.push_back(v_indices[7]);
-
-						uvs.push_back(bottom_left);  // 2
-						uvs.push_back(top_left);     // 3
-						uvs.push_back(top_right);    // 7
-
-						uvs.push_back(bottom_left);  // 2
-						uvs.push_back(bottom_right); // 6
-						uvs.push_back(top_right);    // 7
+						PushFace(v_indices[3],
+						         v_indices[7],
+						         v_indices[2],
+						         v_indices[6]);
 					}
 				}
 			}
