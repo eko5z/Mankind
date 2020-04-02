@@ -77,12 +77,12 @@ void ChunkMesh::Update()
 						indices.push_back(v_indices[2]);
 						indices.push_back(v_indices[3]);
 
+						uvs.push_back(bottom_left);
 						uvs.push_back(bottom_right);
-						uvs.push_back(bottom_left);
-						uvs.push_back(top_right);
-						uvs.push_back(bottom_left);
-						uvs.push_back(top_right);
 						uvs.push_back(top_left);
+						uvs.push_back(bottom_right);
+						uvs.push_back(top_left);
+						uvs.push_back(top_right);
 					}
 
 					if (true or (i < 15 and chunk.GetCube(i+1, j, k).typeID == 0) or i == 15) {
@@ -94,12 +94,12 @@ void ChunkMesh::Update()
 						indices.push_back(v_indices[5]);
 						indices.push_back(v_indices[6]);
 						indices.push_back(v_indices[7]);
+						uvs.push_back(bottom_right);
 						uvs.push_back(bottom_left);
-						uvs.push_back(bottom_right);
-						uvs.push_back(top_left);
-						uvs.push_back(bottom_right);
-						uvs.push_back(top_left);
 						uvs.push_back(top_right);
+						uvs.push_back(bottom_left);
+						uvs.push_back(top_right);
+						uvs.push_back(top_left);
 					}
 
 					if ((k > 0 and chunk.GetCube(i, j, k-1).typeID == 0) or k == 0) {
@@ -169,23 +169,6 @@ void ChunkMesh::Update()
 						uvs.push_back(bottom_right);
 						uvs.push_back(top_right);
 					}
-
-					/* -X or left face = 0,1,2 and 1,2,3*/
-
-					/* +X or right face = same as -X but +4 so 4,5,6 and 5,6,7*/
-					// Generate UVs.
-
-					/* -Y or front face = 0,2,6 and 0,4,6 */
-					// Generate UVs.
-
-					/* +Y or back face = same as -Y but +1 so 1,3,7 and 1,5,7 */
-					// Generate UVs.
-
-					/* -Z or bottom face = 0,1,5 and 0,4,5 */
-					// Generate UVs.
-
-					/* +Z or top face = same as -Z but +2 so 2,3,7 and 2,6,7 */
-					// Generate UVs.
 				}
 			}
 		}
