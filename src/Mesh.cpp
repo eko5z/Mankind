@@ -18,12 +18,6 @@ void Mesh::Initialize()
 	glGenVertexArrays(1, &this->VAO);
 	glBindVertexArray(this->VAO);
 
-	std::cerr << "Vertices: " << vertices.size() << " ";
-	std::cerr << "Indices: " << indices.size() << " ";
-	std::cerr << "Normals: " << normals.size() << " ";
-	std::cerr << "UVs: " << uvs.size() << " ";
-	std::cerr << std::endl;
-
 	/// Generate the buffer objects.
 
 	// VBO

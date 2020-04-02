@@ -12,6 +12,7 @@ public:
 	void GenerateChunk(Chunk& c);
 private:
 	int seed;
+	int HeightAt(int x, int z);
 	std::vector<std::vector<int>> heightmap;
 };
 
