@@ -26,9 +26,14 @@ public:
 		return glGetUniformLocation(program_id, name);
 	}
 
-	void SetVec3(const char *name, glm::vec3 vector)
+	void SetFloat(const char *name, float value)
 	{
-		glUniform3f(this->GetUniform(name), vector.x, vector.y, vector.z);
+		glUniform1f(this->GetUniformLocation(name), value);
+	}
+
+	void SetVec3(const char *name, glm::vec3 value)
+	{
+		glUniform3f(this->GetUniformLocation(name), value.x, value.y, value.z);
 	}
 };
 

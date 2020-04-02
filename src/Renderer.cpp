@@ -9,7 +9,11 @@
 
 Renderer::Renderer() :
 	window(nullptr),
-	default_program(nullptr)
+	default_program(nullptr),
+	sun(glm::vec3{0.3, 1.0, 0.8},
+	    glm::vec3{0.2, 0.2, 0.2},
+	    glm::vec3{0.5, 0.5, 0.5},
+	    glm::vec3{0.5, 0.5, 0.5})
 {
 	LOG("Initializing renderer");
 
@@ -131,7 +135,10 @@ void Renderer::Render(World& world, Camera& camera)
 	glEnable(GL_POLYGON_OFFSET_FILL);
 
 	this->default_program->Use();
-	glUniform3f(default_program->GetUniform("camera_position"), camera.x, camera.y, camera.z);
+	default_program->SetVec3("camera_position", position);
+	// Lighting things.
+	this->sun.AddToProgram(*(this->default_program), 0);
+	default_program->SetFloat("shininess", 2.0f);
 
 	for(auto& kc : this->chunk_meshes) {
 		int x(kc.second.GetX() * CHUNK_SIZE),
@@ -151,7 +158,6 @@ void Renderer::ComputeFrustrum(glm::vec3 position, glm::vec3 lookAt)
 {
 	static glm::vec3 up(0., 1., 0.), right(1., 0., 0.);
 	lookAt = glm::normalize(lookAt);
-	glm::vec3 far_center = position + lookAt * far_distance;
 }
 
 void Renderer::AddChunk(World& world, int x, int y, int z, Chunk& c)

@@ -14,6 +14,7 @@
 #include "TextRenderer.hpp"
 
 #include "Mesh.hpp"
+#include "DirectionalLight.hpp"
 
 class Renderer
 {
@@ -43,5 +44,6 @@ private:
 		float height_far, width_far;
 	};
 	void ComputeFrustrum(glm::vec3 position, glm::vec3 lookAt);
+  DirectionalLight sun;
 };
 
