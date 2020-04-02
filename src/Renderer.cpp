@@ -9,7 +9,11 @@
 
 Renderer::Renderer() :
 	window(nullptr),
-	default_program(nullptr)
+	default_program(nullptr),
+	light_1(glm::vec3{0.3, 1.0, 0.8},
+		glm::vec3{0.1, 0.1, 0.1},
+		glm::vec3{0.3, 0.3, 0.3},
+		glm::vec3{0.5, 0.5, 0.5})
 {
 	LOG("Initializing renderer");
 
@@ -73,7 +77,7 @@ void Renderer::OpenWindow()
 
 	// Load the default program.
 	this->default_program = std::make_unique<Program>("res/shaders/default.vert", "res/shaders/default.frag");
-
+	
 	LOG("Window correctly opened");
 
 	glClearColor(0.6, 0.8, 1.0, 0.0);
@@ -130,6 +134,8 @@ void Renderer::Render(World& world, Camera& camera)
 	glEnable(GL_POLYGON_OFFSET_FILL);
 
 	this->default_program->Use();
+	light_1.AddToProgram(*(this->default_program), 0);
+	glUniform1f(default_program->GetUniform("shininess"), 32.0);
 
 	for(auto& kc : this->chunk_meshes) {
 		int x(kc.second.GetX() * CHUNK_SIZE),
