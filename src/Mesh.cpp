@@ -52,7 +52,7 @@ void Mesh::Initialize()
 
 	// UVBO
 	glEnableVertexAttribArray(2);
-	glBindBuffer(GL_ARRAY_BUFFER, this->VBO);
+	glBindBuffer(GL_ARRAY_BUFFER, this->UVBO);
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, (void*) 0);
 }
 
