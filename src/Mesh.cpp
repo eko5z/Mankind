@@ -60,14 +60,14 @@ void Mesh::Initialize()
 
 Mesh::~Mesh()
 {
-  // Delete the buffer objects.
-  glDeleteBuffers(1, &this->VBO);
-  glDeleteBuffers(1, &this->NBO);
-  glDeleteBuffers(1, &this->UVBO);
-  glDeleteBuffers(1, &this->EBO);
+	// Delete the buffer objects.
+	glDeleteBuffers(1, &this->VBO);
+	glDeleteBuffers(1, &this->NBO);
+	glDeleteBuffers(1, &this->UVBO);
+	glDeleteBuffers(1, &this->EBO);
 
-  // Delete the vertex array.
-  glDeleteVertexArrays(1, &this->VAO);
+	// Delete the vertex array.
+	glDeleteVertexArrays(1, &this->VAO);
 }
 
 void Mesh::Render()

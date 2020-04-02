@@ -69,7 +69,7 @@ void Renderer::OpenWindow()
 
 	LOG("All initialized. Loading resources");
 
-	texture = std::make_shared<Texture>("res/tex/stone.png");
+	texture = std::make_shared<Texture>("res/tex/tiles.png");
 	// Load the default program.
 	this->default_program = std::make_unique<Program>("res/shaders/default.vert", "res/shaders/default.frag");
 

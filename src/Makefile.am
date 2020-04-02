@@ -14,7 +14,8 @@ mankind_SOURCES=\
 	Font.cpp\
 	TextRenderer.cpp\
 	Mesh.cpp\
-	WorldGenerator.cpp
+	WorldGenerator.cpp\
+	TileManager.cpp
 
 AM_LDFLAGS=`pkg-config --libs sdl2`\
 		   `pkg-config --libs SDL2_image`\
