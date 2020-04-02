@@ -29,7 +29,6 @@ void WorldGenerator::GenerateChunk(Chunk& c)
 			if (in_chunk_height < 0) {
 				in_chunk_height = 0;
 			}
-			in_chunk_height = 5;
 			for (int k(0); k < in_chunk_height; ++k) {
 				c.SetCube(i, k, j, Cube{1});
 			}
