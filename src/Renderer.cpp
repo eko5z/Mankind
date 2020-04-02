@@ -103,9 +103,9 @@ void Renderer::Render(World& world, Camera& camera)
 	    ccz(camera.z / 16);
 
 	// Add a chunk.
-	for (int i(ccx-0); i < ccx+10; ++i) {
-		for (int j(ccy-0); j < ccz+10; ++j) {
-			for (int k(ccz-0); k < ccz+10; ++k) {
+	for (int i(ccx-5); i < ccx+5; ++i) {
+		for (int j(ccy-5); j < ccz+5; ++j) {
+			for (int k(ccz-5); k < ccz+5; ++k) {
 				if (chunk_meshes.find(CHUNK_ID(i, j, k)) == chunk_meshes.end()) {
 					this->AddChunk(world, i, j, k, world.GetChunk(i, j, k));
 				}
