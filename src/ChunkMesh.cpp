@@ -62,59 +62,71 @@ void ChunkMesh::Update()
 						INDEX(i+1, j+1, k+1), // 7
 					};
 
-					/* -X or left face = 0,1,2 and 1,2,3*/
-					indices.push_back(v_indices[0]);
-					indices.push_back(v_indices[1]);
-					indices.push_back(v_indices[2]);
+					if ((i > 0 and chunk.GetCube(i-1, j, k).typeID == 0) or i == 0) {
+						/* -X or left face = 0,1,2 and 1,2,3*/
+						indices.push_back(v_indices[0]);
+						indices.push_back(v_indices[1]);
+						indices.push_back(v_indices[2]);
 
-					indices.push_back(v_indices[1]);
-					indices.push_back(v_indices[2]);
-					indices.push_back(v_indices[3]);
+						indices.push_back(v_indices[1]);
+						indices.push_back(v_indices[2]);
+						indices.push_back(v_indices[3]);
+					}
 
-					/* +X or right face = same as -X but +4 so 4,5,6 and 5,6,7*/
-					indices.push_back(v_indices[4]);
-					indices.push_back(v_indices[5]);
-					indices.push_back(v_indices[6]);
+					if (true or (i < 15 and chunk.GetCube(i+1, j, k).typeID == 0) or i == 15) {
+						/* +X or right face = same as -X but +4 so 4,5,6 and 5,6,7*/
+						indices.push_back(v_indices[4]);
+						indices.push_back(v_indices[5]);
+						indices.push_back(v_indices[6]);
 
-					indices.push_back(v_indices[5]);
-					indices.push_back(v_indices[6]);
-					indices.push_back(v_indices[7]);
+						indices.push_back(v_indices[5]);
+						indices.push_back(v_indices[6]);
+						indices.push_back(v_indices[7]);
+					}
 
-					/* -Y or front face = 0,2,6 and 0,4,6 */
-					indices.push_back(v_indices[0]);
-					indices.push_back(v_indices[2]);
-					indices.push_back(v_indices[6]);
+					if ((k > 0 and chunk.GetCube(i, j, k-1).typeID == 0) or k == 0) {
+						/* -Z or front face = 0,2,6 and 0,4,6 */
+						indices.push_back(v_indices[0]);
+						indices.push_back(v_indices[2]);
+						indices.push_back(v_indices[6]);
 
-					indices.push_back(v_indices[0]);
-					indices.push_back(v_indices[4]);
-					indices.push_back(v_indices[6]);
+						indices.push_back(v_indices[0]);
+						indices.push_back(v_indices[4]);
+						indices.push_back(v_indices[6]);
+					}
 
-					/* +Y or back face = same as -Y but +1 so 1,3,7 and 1,5,7 */
-					indices.push_back(v_indices[1]);
-					indices.push_back(v_indices[3]);
-					indices.push_back(v_indices[7]);
+					if ((k < 15 and chunk.GetCube(i, j, k+1).typeID == 0) or k == 15) {
+						/* +Z or back face = same as -Y but +1 so 1,3,7 and 1,5,7 */
+						indices.push_back(v_indices[1]);
+						indices.push_back(v_indices[3]);
+						indices.push_back(v_indices[7]);
 
-					indices.push_back(v_indices[1]);
-					indices.push_back(v_indices[5]);
-					indices.push_back(v_indices[7]);
+						indices.push_back(v_indices[1]);
+						indices.push_back(v_indices[5]);
+						indices.push_back(v_indices[7]);
+					}
 
-					/* -Z or bottom face = 0,1,5 and 0,4,5 */
-					indices.push_back(v_indices[0]);
-					indices.push_back(v_indices[1]);
-					indices.push_back(v_indices[5]);
+					if ((j > 0 and chunk.GetCube(i, j-1, k).typeID == 0) or j == 0) {
+						/* -Y or bottom face = 0,1,5 and 0,4,5 */
+						indices.push_back(v_indices[0]);
+						indices.push_back(v_indices[1]);
+						indices.push_back(v_indices[5]);
 
-					indices.push_back(v_indices[0]);
-					indices.push_back(v_indices[4]);
-					indices.push_back(v_indices[5]);
+						indices.push_back(v_indices[0]);
+						indices.push_back(v_indices[4]);
+						indices.push_back(v_indices[5]);
+					}
 
-					/* +Z or bottom face = same as -Z but +2 so 2,3,7 and 2,6,7 */
-					indices.push_back(v_indices[2]);
-					indices.push_back(v_indices[3]);
-					indices.push_back(v_indices[7]);
+					if ((j < 15 and chunk.GetCube(i, j+1, k).typeID == 0) or j == 15) {
+						/* +Y or top face = same as -Z but +2 so 2,3,7 and 2,6,7 */
+						indices.push_back(v_indices[2]);
+						indices.push_back(v_indices[3]);
+						indices.push_back(v_indices[7]);
 
-					indices.push_back(v_indices[2]);
-					indices.push_back(v_indices[6]);
-					indices.push_back(v_indices[7]);
+						indices.push_back(v_indices[2]);
+						indices.push_back(v_indices[6]);
+						indices.push_back(v_indices[7]);
+					}
 
 				}
 			}

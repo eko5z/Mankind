@@ -13,7 +13,8 @@ mankind_SOURCES=\
 	World.cpp\
 	Font.cpp\
 	TextRenderer.cpp\
-	Mesh.cpp
+	Mesh.cpp\
+	WorldGenerator.cpp
 
 AM_LDFLAGS=`pkg-config --libs sdl2`\
 		   `pkg-config --libs SDL2_image`\
