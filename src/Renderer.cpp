@@ -136,8 +136,7 @@ void Renderer::Render(World& world, Camera& camera)
 	default_program->SetVec3("camera_position", position);
 	// Lighting things.
 	this->sun.AddToProgram(*(this->default_program), 0);
-
-	default_program->SetFloat("shininess", 32.0f);
+	default_program->SetFloat("shininess", 2.0f);
 
 	for(auto& kc : this->chunk_meshes) {
 		int x(kc.second.GetX() * CHUNK_SIZE),
