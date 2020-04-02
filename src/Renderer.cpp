@@ -96,10 +96,15 @@ void Renderer::UpdateVectors(glm::vec3& angle, glm::vec3& forward,
 
 void Renderer::Render(World& world, Camera& camera)
 {
+	// find out camera chunk
+	int ccx(camera.x / 16),
+		ccy(camera.y / 16),
+		ccz(camera.z / 16);
+
 	// Add a chunk.
-	for (int i(-5); i < 1; ++i) {
-		for (int j(-5); j < 1; ++j) {
-			for (int k(-5); k < 1; ++k) {
+	for (int i(ccx-2); i < ccx+2; ++i) {
+		for (int j(ccy-2); j < ccz+2; ++j) {
+			for (int k(ccz-2); k < ccz+2; ++k) {
 				if (chunk_meshes.find(CHUNK_ID(i, j, k)) == chunk_meshes.end()) {
 					this->AddChunk(i, j, k, world.GetChunk(i, j, k));
 				}
