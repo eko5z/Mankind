@@ -10,8 +10,8 @@ Texture::Texture(std::string path) :
 	glGenTextures(1, &this->texture_id);
 	glBindTexture(GL_TEXTURE_2D, this->texture_id);
 	glTexImage2D(
-	    GL_TEXTURE_2D, 0, GL_RGBA, res->w, res->h,
-	    0, GL_RGBA, GL_UNSIGNED_BYTE, res->pixels
+	    GL_TEXTURE_2D, 0, GL_RGB, res->w, res->h,
+	    0, GL_RGB, GL_UNSIGNED_BYTE, res->pixels
 	);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_LINEAR);
