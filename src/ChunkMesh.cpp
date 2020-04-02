@@ -16,7 +16,7 @@ ChunkMesh::ChunkMesh(Chunk& chunk, int x, int y, int z) :
 	for (int i(0); i <= CHUNK_SIZE; ++i) {
 		for (int j(0); j <= CHUNK_SIZE; ++j) {
 			for (int k(0); k <= CHUNK_SIZE; ++k) {
-				vertices.push_back(glm::vec3(i, j, k));
+				this->vertices.push_back(glm::vec3(i, j, k));
 			}
 		}
 	}
@@ -62,6 +62,11 @@ void ChunkMesh::Update()
 						INDEX(i+1, j+1, k+1), // 7
 					};
 
+					glm::vec2 bottom_left{0, 0};
+					glm::vec2 bottom_right{1, 0};
+					glm::vec2 top_left{0, 1};
+					glm::vec2 top_right{1, 1};
+
 					/* -X or left face = 0,1,2 and 1,2,3*/
 					indices.push_back(v_indices[0]);
 					indices.push_back(v_indices[1]);
@@ -70,6 +75,14 @@ void ChunkMesh::Update()
 					indices.push_back(v_indices[1]);
 					indices.push_back(v_indices[2]);
 					indices.push_back(v_indices[3]);
+
+					// Generate UVs.
+					uvs.push_back(bottom_right);
+					uvs.push_back(bottom_left);
+					uvs.push_back(top_right);
+					uvs.push_back(bottom_left);
+					uvs.push_back(top_right);
+					uvs.push_back(top_left);
 
 					/* +X or right face = same as -X but +4 so 4,5,6 and 5,6,7*/
 					indices.push_back(v_indices[4]);
@@ -80,6 +93,14 @@ void ChunkMesh::Update()
 					indices.push_back(v_indices[6]);
 					indices.push_back(v_indices[7]);
 
+					// Generate UVs.
+					uvs.push_back(bottom_left);
+					uvs.push_back(bottom_right);
+					uvs.push_back(top_left);
+					uvs.push_back(bottom_right);
+					uvs.push_back(top_left);
+					uvs.push_back(top_right);
+
 					/* -Y or front face = 0,2,6 and 0,4,6 */
 					indices.push_back(v_indices[0]);
 					indices.push_back(v_indices[2]);
@@ -88,6 +109,14 @@ void ChunkMesh::Update()
 					indices.push_back(v_indices[0]);
 					indices.push_back(v_indices[4]);
 					indices.push_back(v_indices[6]);
+
+					// Generate UVs.
+					uvs.push_back(bottom_left);
+					uvs.push_back(top_left);
+					uvs.push_back(top_right);
+					uvs.push_back(bottom_left);
+					uvs.push_back(bottom_right);
+					uvs.push_back(top_right);
 
 					/* +Y or back face = same as -Y but +1 so 1,3,7 and 1,5,7 */
 					indices.push_back(v_indices[1]);
@@ -98,6 +127,14 @@ void ChunkMesh::Update()
 					indices.push_back(v_indices[5]);
 					indices.push_back(v_indices[7]);
 
+					// Generate UVs.
+					uvs.push_back(bottom_right);
+					uvs.push_back(top_right);
+					uvs.push_back(top_left);
+					uvs.push_back(bottom_right);
+					uvs.push_back(bottom_left);
+					uvs.push_back(top_left);
+
 					/* -Z or bottom face = 0,1,5 and 0,4,5 */
 					indices.push_back(v_indices[0]);
 					indices.push_back(v_indices[1]);
@@ -107,7 +144,15 @@ void ChunkMesh::Update()
 					indices.push_back(v_indices[4]);
 					indices.push_back(v_indices[5]);
 
-					/* +Z or bottom face = same as -Z but +2 so 2,3,7 and 2,6,7 */
+					// Generate UVs.
+					uvs.push_back(top_left);
+					uvs.push_back(bottom_left);
+					uvs.push_back(bottom_right);
+					uvs.push_back(top_left);
+					uvs.push_back(top_right);
+					uvs.push_back(bottom_right);
+
+					/* +Z or top face = same as -Z but +2 so 2,3,7 and 2,6,7 */
 					indices.push_back(v_indices[2]);
 					indices.push_back(v_indices[3]);
 					indices.push_back(v_indices[7]);
@@ -116,6 +161,13 @@ void ChunkMesh::Update()
 					indices.push_back(v_indices[6]);
 					indices.push_back(v_indices[7]);
 
+					// Generate UVs.
+					uvs.push_back(bottom_left);
+					uvs.push_back(top_left);
+					uvs.push_back(top_right);
+					uvs.push_back(bottom_left);
+					uvs.push_back(bottom_right);
+					uvs.push_back(top_right);
 				}
 			}
 		}
