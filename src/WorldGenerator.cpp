@@ -71,7 +71,9 @@ double WorldGenerator::noise(double x, double y, double z)
 
 int WorldGenerator::HeightAt(int x, int z)
 {
-	return 64*noise((x-256)/516., 1., (z-256)/516.);
+	double u = (x % 128) / 128.;
+	double v = (z % 128) / 128.;
+	return 256*noise(u, 0.5, v) - 128;
 }
 
 void WorldGenerator::GenerateChunk(Chunk& c)
