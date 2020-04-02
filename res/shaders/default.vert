@@ -5,13 +5,19 @@ in vec3 normal;
 in vec2 uv;
 
 uniform mat4 MVP;
+uniform vec3 camera_position;
 
-out vec2 fragment_uv;
+out vec3 fragment_camera_position;
+out vec3 fragment_position;
 out vec3 fragment_normal;
+out vec2 fragment_uv;
 
 void main()
 {
     gl_Position = MVP * vec4(position, 1.0);
+
+    fragment_camera_position = camera_position;
+    fragment_position = position;
+    fragment_normal = normal;      
     fragment_uv = uv;
-	fragment_normal = normal;
 }

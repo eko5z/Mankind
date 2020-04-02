@@ -16,7 +16,7 @@ private:
 	void Update();
 	std::vector<glm::vec3> vertices;
 	int x, y, z;
-	std::shared_ptr<Texture> texture;
+	std::shared_ptr<Texture> diffuse, specular;
 	std::vector<glm::vec3> normals;
 	std::vector<glm::vec2> uvs;
 	std::vector<GLuint> indices;
@@ -27,7 +27,8 @@ private:
 	/* v MUST MOVE ASAP */
 	TileManager tile_manager;
 public:
-	ChunkMesh(Chunk& chunk, int x, int y, int z, std::shared_ptr<Texture> texture);
+	ChunkMesh(Chunk& chunk, int x, int y, int z, std::shared_ptr<Texture> diffuse,
+	          std::shared_ptr<Texture> specular);
 	void Render();
 
 	int GetX()

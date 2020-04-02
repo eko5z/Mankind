@@ -1,6 +1,5 @@
 #include "Renderer.hpp"
 
-#include <stdexcept>
 #include <config.h>
 
 #include <glm/gtc/matrix_transform.hpp>
@@ -69,7 +68,9 @@ void Renderer::OpenWindow()
 
 	LOG("All initialized. Loading resources");
 
-	texture = std::make_shared<Texture>("res/tex/tiles.png");
+	diffuse = std::make_shared<Texture>("res/tex/tiles_diffuse.png");
+	specular = std::make_shared<Texture>("res/tex/tiles_specular.png");
+
 	// Load the default program.
 	this->default_program = std::make_unique<Program>("res/shaders/default.vert", "res/shaders/default.frag");
 
@@ -113,6 +114,8 @@ void Renderer::Render(World& world, Camera& camera)
 	}
 
 	GLint uniform_mvp = default_program->GetUniform("MVP");
+	GLint uniform_camera_position = default_program->GetUniform("camera_position");
+	glUniform3f(uniform_camera_position, camera.x, camera.y, camera.z);
 	SDL_GetWindowSize(window, &view_width, &view_height);
 
 	glm::vec3 position(camera.x, camera.y, camera.z);
@@ -145,5 +148,5 @@ void Renderer::Render(World& world, Camera& camera)
 void Renderer::AddChunk(int x, int y, int z, Chunk& c)
 {
 	std::cerr << "Adding chunk " << CHUNK_ID(x, y, z) << "("<<x<<", "<<y<<", "<<z<<")" << std::endl;
-	this->chunk_meshes.insert(std::make_pair(CHUNK_ID(x, y, z), ChunkMesh(c, x, y, z, texture)));
+	this->chunk_meshes.insert(std::make_pair(CHUNK_ID(x, y, z), ChunkMesh(c, x, y, z, diffuse, specular)));
 }
