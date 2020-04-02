@@ -74,7 +74,10 @@ void ChunkMesh::PushFace(glm::vec3 v0, glm::vec3 v1, glm::vec3 v2, glm::vec3 v3,
 void ChunkMesh::Update()
 {
 	chunk.SetClean();
-
+	if (chunk.IsEmpty() ) {
+		LOG("Chunk is empty");
+		return;
+	}
 
 	/*
 		Y  Z
@@ -201,8 +204,10 @@ void ChunkMesh::Update()
 	}
 
 
-	this->mesh = std::make_unique<Mesh>(real_vertices, normals, uvs, indices, diffuse, specular);
-	this->mesh->Initialize();
+	if (indices.size() > 0) {
+		this->mesh = std::make_unique<Mesh>(real_vertices, normals, uvs, indices, diffuse, specular);
+		this->mesh->Initialize();
+	}
 }
 
 void ChunkMesh::Render()
@@ -211,6 +216,8 @@ void ChunkMesh::Render()
 		Update();
 	}
 
-	this->mesh->Render();
+	if (indices.size() > 0) {
+		this->mesh->Render();
+	}
 }
 
