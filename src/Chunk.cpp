@@ -4,7 +4,8 @@
 
 #include "Log.hpp"
 
-Chunk::Chunk()
+Chunk::Chunk() :
+	empty(true)
 {
 	LOG("Created new chunk");
 }

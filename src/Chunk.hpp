@@ -17,6 +17,9 @@ public:
 	{
 		cubes[CHUNK_INCOORD(x, y, z)] = c;
 		dirty = true;
+		if (c.typeID != 0) {
+			empty = false;
+		}
 	}
 	void SetClean()
 	{
@@ -39,9 +42,12 @@ public:
 	{
 		return z;
 	}
+	bool IsEmpty() { return empty; }
+	void SetEmpty(bool s) { empty = s; }
 private:
 	Cube cubes[CHUNK_SIZE * CHUNK_SIZE * CHUNK_SIZE];
 	bool dirty;
+	bool empty;
 	int x, y, z;
 };
 
