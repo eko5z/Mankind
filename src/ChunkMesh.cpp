@@ -6,10 +6,11 @@
 
 #define INDEX(x, y, z) ((z) * (CHUNK_SIZE+1) * (CHUNK_SIZE+1) + (y) * (CHUNK_SIZE+1) + (x))
 
-ChunkMesh::ChunkMesh(Chunk& chunk, int x, int y, int z) :
+ChunkMesh::ChunkMesh(Chunk& chunk, int x, int y, int z, std::shared_ptr<Texture> tex) :
 	chunk(chunk),
 	mesh(nullptr),
-	x(x), y(y), z(z)
+	x(x), y(y), z(z),
+	texture(std::move(tex))
 {
 	/* We only need to generate vertices once*/
 	/* They could be static, too */
@@ -191,7 +192,7 @@ void ChunkMesh::Update()
 	}
 
 
-	this->mesh = std::make_unique<Mesh>(vertices, normals, uvs, indices, "res/tex/stone.png");
+	this->mesh = std::make_unique<Mesh>(vertices, normals, uvs, indices, texture);
 	this->mesh->Initialize();
 }
 

@@ -69,6 +69,7 @@ void Renderer::OpenWindow()
 
 	LOG("All initialized. Loading resources");
 
+	texture = std::make_shared<Texture>("res/tex/stone.png");
 	// Load the default program.
 	this->default_program = std::make_unique<Program>("res/shaders/default.vert", "res/shaders/default.frag");
 
@@ -96,9 +97,9 @@ void Renderer::UpdateVectors(glm::vec3& angle, glm::vec3& forward,
 void Renderer::Render(World& world, Camera& camera)
 {
 	// Add a chunk.
-	for (int i(-1); i < 1; ++i) {
-		for (int j(-1); j < 1; ++j) {
-			for (int k(-1); k < 1; ++k) {
+	for (int i(-0); i < 1; ++i) {
+		for (int j(-0); j < 1; ++j) {
+			for (int k(-0); k < 1; ++k) {
 				if (chunk_meshes.find(CHUNK_ID(i, j, k)) == chunk_meshes.end()) {
 					this->AddChunk(i, j, k, world.GetChunk(i, j, k));
 				}
@@ -139,5 +140,5 @@ void Renderer::Render(World& world, Camera& camera)
 void Renderer::AddChunk(int x, int y, int z, Chunk& c)
 {
 	std::cerr << "Adding chunk " << CHUNK_ID(x, y, z) << "("<<x<<", "<<y<<", "<<z<<")" << std::endl;
-	this->chunk_meshes.insert(std::make_pair(CHUNK_ID(x, y, z), ChunkMesh(c, x, y, z)));
+	this->chunk_meshes.insert(std::make_pair(CHUNK_ID(x, y, z), ChunkMesh(c, x, y, z, texture)));
 }

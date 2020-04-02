@@ -1,5 +1,7 @@
 #include "Texture.hpp"
 
+#include <iostream>
+
 Texture::Texture(std::string path) :
 	res(IMG_Load(path.c_str()))
 {
@@ -7,6 +9,7 @@ Texture::Texture(std::string path) :
 		throw std::runtime_error(SDL_GetError());
 	}
 
+	std::cerr << "Bytes per pixel of surface : " << res->format->BytesPerPixel << std::endl;
 	glGenTextures(1, &this->texture_id);
 	glBindTexture(GL_TEXTURE_2D, this->texture_id);
 	glTexImage2D(

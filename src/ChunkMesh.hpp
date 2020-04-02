@@ -15,8 +15,9 @@ private:
 	void Update();
 	std::vector<glm::vec3> vertices;
 	int x, y, z;
+	std::shared_ptr<Texture> texture;
 public:
-	ChunkMesh(Chunk& chunk, int x, int y, int z);
+	ChunkMesh(Chunk& chunk, int x, int y, int z, std::shared_ptr<Texture> texture);
 	void Render();
 
 	int GetX()
