@@ -17,7 +17,7 @@ private:
 	int x, y, z;
 public:
 	ChunkMesh(Chunk& chunk, int x, int y, int z);
-	void Render(Program& p);
+	void Render();
 
 	int GetX()
 	{

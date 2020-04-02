@@ -18,6 +18,8 @@ Program::Program(std::string vshader_path, std::string fshader_path) :
 	glBindAttribLocation(program_id, 1, "normal");
 	glBindAttribLocation(program_id, 2, "uv");
 
+	glUniform1i(GetUniformLocation("texture_1"), 0);
+
 	LOG("Linking program");
 
 	glLinkProgram(program_id);

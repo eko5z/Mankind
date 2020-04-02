@@ -61,10 +61,9 @@ Mesh::~Mesh()
 	// ok do nutan 4 now
 }
 
-void Mesh::Render(Program& p)
+void Mesh::Render()
 {
 	glActiveTexture(GL_TEXTURE0);
-	glUniform1i(p.GetUniformLocation("texture_1"), 0);
 	glBindTexture(GL_TEXTURE_2D, this->texture->texture_id);
 
 	glBindVertexArray(this->VAO);
