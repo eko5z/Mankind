@@ -98,7 +98,7 @@ void ChunkMesh::Update()
 						         v_indices[0]);
 					}
 
-					if (true or (i < 15 and chunk.GetCube(i+1, j, k).typeID == 0) or i == 15) {
+					if ((i < 15 and chunk.GetCube(i+1, j, k).typeID == 0) or i == 15) {
 						/* +X or right face
 							6 7
 							4 5
