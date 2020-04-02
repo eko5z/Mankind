@@ -6,11 +6,12 @@
 
 #define INDEX(x, y, z) ((z) * (CHUNK_SIZE+1) * (CHUNK_SIZE+1) + (y) * (CHUNK_SIZE+1) + (x))
 
-ChunkMesh::ChunkMesh(Chunk& chunk, int x, int y, int z, std::shared_ptr<Texture> tex) :
+ChunkMesh::ChunkMesh(Chunk& chunk, int x, int y, int z, std::shared_ptr<Texture> diffuse, std::shared_ptr<Texture> specular) :
 	chunk(chunk),
 	mesh(nullptr),
 	x(x), y(y), z(z),
-	texture(std::move(tex))
+	diffuse(std::move(diffuse)),
+	specular(std::move(specular))
 {
 	/* We only need to generate vertices once*/
 	/* They could be static, too */
@@ -184,7 +185,7 @@ void ChunkMesh::Update()
 	}
 
 
-	this->mesh = std::make_unique<Mesh>(real_vertices, normals, uvs, indices, texture);
+	this->mesh = std::make_unique<Mesh>(real_vertices, normals, uvs, indices, diffuse, specular);
 	this->mesh->Initialize();
 }
 

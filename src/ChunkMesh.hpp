@@ -15,7 +15,7 @@ private:
 	void Update();
 	std::vector<glm::vec3> vertices;
 	int x, y, z;
-	std::shared_ptr<Texture> texture;
+  std::shared_ptr<Texture> diffuse, specular;
 	glm::vec2
 	bottom_left{0, 0},
 	            bottom_right{1, 0},
@@ -29,7 +29,8 @@ private:
 	int global_index;
 	void PushFace(glm::vec3 v0, glm::vec3 v1, glm::vec3 v2, glm::vec3 v3, glm::vec3 norm);
 public:
-	ChunkMesh(Chunk& chunk, int x, int y, int z, std::shared_ptr<Texture> texture);
+  ChunkMesh(Chunk& chunk, int x, int y, int z, std::shared_ptr<Texture> diffuse,
+	    std::shared_ptr<Texture> specular);
 	void Render();
 
 	int GetX()

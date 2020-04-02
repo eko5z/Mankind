@@ -69,7 +69,9 @@ void Renderer::OpenWindow()
 
 	LOG("All initialized. Loading resources");
 
-	texture = std::make_shared<Texture>("res/tex/stone.png");
+	diffuse = std::make_shared<Texture>("res/tex/stone_diffuse.png");
+	specular = std::make_shared<Texture>("res/tex/stone_specular.png");
+	
 	// Load the default program.
 	this->default_program = std::make_unique<Program>("res/shaders/default.vert", "res/shaders/default.frag");
 
@@ -145,5 +147,5 @@ void Renderer::Render(World& world, Camera& camera)
 void Renderer::AddChunk(int x, int y, int z, Chunk& c)
 {
 	std::cerr << "Adding chunk " << CHUNK_ID(x, y, z) << "("<<x<<", "<<y<<", "<<z<<")" << std::endl;
-	this->chunk_meshes.insert(std::make_pair(CHUNK_ID(x, y, z), ChunkMesh(c, x, y, z, texture)));
+	this->chunk_meshes.insert(std::make_pair(CHUNK_ID(x, y, z), ChunkMesh(c, x, y, z, diffuse, specular)));
 }

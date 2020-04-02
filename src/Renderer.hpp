@@ -32,7 +32,7 @@ private:
 	                   glm::vec3& right, glm::vec3& lookat,
 	                   glm::vec3& up);
 	std::unique_ptr<Program> default_program;
-	std::shared_ptr<Texture> texture;
+  std::shared_ptr<Texture> diffuse, specular;
 	std::map<int, ChunkMesh> chunk_meshes;
 };
 
