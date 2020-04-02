@@ -98,8 +98,8 @@ void Renderer::Render(World& world, Camera& camera)
 {
 	// find out camera chunk
 	int ccx(camera.x / 16),
-		ccy(camera.y / 16),
-		ccz(camera.z / 16);
+	    ccy(camera.y / 16),
+	    ccz(camera.z / 16);
 
 	// Add a chunk.
 	for (int i(ccx-3); i < ccx+3; ++i) {

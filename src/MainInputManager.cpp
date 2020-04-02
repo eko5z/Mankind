@@ -6,7 +6,7 @@ void MainInputManager::OnKeyDown(char key)
 {
 	Camera& c = game.GetCamera();
 	glm::vec3 forward, right;
-	forward.x = sinf(c.yaw); 
+	forward.x = sinf(c.yaw);
 	forward.y = 0;
 	forward.z = cosf(c.yaw);
 
