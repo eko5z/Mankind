@@ -12,20 +12,28 @@ uniform sampler2D specular_texture;
 
 out vec4 out_fragment_color;
 
+struct DirectionalLight
+{
+	vec3 direction;
+	vec3 diffuse_color, ambient_color;
+};
+
+uniform DirectionalLight directional_lights[N_DIRECTIONAL_LIGHTS];
+
 void main()
 {
 	vec3 normal = normalize(fragment_normal);
-	vec3 light_direction = vec3(0.3, 1.0, 0.3);
+	vec3 result;
 
-	vec3 ambient_color = vec3(0.5, 0.5, 0.5);
-	vec3 diffuse_color = vec3(1, 1, 1);
+	for (int i = 0; i < N_DIRECTIONAL_LIGHTS; ++i)
+	{
+		vec3 ambient = directional_lights[i].ambient_color * vec3(texture(diffuse_texture, fragment_uv));
 
-	vec3 ambient = ambient_color * vec3(texture(diffuse_texture, fragment_uv));
+		float diff = max(dot(normal, directional_lights[i].direction), 0.0);
+		vec3 diffuse = diff * directional_lights[i].diffuse_color * vec3(texture(diffuse_texture, fragment_uv));
 
-	float diff = max(dot(normal, light_direction), 0.0);
-	vec3 diffuse = diff * diffuse_color * vec3(texture(diffuse_texture, fragment_uv));
-
-	vec3 result = ambient + diffuse;
+		result += ambient + diffuse;
+	}
 
 	out_fragment_color = vec4(result, 0.0);
 } 
