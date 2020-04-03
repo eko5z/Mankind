@@ -57,8 +57,8 @@ void MainInputManager::OnMouseButtonUp(MouseButton button)
 	Camera& c = game.GetCamera();
 	glm::vec3 position(c.x, c.y, c.z);
 	glm::vec3 lookat( sinf(c.yaw) * cosf(c.pitch),
-					  sinf(c.pitch),
-					  cosf(c.yaw) * cosf(c.pitch));
+	                  sinf(c.pitch),
+	                  cosf(c.yaw) * cosf(c.pitch));
 	CalculatePointing(game.GetWorld(), position, lookat, 5.0);
 
 	/* TODO: use OnPunch(x,y,z,normal) and OnUse(x,y,z,normal) instead */
