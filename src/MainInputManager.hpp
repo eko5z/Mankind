@@ -1,9 +1,12 @@
 #pragma once
 
+#include <glm/glm.hpp>
+
 #include "InputManager.hpp"
 
 class MainInputManager : public InputManager
 {
+public:
 	using InputManager::InputManager;
 	void OnKeyDown(char key);
 	void OnKeyUp(char key);
@@ -15,5 +18,9 @@ class MainInputManager : public InputManager
 	{
 		return true;
 	}
+private:
+	void CalculatePointing(World& world, glm::vec3 position, glm::vec3 lookAt, float maxDistance);
+	bool is_pointing;
+	glm::vec3 pointed_cube;
 };
 

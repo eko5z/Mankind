@@ -44,9 +44,6 @@ private:
 		float height_far, width_far;
 	};
 	void ComputeFrustrum(glm::vec3 position, glm::vec3 lookAt);
-	bool is_pointing;
-	glm::vec3 pointed_cube;
-	void CalculatePointing(World& world, glm::vec3 position, glm::vec3 lookAt, float maxDistance);
 	DirectionalLight sun;
 };
 
