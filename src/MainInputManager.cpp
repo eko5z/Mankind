@@ -168,7 +168,7 @@ void MainInputManager::CalculatePointing(World& world, glm::vec3 position, glm::
 				current_voxel[2] += stepZ;
 				tMaxZ += tDeltaZ;
 
-				if (position.z < current_voxel.x) {
+				if (position.z < current_voxel.z) {
 					pointed_normal = glm::vec3(0, 0, -1);
 				} else {
 					pointed_normal = glm::vec3(0, 0, 1);
@@ -190,7 +190,7 @@ void MainInputManager::CalculatePointing(World& world, glm::vec3 position, glm::
 				current_voxel[2] += stepZ;
 				tMaxZ += tDeltaZ;
 
-				if (position.z < current_voxel.x) {
+				if (position.z < current_voxel.z) {
 					pointed_normal = glm::vec3(0, 0, -1);
 				} else {
 					pointed_normal = glm::vec3(0, 0, 1);
