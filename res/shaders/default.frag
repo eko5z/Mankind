@@ -18,18 +18,30 @@ struct DirectionalLight
 	vec3 diffuse_color, ambient_color;
 };
 
-uniform DirectionalLight directional_light;
+uniform DirectionalLight directional_lights[N_DIRECTIONAL_LIGHTS];
 
 void main()
 {
 	vec3 normal = normalize(fragment_normal);
+	vec3 result;
 
-	vec3 ambient = directional_light.ambient_color * vec3(texture(diffuse_texture, fragment_uv));
+	for (int i = 0; i < N_DIRECTIONAL_LIGHTS; ++i)
+	{
+		vec3 ambient = directional_lights[i].ambient_color * vec3(texture(diffuse_texture, fragment_uv));
 
-	float diff = max(dot(normal, directional_light.direction), 0.0);
-	vec3 diffuse = diff * directional_light.diffuse_color * vec3(texture(diffuse_texture, fragment_uv));
+		float diff = max(dot(normal, directional_lights[i].direction), 0.0);
+		vec3 diffuse = diff * directional_lights[i].diffuse_color * vec3(texture(diffuse_texture, fragment_uv));
 
-	vec3 result = ambient + diffuse;
+		// Maybe the fix for Adrien?
+		if(i == 0)
+		{
+			result = ambient + diffuse;
+		}
+		else
+		{
+			result += ambient + diffuse;
+		}
+	}
 
 	out_fragment_color = vec4(result, 0.0);
 } 
