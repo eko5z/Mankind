@@ -60,8 +60,17 @@ void MainInputManager::OnMouseButtonUp(MouseButton button)
 					  sinf(c.pitch),
 					  cosf(c.yaw) * cosf(c.pitch));
 	CalculatePointing(game.GetWorld(), position, lookat, 5.0);
-	if (is_pointing) {
-		game.GetWorld().SetCube(pointed_cube.x, pointed_cube.y, pointed_cube.z, Cube{0});
+
+	/* TODO: use OnPunch(x,y,z,normal) and OnUse(x,y,z,normal) instead */
+	if (button == MouseButton::LEFT) {
+		if (is_pointing) {
+			game.GetWorld().SetCube(pointed_cube.x, pointed_cube.y, pointed_cube.z, Cube{0});
+		}
+	} else if (button == MouseButton::RIGHT) {
+		if (is_pointing) {
+			glm::vec3 to_build(pointed_cube + pointed_normal);
+			game.GetWorld().SetCube(to_build.x, to_build.y, to_build.z, Cube{1});
+		}
 	}
 }
 
@@ -145,19 +154,47 @@ void MainInputManager::CalculatePointing(World& world, glm::vec3 position, glm::
 	while(last_voxel != current_voxel) {
 		if (tMaxX < tMaxY) {
 			if (tMaxX < tMaxZ) {
+				// X face
 				current_voxel[0] += stepX;
 				tMaxX += tDeltaX;
+
+				if (position.x < current_voxel.x) {
+					pointed_normal = glm::vec3(-1, 0, 0);
+				} else {
+					pointed_normal = glm::vec3(1, 0, 0);
+				}
 			} else {
+				// Z face
 				current_voxel[2] += stepZ;
 				tMaxZ += tDeltaZ;
+
+				if (position.z < current_voxel.x) {
+					pointed_normal = glm::vec3(0, 0, -1);
+				} else {
+					pointed_normal = glm::vec3(0, 0, 1);
+				}
 			}
 		} else {
 			if (tMaxY < tMaxZ) {
+				// Y face
 				current_voxel[1] += stepY;
 				tMaxY += tDeltaY;
+
+				if (position.y < current_voxel.y) {
+					pointed_normal = glm::vec3(0, -1, 0);
+				} else {
+					pointed_normal = glm::vec3(0, 1, 0);
+				}
 			} else {
+				// Z face
 				current_voxel[2] += stepZ;
 				tMaxZ += tDeltaZ;
+
+				if (position.z < current_voxel.x) {
+					pointed_normal = glm::vec3(0, 0, -1);
+				} else {
+					pointed_normal = glm::vec3(0, 0, 1);
+				}
 			}
 		}
 		if (world.GetCube(current_voxel.x, current_voxel.y, current_voxel.z).typeID != 0) {

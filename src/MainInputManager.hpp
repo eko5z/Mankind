@@ -22,5 +22,6 @@ private:
 	void CalculatePointing(World& world, glm::vec3 position, glm::vec3 lookAt, float maxDistance);
 	bool is_pointing;
 	glm::vec3 pointed_cube;
+	glm::vec3 pointed_normal;
 };
 
