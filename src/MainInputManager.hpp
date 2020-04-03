@@ -7,8 +7,8 @@
 class MainInputManager : public InputManager
 {
 public:
-	using InputManager::InputManager;
-	void OnKeyDown(char key);
+	MainInputManager(Game& g);
+	void OnKeyDown(char key, bool repeat);
 	void OnKeyUp(char key);
 	void OnMouseButtonDown(MouseButton button);
 	void OnMouseButtonUp(MouseButton button);
@@ -21,7 +21,10 @@ public:
 private:
 	void CalculatePointing(World& world, glm::vec3 position, glm::vec3 lookAt, float maxDistance);
 	bool is_pointing;
+	bool going_forward, going_backward, going_leftward, going_rightward;
+	bool jumping;
 	glm::vec3 pointed_cube;
 	glm::vec3 pointed_normal;
+	void ChangePlayerVelocity(glm::vec3 player_velocity, glm::vec3 forward, glm::vec3 right);
 };
 

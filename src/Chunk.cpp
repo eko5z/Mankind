@@ -7,7 +7,6 @@
 Chunk::Chunk() :
 	empty(true)
 {
-	LOG("Created new chunk");
 }
 
 void Chunk::Generate(int x, int y, int z)

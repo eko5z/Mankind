@@ -98,9 +98,9 @@ void Renderer::UpdateVectors(glm::vec3& angle, glm::vec3& forward,
 void Renderer::Render(World& world, Camera& camera)
 {
 	// find out camera chunk
-	int ccx(camera.x / 16),
-	    ccy(camera.y / 16),
-	    ccz(camera.z / 16);
+	int ccx(camera.x / CHUNK_SIZE),
+	    ccy(camera.y / CHUNK_SIZE),
+	    ccz(camera.z / CHUNK_SIZE);
 
 	// Add a chunk.
 	for (int i(ccx-5); i < ccx+5; ++i) {
@@ -159,6 +159,5 @@ void Renderer::ComputeFrustrum(glm::vec3 position, glm::vec3 lookAt)
 
 void Renderer::AddChunk(World& world, int x, int y, int z, Chunk& c)
 {
-	std::cerr << "Adding chunk " << CHUNK_ID(x, y, z) << "("<<x<<", "<<y<<", "<<z<<")" << std::endl;
 	this->chunk_meshes.insert(std::make_pair(CHUNK_ID(x, y, z), ChunkMesh(world, c, x, y, z, diffuse, specular)));
 }

@@ -2,50 +2,116 @@
 #include "Log.hpp"
 #include <glm/glm.hpp>
 
-void MainInputManager::OnKeyDown(char key)
+MainInputManager::MainInputManager(Game& g) :
+	InputManager::InputManager(g),
+	going_forward(false),
+	going_backward(false),
+	going_leftward(false),
+	going_rightward(false),
+	jumping(false)
 {
-	Camera& c = game.GetCamera();
-	glm::vec3 forward, right;
-	forward.x = sinf(c.yaw);
-	forward.y = 0;
-	forward.z = cosf(c.yaw);
+}
 
-	right.x = -cosf(c.yaw);
+void MainInputManager::ChangePlayerVelocity(glm::vec3 player_vel, glm::vec3 forward, glm::vec3 right)
+{
+	float velocity_scale = 5;
+	player_vel.x = 0; player_vel.z = 0;
+	if (going_forward) {
+		player_vel.x += forward.x * velocity_scale;
+		player_vel.z += forward.z * velocity_scale;
+	} else if (going_backward) {
+		player_vel.x -= forward.x * velocity_scale;
+		player_vel.z -= forward.z * velocity_scale;
+	}
+
+	if (going_rightward) {
+		player_vel.x += right.x * velocity_scale;
+		player_vel.z += right.z * velocity_scale;
+	} else if (going_leftward) {
+		player_vel.x -= right.x * velocity_scale;
+		player_vel.z -= right.z * velocity_scale;
+	}
+
+	if (jumping) {
+		player_vel.y = 5;
+		jumping = false;
+	}
+
+	game.SetPlayerVelocity(player_vel);
+}
+
+void MainInputManager::OnKeyDown(char key, bool repeat)
+{
+	auto player_vel = game.GetPlayerVelocity();
+	auto player_rot = game.GetPlayerRotation();
+	glm::vec3 forward, right;
+	forward.x = sinf(player_rot.x);
+	forward.y = 0;
+	forward.z = cosf(player_rot.x);
+
+	right.x = -cosf(player_rot.x);
 	right.y = 0;
-	right.z = sinf(c.yaw);
+	right.z = sinf(player_rot.x);
+
+	forward = glm::normalize(forward);
+	right = glm::normalize(right);
 
 	switch (key) {
 	case 'w':
-		game.GetCamera().x += forward.x * 2;
-		game.GetCamera().y += forward.y * 2;
-		game.GetCamera().z += forward.z * 2;
+		going_forward = true;
 		break;
 	case 's':
-		game.GetCamera().x -= forward.x * 2;
-		game.GetCamera().y -= forward.y * 2;
-		game.GetCamera().z -= forward.z * 2;
+		going_backward = true;
 		break;
 	case 'a':
-		game.GetCamera().x -= right.x * 2;
-		game.GetCamera().y -= right.y * 2;
-		game.GetCamera().z -= right.z * 2;
+		going_leftward = true;
 		break;
 	case 'd':
-		game.GetCamera().x += right.x * 2;
-		game.GetCamera().y += right.y * 2;
-		game.GetCamera().z += right.z * 2;
-		break;
-	case 'q':
-		game.GetCamera().y += 1;
-		break;
-	case 'e':
-		game.GetCamera().y -= 1;
+		going_rightward = true;
 		break;
 	}
+	ChangePlayerVelocity(player_vel, forward, right);
 }
 
 void MainInputManager::OnKeyUp(char key)
 {
+	auto player_vel = game.GetPlayerVelocity();
+	auto player_rot = game.GetPlayerRotation();
+	glm::vec3 forward, right;
+	forward.x = sinf(player_rot.x);
+	forward.y = 0;
+	forward.z = cosf(player_rot.y);
+
+	right.x = -cosf(player_rot.x);
+	right.y = 0;
+	right.z = sinf(player_rot.x);
+
+	forward = glm::normalize(forward);
+	right = glm::normalize(right);
+
+	switch (key) {
+	case 'w':
+		going_forward = false;
+		break;
+	case 's':
+		going_backward = false;
+		break;
+	case 'a':
+		going_leftward = false;
+		break;
+	case 'd':
+		going_rightward = false;
+		break;
+	case 'r':
+		game.SetPlayerPosition(glm::vec3(0, 100, 0));
+		break;
+	case ' ':
+		jumping = true;
+		break;
+	}
+
+	game.SetPlayerVelocity(player_vel);
+	ChangePlayerVelocity(player_vel, forward, right);
 }
 
 void MainInputManager::OnMouseButtonDown(MouseButton button)
@@ -76,9 +142,9 @@ void MainInputManager::OnMouseButtonUp(MouseButton button)
 
 void MainInputManager::OnMouseMotion(int x, int y, int dx, int dy)
 {
-	Camera& c = game.GetCamera();
-	c.yaw -= dx / 500.;
-	c.pitch -= dy / 500.;
+	auto rot = game.GetPlayerRotation();
+	rot += glm::vec3(-dx / 500., -dy / 500., 0.);
+	game.SetPlayerRotation(rot);
 }
 
 void MainInputManager::OnQuit()

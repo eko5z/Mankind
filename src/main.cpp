@@ -8,6 +8,7 @@
 #include "Game.hpp"
 #include "MainInputManager.hpp"
 #include "InputSystem.hpp"
+#include "Log.hpp"
 
 int main()
 {
@@ -26,7 +27,7 @@ int main()
 	SDL_SetRelativeMouseMode(SDL_TRUE);
 
 	unsigned int last_time(0), current_time;
-	const unsigned int MS_PER_TICK = 15;
+	const unsigned int MS_PER_TICK = 25;
 	unsigned int accumulator;
 	float dt = MS_PER_TICK / 1000.f;
 
@@ -38,7 +39,7 @@ int main()
 		while (accumulator >= MS_PER_TICK) {
 			accumulator -= MS_PER_TICK;
 			input_system.ProcessEvents();
-			g.GetWorld().Update(dt);
+			g.Update(dt);
 		}
 
 		renderer.Render(g.GetWorld(), g.GetCamera());

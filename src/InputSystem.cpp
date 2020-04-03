@@ -22,7 +22,7 @@ void InputSystem::ProcessEvent(SDL_Event e)
 		break;
 
 	case SDL_KEYDOWN:
-		input_manager->OnKeyDown(e.key.keysym.sym);
+		input_manager->OnKeyDown(e.key.keysym.sym, e.key.repeat);
 		break;
 
 	case SDL_MOUSEBUTTONDOWN:
