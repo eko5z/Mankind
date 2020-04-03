@@ -133,6 +133,10 @@ void Renderer::Render(World& world, Camera& camera)
 	this->default_program->Use();
 	default_program->SetVec3("camera_position", position);
 
+	default_program->SetVec3("directional_lights[0].direction", glm::vec3{0.3, 1.0, 0.3});
+	default_program->SetVec3("directional_lights[0].ambient_color", glm::vec3{0.5, 0.5, 0.5});
+	default_program->SetVec3("directional_lights[0].diffuse_color", glm::vec3{1.0, 1.0, 1.0});
+
 	for(auto& kc : this->chunk_meshes) {
 		int x(kc.second.GetX() * CHUNK_SIZE),
 		    y(kc.second.GetY() * CHUNK_SIZE),
