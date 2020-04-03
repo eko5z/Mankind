@@ -25,8 +25,22 @@ int main()
 	g.GetWorld().Generate(seed);
 	SDL_SetRelativeMouseMode(SDL_TRUE);
 
+	unsigned int last_time(0), current_time;
+	const unsigned int MS_PER_TICK = 15;
+	unsigned int accumulator;
+	float dt = MS_PER_TICK / 1000.f;
+
 	while (g.KeepGoing()) {
-		input_system.ProcessEvents();
+		current_time = SDL_GetTicks();
+		accumulator += current_time - last_time;
+		last_time = current_time;
+
+		while (accumulator >= MS_PER_TICK) {
+			accumulator -= MS_PER_TICK;
+			input_system.ProcessEvents();
+			g.GetWorld().Update(dt);
+		}
+
 		renderer.Render(g.GetWorld(), g.GetCamera());
 	}
 
