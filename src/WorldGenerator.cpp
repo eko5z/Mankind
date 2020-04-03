@@ -4,6 +4,7 @@
 #include <random>
 #include <numeric>
 #include <algorithm>
+#include <cmath>
 
 WorldGenerator::WorldGenerator(int seed):
 	seed(seed),
@@ -71,9 +72,18 @@ double WorldGenerator::noise(double x, double y, double z)
 
 int WorldGenerator::HeightAt(int x, int z)
 {
-	double u = (x % 128) / 128.;
-	double v = (z % 128) / 128.;
-	return 256*noise(u, 0.5, v) - 128;
+	int acc(0);
+	float u = ((float)x / 20.);
+	float v = ((float)z / 20.);
+	u = u < 0 ? u * -1 : u;
+	v = v < 0 ? v * -1 : v;
+	for (int i(1); i < 5; ++i) {
+		float n = noise(u, 0.5, v);
+		acc += (n * 50) / i;
+		v = u;
+		u /= 2;
+	}
+	return acc;
 }
 
 void WorldGenerator::GenerateChunk(Chunk& c)
