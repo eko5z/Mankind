@@ -29,12 +29,30 @@ public:
 		return camera;
 	}
 	void Update(float dt);
-	glm::vec3 GetPlayerPosition() { return player->get<TransformComponent>()->pos; }
-	glm::vec3 GetPlayerRotation() { return player->get<TransformComponent>()->rot; }
-	glm::vec3 GetPlayerVelocity() { return player->get<PhysicsComponent>()->vel; }
-	void SetPlayerPosition(glm::vec3 v) { player->get<TransformComponent>()->pos = v; }
-	void SetPlayerRotation(glm::vec3 v) { player->get<TransformComponent>()->rot = v; }
-	void SetPlayerVelocity(glm::vec3 v) { player->get<PhysicsComponent>()->vel = v; }
+	glm::vec3 GetPlayerPosition()
+	{
+		return player->get<TransformComponent>()->pos;
+	}
+	glm::vec3 GetPlayerRotation()
+	{
+		return player->get<TransformComponent>()->rot;
+	}
+	glm::vec3 GetPlayerVelocity()
+	{
+		return player->get<PhysicsComponent>()->vel;
+	}
+	void SetPlayerPosition(glm::vec3 v)
+	{
+		player->get<TransformComponent>()->pos = v;
+	}
+	void SetPlayerRotation(glm::vec3 v)
+	{
+		player->get<TransformComponent>()->rot = v;
+	}
+	void SetPlayerVelocity(glm::vec3 v)
+	{
+		player->get<PhysicsComponent>()->vel = v;
+	}
 private:
 	World world;
 	Camera camera;

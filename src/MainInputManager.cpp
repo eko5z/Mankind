@@ -28,7 +28,8 @@ void MainInputManager::ChangePlayerVelocity()
 	forward = glm::normalize(forward);
 	right = glm::normalize(right);
 	float velocity_scale = 5;
-	player_vel.x = 0; player_vel.z = 0;
+	player_vel.x = 0;
+	player_vel.z = 0;
 	if (going_forward) {
 		player_vel.x += forward.x * velocity_scale;
 		player_vel.z += forward.z * velocity_scale;

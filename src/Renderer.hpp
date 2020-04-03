@@ -45,6 +45,6 @@ private:
 	};
 	void ComputeFrustrum(glm::vec3 position, glm::vec3 lookAt);
 
-  DirectionalLight sun;
+	DirectionalLight sun;
 };
 

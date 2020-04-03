@@ -136,7 +136,7 @@ void Renderer::Render(World& world, Camera& camera)
 	this->default_program->Use();
 	default_program->SetVec3("camera_position", position);
 	this->sun.AddToProgram(*(this->default_program), 0);
-	
+
 	for(auto& kc : this->chunk_meshes) {
 		int x(kc.second.GetX() * CHUNK_SIZE),
 		    y(kc.second.GetY() * CHUNK_SIZE),

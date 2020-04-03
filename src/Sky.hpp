@@ -7,10 +7,10 @@
 class Sky
 {
 private:
-  std::unique_ptr<Mesh> mesh;
-  Program program;
+	std::unique_ptr<Mesh> mesh;
+	Program program;
 public:
-  Sky();
+	Sky();
 
-  void Render();
+	void Render();
 };

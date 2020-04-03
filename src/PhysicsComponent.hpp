@@ -2,8 +2,7 @@
 
 #include <glm/glm.hpp>
 
-struct PhysicsComponent
-{
+struct PhysicsComponent {
 	PhysicsComponent() :
 		vel(0,0,0),
 		box_whd(0,0,0) {}
