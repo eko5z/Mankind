@@ -2,6 +2,7 @@
 
 #include "Log.hpp"
 #include "TransformComponent.hpp"
+#include "PhysicsSystem.hpp"
 
 #include <cmath>
 
@@ -14,7 +15,18 @@ void World::CreatePlayer()
 World::World() :
 	ecs_world(ECS::World::createWorld())
 {
+	ecs_world->registerSystem(new PhysicsSystem());
 	CreatePlayer();
+}
+
+World::~World()
+{
+	ecs_world->destroyWorld();
+}
+
+void World::Update(float dt)
+{
+	ecs_world->tick(dt);
 }
 
 Cube& World::GetCube(int x, int y, int z)
