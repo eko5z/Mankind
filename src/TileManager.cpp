@@ -7,7 +7,7 @@ glm::vec2 TileManager::GetTileBottomRight(int typeID)
 
 glm::vec2 TileManager::GetTileBottomLeft(int typeID)
 {
-	return GetTileBottomRight(typeID) + glm::vec2{tile_size, 0.f};
+	return GetTileBottomRight(typeID) + glm::vec2{1.0f, 0.f};
 }
 
 glm::vec2 TileManager::GetTileTopRight(int typeID)
@@ -17,6 +17,6 @@ glm::vec2 TileManager::GetTileTopRight(int typeID)
 
 glm::vec2 TileManager::GetTileTopLeft(int typeID)
 {
-	return GetTileBottomRight(typeID) + glm::vec2{tile_size, tile_size};
+	return GetTileBottomRight(typeID) + glm::vec2{1.0f, tile_size};
 }
 
