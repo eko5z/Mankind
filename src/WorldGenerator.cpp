@@ -73,13 +73,13 @@ double WorldGenerator::noise(double x, double y, double z)
 int WorldGenerator::HeightAt(int x, int z)
 {
 	int acc(0);
-	float u = ((float)x / 20.);
-	float v = ((float)z / 20.);
+	float u = ((float)x / 100.);
+	float v = ((float)z / 100.);
 	u = u < 0 ? u * -1 : u;
 	v = v < 0 ? v * -1 : v;
 	for (int i(1); i < 5; ++i) {
 		float n = noise(u, 0.5, v);
-		acc += (n * 50) / i;
+		acc += (n * 200) / i;
 		v = u;
 		u /= 2;
 	}

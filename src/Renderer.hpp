@@ -34,7 +34,7 @@ private:
 	                   glm::vec3& up);
 	std::unique_ptr<Program> default_program;
 	std::shared_ptr<Texture> diffuse, specular;
-	std::map<int, ChunkMesh> chunk_meshes;
+	std::map<uint64_t, ChunkMesh> chunk_meshes;
 	struct frustrum {
 		glm::vec3 ntl, ntr, nbl, nbr;
 		glm::vec3 ftl, ftr, fbl, fbr;

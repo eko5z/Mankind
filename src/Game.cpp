@@ -2,12 +2,18 @@
 
 #include "Log.hpp"
 
+void Game::Start(int seed)
+{
+	world.Generate(seed);
+	SetPlayerPosition(glm::vec3{0, world.GetSpawnHeight(0, 0), 0});
+	std::cerr << "Player spawns at y=" << GetPlayerPosition().y << std::endl;
+}
+
 void Game::CreatePlayer()
 {
 	player = ecs_world->create();
 	player->assign<TransformComponent>();
 	player->assign<PhysicsComponent>();
-	SetPlayerPosition(glm::vec3{0, 100, 0});
 }
 
 Game::Game() :

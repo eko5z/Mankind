@@ -23,7 +23,6 @@ int main()
 
 	int seed = time(0);
 
-	g.GetWorld().Generate(seed);
 	SDL_SetRelativeMouseMode(SDL_TRUE);
 
 	unsigned int last_time(0), current_time;
@@ -31,6 +30,7 @@ int main()
 	unsigned int accumulator;
 	float dt = MS_PER_TICK / 1000.f;
 
+	g.Start(seed);
 	while (g.KeepGoing()) {
 		current_time = SDL_GetTicks();
 		accumulator += current_time - last_time;

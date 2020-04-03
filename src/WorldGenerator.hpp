@@ -10,9 +10,9 @@ class WorldGenerator
 public:
 	WorldGenerator(int seed);
 	void GenerateChunk(Chunk& c);
+	int HeightAt(int x, int z);
 private:
 	int seed;
-	int HeightAt(int x, int z);
 	std::vector<int> p;
 	double fade(double t);
 	double lerp(double t, double a, double b);

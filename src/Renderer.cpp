@@ -107,10 +107,12 @@ void Renderer::Render(World& world, Camera& camera)
 
 	// Add a chunk.
 	for (int i(ccx-5); i < ccx+5; ++i) {
-		for (int j(ccy-5); j < ccz+5; ++j) {
+		for (int j(ccy-5); j < ccy+5; ++j) {
 			for (int k(ccz-5); k < ccz+5; ++k) {
+				int64_t chunkid = CHUNK_ID(i, j, k);
 				if (chunk_meshes.find(CHUNK_ID(i, j, k)) == chunk_meshes.end()) {
 					this->AddChunk(world, i, j, k, world.GetChunk(i, j, k));
+				} else {
 				}
 			}
 		}
@@ -159,5 +161,6 @@ void Renderer::ComputeFrustrum(glm::vec3 position, glm::vec3 lookAt)
 
 void Renderer::AddChunk(World& world, int x, int y, int z, Chunk& c)
 {
+	std::cerr << "Adding chunk " << x << "," << y << "," << z << std::endl;
 	this->chunk_meshes.insert(std::make_pair(CHUNK_ID(x, y, z), ChunkMesh(world, c, x, y, z, diffuse, specular)));
 }

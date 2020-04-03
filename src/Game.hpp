@@ -53,6 +53,7 @@ public:
 	{
 		player->get<PhysicsComponent>()->vel = v;
 	}
+	void Start(int seed);
 private:
 	World world;
 	Camera camera;
