@@ -21,13 +21,20 @@ void PhysicsSystem::tick(ECS::World& ecs_world, float dt)
 		auto tc = ent.get<TransformComponent>();
 		if (tc.isValid()) {
 			glm::vec3 new_pos = tc->pos + (body->vel * dt);
-			/* check if air underneath */
-			if (body->vel.y < 0 and world.GetCube(floor(new_pos.x), floor(new_pos.y), floor(new_pos.z)).typeID != 0) {
-				body->vel.y = 0.;
-				tc->pos = glm::vec3(new_pos.x, tc->pos.y, new_pos.z);
-			} else {
-				tc->pos = new_pos;
+			/* check X axis */
+			if (body->vel.x != 0 and world.GetCube(floor(new_pos.x), tc->pos.y, tc->pos.z).typeID != 0) {
+				new_pos.x = tc->pos.x;
+				body->vel.x = 0;
 			}
+			if (body->vel.y != 0 and world.GetCube(tc->pos.x, floor(new_pos.y), tc->pos.z).typeID != 0) {
+				new_pos.y = tc->pos.y;
+				body->vel.y = 0;
+			}
+			if (body->vel.z != 0 and world.GetCube(tc->pos.x, tc->pos.y, floor(new_pos.z)).typeID != 0) {
+				new_pos.z = tc->pos.z;
+				body->vel.z = 0;
+			}
+			tc->pos = new_pos;
 		}
 	});
 }
