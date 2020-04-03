@@ -14,6 +14,7 @@ void main()
 {
     gl_Position = MVP * vec4(position, 1.0);
 
+    fragment_camera_position = camera_position;
     fragment_position = position;
     fragment_normal = normal;      
     fragment_uv = uv;

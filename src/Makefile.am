@@ -16,7 +16,9 @@ mankind_SOURCES=\
 	Mesh.cpp\
 	WorldGenerator.cpp\
 	TileManager.cpp\
-	PhysicsSystem.cpp
+	PhysicsSystem.cpp\
+	DirectionalLight.cpp\
+	Sky.cpp
 
 AM_LDFLAGS=`pkg-config --libs sdl2`\
 		   `pkg-config --libs SDL2_image`\
