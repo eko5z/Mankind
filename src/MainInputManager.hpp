@@ -25,6 +25,6 @@ private:
 	bool jumping;
 	glm::vec3 pointed_cube;
 	glm::vec3 pointed_normal;
-	void ChangePlayerVelocity(glm::vec3 player_velocity, glm::vec3 forward, glm::vec3 right);
+	void ChangePlayerVelocity();
 };
 

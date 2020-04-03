@@ -12,8 +12,21 @@ MainInputManager::MainInputManager(Game& g) :
 {
 }
 
-void MainInputManager::ChangePlayerVelocity(glm::vec3 player_vel, glm::vec3 forward, glm::vec3 right)
+void MainInputManager::ChangePlayerVelocity()
 {
+	auto player_vel = game.GetPlayerVelocity();
+	auto player_rot = game.GetPlayerRotation();
+	glm::vec3 forward, right;
+	forward.x = sinf(player_rot.x);
+	forward.y = 0;
+	forward.z = cosf(player_rot.x);
+
+	right.x = -cosf(player_rot.x);
+	right.y = 0;
+	right.z = sinf(player_rot.x);
+
+	forward = glm::normalize(forward);
+	right = glm::normalize(right);
 	float velocity_scale = 5;
 	player_vel.x = 0; player_vel.z = 0;
 	if (going_forward) {
@@ -42,19 +55,6 @@ void MainInputManager::ChangePlayerVelocity(glm::vec3 player_vel, glm::vec3 forw
 
 void MainInputManager::OnKeyDown(char key, bool repeat)
 {
-	auto player_vel = game.GetPlayerVelocity();
-	auto player_rot = game.GetPlayerRotation();
-	glm::vec3 forward, right;
-	forward.x = sinf(player_rot.x);
-	forward.y = 0;
-	forward.z = cosf(player_rot.x);
-
-	right.x = -cosf(player_rot.x);
-	right.y = 0;
-	right.z = sinf(player_rot.x);
-
-	forward = glm::normalize(forward);
-	right = glm::normalize(right);
 
 	switch (key) {
 	case 'w':
@@ -70,7 +70,7 @@ void MainInputManager::OnKeyDown(char key, bool repeat)
 		going_rightward = true;
 		break;
 	}
-	ChangePlayerVelocity(player_vel, forward, right);
+	ChangePlayerVelocity();
 }
 
 void MainInputManager::OnKeyUp(char key)
@@ -110,8 +110,7 @@ void MainInputManager::OnKeyUp(char key)
 		break;
 	}
 
-	game.SetPlayerVelocity(player_vel);
-	ChangePlayerVelocity(player_vel, forward, right);
+	ChangePlayerVelocity();
 }
 
 void MainInputManager::OnMouseButtonDown(MouseButton button)
@@ -145,6 +144,7 @@ void MainInputManager::OnMouseMotion(int x, int y, int dx, int dy)
 	auto rot = game.GetPlayerRotation();
 	rot += glm::vec3(-dx / 500., -dy / 500., 0.);
 	game.SetPlayerRotation(rot);
+	ChangePlayerVelocity();
 }
 
 void MainInputManager::OnQuit()
