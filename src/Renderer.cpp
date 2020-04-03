@@ -9,11 +9,7 @@
 
 Renderer::Renderer() :
 	window(nullptr),
-	default_program(nullptr),
-	sun(glm::vec3{0.3, 1.0, 0.8},
-	    glm::vec3{0.2, 0.2, 0.2},
-	    glm::vec3{0.5, 0.5, 0.5},
-	    glm::vec3{0.5, 0.5, 0.5})
+	default_program(nullptr)
 {
 	LOG("Initializing renderer");
 
@@ -136,9 +132,6 @@ void Renderer::Render(World& world, Camera& camera)
 
 	this->default_program->Use();
 	default_program->SetVec3("camera_position", position);
-	// Lighting things.
-	this->sun.AddToProgram(*(this->default_program), 0);
-	default_program->SetFloat("shininess", 2.0f);
 
 	for(auto& kc : this->chunk_meshes) {
 		int x(kc.second.GetX() * CHUNK_SIZE),

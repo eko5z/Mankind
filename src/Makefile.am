@@ -15,8 +15,7 @@ mankind_SOURCES=\
 	TextRenderer.cpp\
 	Mesh.cpp\
 	WorldGenerator.cpp\
-	TileManager.cpp\
-	DirectionalLight.cpp
+	TileManager.cpp
 
 AM_LDFLAGS=`pkg-config --libs sdl2`\
 		   `pkg-config --libs SDL2_image`\
