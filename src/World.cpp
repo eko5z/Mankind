@@ -29,6 +29,23 @@ void World::SetCube(int x, int y, int z, Cube cu)
 	    iy( ((y % CHUNK_SIZE) + CHUNK_SIZE) % CHUNK_SIZE),
 	    iz( ((z % CHUNK_SIZE) + CHUNK_SIZE) % CHUNK_SIZE);
 	Chunk& c = GetChunk(cx, cy, cz);
+	/* mark adjacent chunks as dirty if cube is modified
+	on the edges */
+	if (ix == 0) {
+		GetChunk(cx - 1, cy, cz).SetDirty();
+	} else if (ix == CHUNK_SIZE - 1) {
+		GetChunk(cx + 1, cy, cz).SetDirty();
+	}
+	if (iy == 0) {
+		GetChunk(cx, cy - 1, cz).SetDirty();
+	} else if (iy == CHUNK_SIZE - 1) {
+		GetChunk(cx, cy + 1, cz).SetDirty();
+	}
+	if (iz == 0) {
+		GetChunk(cx, cy, cz - 1).SetDirty();
+	} else if (iz == CHUNK_SIZE - 1) {
+		GetChunk(cx, cy, cz + 1).SetDirty();
+	}
 	c.SetCube(ix, iy, iz, cu);
 }
 

@@ -25,6 +25,10 @@ public:
 	{
 		dirty = false;
 	}
+	void SetDirty()
+	{
+		dirty = true;
+	}
 	bool IsDirty()
 	{
 		return dirty;
