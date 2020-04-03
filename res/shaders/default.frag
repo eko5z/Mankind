@@ -2,7 +2,6 @@
 
 #define N_DIRECTIONAL_LIGHTS 1
 
-in vec3 fragment_camera_position;
 in vec3 fragment_position;
 in vec3 fragment_normal;
 in vec2 fragment_uv;
@@ -19,6 +18,7 @@ struct DirectionalLight
 };
 
 uniform DirectionalLight directional_lights[N_DIRECTIONAL_LIGHTS];
+uniform vec3 camera_position;
 
 void main()
 {
