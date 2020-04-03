@@ -1,8 +1,21 @@
 #include "World.hpp"
 
 #include "Log.hpp"
+#include "TransformComponent.hpp"
 
 #include <cmath>
+
+void World::CreatePlayer()
+{
+	player = ecs_world->create();
+	player->assign<TransformComponent>();
+}
+
+World::World() :
+	ecs_world(ECS::World::createWorld())
+{
+	CreatePlayer();
+}
 
 Cube& World::GetCube(int x, int y, int z)
 {
