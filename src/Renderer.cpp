@@ -139,10 +139,11 @@ void Renderer::Render(World& world, Camera& camera)
 	glEnable(GL_POLYGON_OFFSET_FILL);
 
 	this->sky_program->Use();
+	this->sky_program->SetVec3("camera_position", position);
 	this->sky->Render();
 
 	this->default_program->Use();
-	default_program->SetVec3("camera_position", position);
+	this->default_program->SetVec3("camera_position", position);
 	this->sun.AddToProgram(*(this->default_program), 0);
 
 	for(auto& kc : this->chunk_meshes) {
