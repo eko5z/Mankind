@@ -1,5 +1,7 @@
 #include "BaseGUIElement.hpp"
 
+#include "Log.hpp"
+
 BaseGUIElement::BaseGUIElement(std::string id) :
 	background(nullptr),
 	foreground(nullptr),

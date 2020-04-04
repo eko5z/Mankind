@@ -73,7 +73,8 @@ void Renderer::OpenWindow()
 	LOG("All initialized. Loading resources");
 
 	main_font = std::make_shared<Font>("res/fonts/DejaVuSansMono.ttf", 24);
-	position_label = std::make_unique<GUILabel>("position", main_font, "Position goes here");
+	position_label = std::make_unique<GUILabel>("position",
+	                 glm::vec2{50, 50}, glm::vec2{view_width, view_height}, main_font, "Position goes here");
 
 	diffuse = std::make_shared<Texture>("res/tex/tiles_diffuse.png");
 	specular = std::make_shared<Texture>("res/tex/tiles_specular.png");
@@ -139,11 +140,14 @@ void Renderer::Render(World& world, Camera& camera)
 	ComputeFrustrum(position, lookat);
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_POLYGON_OFFSET_FILL);
+
+	glDisable(GL_DEPTH_TEST);
 
 	this->sky_program->Use();
 	this->sky->Render();
+
+	glEnable(GL_DEPTH_TEST);
 
 	this->default_program->Use();
 	default_program->SetVec3("camera_position", position);
@@ -159,11 +163,9 @@ void Renderer::Render(World& world, Camera& camera)
 
 		kc.second.Render();
 	}
+	/*	text_program->Use();
+		position_label->Draw();*/
 
-	glDisable(GL_DEPTH_TEST);
-
-	text_program->Use();
-	position_label->Draw();
 
 	SDL_GL_SwapWindow(window);
 }
@@ -176,6 +178,5 @@ void Renderer::ComputeFrustrum(glm::vec3 position, glm::vec3 lookAt)
 
 void Renderer::AddChunk(World& world, int x, int y, int z, Chunk& c)
 {
-	std::cerr << "Adding chunk " << x << "," << y << "," << z << std::endl;
 	this->chunk_meshes.insert(std::make_pair(CHUNK_ID(x, y, z), ChunkMesh(world, c, x, y, z, diffuse, specular)));
 }

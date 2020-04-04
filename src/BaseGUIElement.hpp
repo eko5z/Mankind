@@ -16,6 +16,9 @@ public:
 	BaseGUIElement(std::string id);
 
 	virtual void Draw();
-	void AddChild(std::shared_ptr<BaseGUIElement> e) { children.push_back(std::move(e)); }
+	void AddChild(std::shared_ptr<BaseGUIElement> e)
+	{
+		children.push_back(std::move(e));
+	}
 };
 

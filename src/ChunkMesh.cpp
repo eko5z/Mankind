@@ -75,7 +75,6 @@ void ChunkMesh::Update()
 {
 	chunk.SetClean();
 	if (chunk.IsEmpty() ) {
-		LOG("Chunk is empty");
 		return;
 	}
 

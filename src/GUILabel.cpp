@@ -1,19 +1,28 @@
 #include "GUILabel.hpp"
 
-#define VX_BOTTOM_RIGHT {1, 0, 0}
-#define VX_BOTTOM_LEFT  {0, 0, 0}
-#define VX_TOP_RIGHT    {1, 1, 0}
-#define VX_TOP_LEFT     {0, 1, 0}
-#define UV_BOTTOM_RIGHT {1, 0}
-#define UV_BOTTOM_LEFT  {0, 0}
-#define UV_TOP_RIGHT    {1, 1}
-#define UV_TOP_LEFT     {0, 1}
+#include "Log.hpp"
 
-GUILabel::GUILabel(std::string id, std::shared_ptr<Font> font, std::string fmt, ...) :
+#define VX_BOTTOM_LEFT  {-1, -1, 0}
+#define VX_BOTTOM_RIGHT { 1, -1, 0}
+#define VX_TOP_LEFT     {-1,  1, 0}
+#define VX_TOP_RIGHT    { 1,  1, 0}
+
+#define UV_BOTTOM_LEFT  {0, 0}
+#define UV_BOTTOM_RIGHT {1, 0}
+#define UV_TOP_LEFT     {0, 1}
+#define UV_TOP_RIGHT    {1, 1}
+
+GUILabel::GUILabel(std::string id, glm::vec2 pos, glm::vec2 screen_dim,
+                   std::shared_ptr<Font> font, std::string fmt, ...) :
 	BaseGUIElement::BaseGUIElement(id),
 	font(std::move(font)),
-	fg_color({0, 0, 0, 255}),
-	dirty(true)
+	fg_color(
+{
+	0, 0, 0, 255
+}),
+dirty(true),
+pos(pos),
+screen_dim(screen_dim)
 {
 	va_list fmt_list;
 	va_start(fmt_list, fmt);
@@ -25,8 +34,8 @@ GUILabel::GUILabel(std::string id, std::shared_ptr<Font> font, std::string fmt, 
 void GUILabel::SetText(std::string fmt, va_list vl)
 {
 	size_t text_size = vsnprintf(nullptr, 0, fmt.c_str(), vl);
-	char *tmp_str = new char[text_size+1]{0};
-	vsnprintf(tmp_str, text_size+1, fmt.c_str(), vl); 
+	char *tmp_str = new char[text_size+1] {0};
+	vsnprintf(tmp_str, text_size+1, fmt.c_str(), vl);
 	text = std::string(tmp_str);
 	delete tmp_str;
 }
@@ -84,9 +93,10 @@ void GUILabel::Reload()
 	std::vector<GLuint> indices {
 		0, 1, 2, 3, 4, 5
 	};
-	std::vector<glm::vec3> normals; /* leave empty */
+	std::vector<glm::vec3> normals(6, glm::vec3(0, 0, -1));
 
 	foreground = std::make_unique<Mesh>(vertices, normals, uvs, indices, fg_texture, nullptr);
+	foreground->Initialize();
 }
 
 void GUILabel::Draw()
