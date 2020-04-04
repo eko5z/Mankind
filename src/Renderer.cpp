@@ -73,8 +73,10 @@ void Renderer::OpenWindow()
 	LOG("All initialized. Loading resources");
 
 	main_font = std::make_shared<Font>("res/fonts/DejaVuSansMono.ttf", 24);
+
+	SDL_GetWindowSize(window, &view_width, &view_height);
 	position_label = std::make_unique<GUILabel>("position",
-	                 glm::vec2{50, 50}, glm::vec2{view_width, view_height}, main_font, "Position goes here");
+	                 glm::vec2{5, 50}, glm::vec2{view_width, view_height}, main_font, "Position goes here");
 
 	diffuse = std::make_shared<Texture>("res/tex/tiles_diffuse.png");
 	specular = std::make_shared<Texture>("res/tex/tiles_specular.png");
@@ -88,6 +90,7 @@ void Renderer::OpenWindow()
 	LOG("Window correctly opened");
 
 	glClearColor(0.6, 0.8, 1.0, 0.0);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
 void Renderer::UpdateVectors(glm::vec3& angle, glm::vec3& forward,
@@ -130,6 +133,8 @@ void Renderer::Render(World& world, Camera& camera)
 
 	SDL_GetWindowSize(window, &view_width, &view_height);
 
+	position_label->SetText("(x,y,z) = %.2f %.2f %.2f", camera.x, camera.y, camera.z);
+
 	glm::vec3 position(camera.x, camera.y, camera.z);
 	glm::vec3 angle(camera.yaw, camera.pitch, camera.roll);
 	glm::vec3 forward, right, lookat, up;
@@ -164,8 +169,8 @@ void Renderer::Render(World& world, Camera& camera)
 
 		kc.second.Render();
 	}
-	/*	text_program->Use();
-		position_label->Draw();*/
+		text_program->Use();
+		position_label->Draw();
 
 
 	SDL_GL_SwapWindow(window);

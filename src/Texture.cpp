@@ -23,9 +23,15 @@ void Texture::Load()
 {
 	glGenTextures(1, &this->texture_id);
 	glBindTexture(GL_TEXTURE_2D, this->texture_id);
+	GLuint pixel_format;
+	if (res->format->BytesPerPixel == 3) {
+		pixel_format = GL_RGB;
+	} else if (res->format->BytesPerPixel == 4) {
+		pixel_format = GL_RGBA;
+	}
 	glTexImage2D(
-	    GL_TEXTURE_2D, 0, GL_RGB, res->w, res->h,
-	    0, GL_RGB, GL_UNSIGNED_BYTE, res->pixels
+	    GL_TEXTURE_2D, 0, pixel_format, res->w, res->h,
+	    0, pixel_format, GL_UNSIGNED_BYTE, res->pixels
 	);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_LINEAR);

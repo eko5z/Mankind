@@ -10,5 +10,6 @@ out vec4 out_fragment_color;
 
 void main()
 {
+	
 	out_fragment_color = texture(diffuse_texture, fragment_uv);
 } 
