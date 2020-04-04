@@ -15,6 +15,7 @@
 
 #include "Mesh.hpp"
 #include "DirectionalLight.hpp"
+#include "Sky.hpp"
 
 class Renderer
 {
@@ -35,6 +36,7 @@ private:
 	                   glm::vec3& right, glm::vec3& lookat,
 	                   glm::vec3& up);
 	std::unique_ptr<Program> default_program;
+	std::unique_ptr<Program> sky_program;
 	std::shared_ptr<Texture> diffuse, specular;
 	std::map<uint64_t, ChunkMesh> chunk_meshes;
 	struct frustrum {
@@ -48,5 +50,6 @@ private:
 	void ComputeFrustrum(glm::vec3 position, glm::vec3 lookAt);
 
 	DirectionalLight sun;
+	std::unique_ptr<Sky> sky;
 };
 
