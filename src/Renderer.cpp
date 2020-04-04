@@ -81,6 +81,7 @@ void Renderer::OpenWindow()
 	// Load default programs.
 	this->default_program = std::make_unique<Program>("res/shaders/default.vert", "res/shaders/default.frag");
 	this->sky_program = std::make_unique<Program>("res/shaders/sky.vert", "res/shaders/sky.frag");
+	this->text_program = std::make_unique<Program>("res/shaders/text.vert", "res/shaders/text.frag");
 	this->sky = std::make_unique<Sky>();
 
 	LOG("Window correctly opened");
@@ -161,8 +162,7 @@ void Renderer::Render(World& world, Camera& camera)
 
 	glDisable(GL_DEPTH_TEST);
 
-	auto ortho = glm::ortho(0.f, (float)view_width, (float)view_height, 0.f, 0.f, 1000.f);
-	glUniformMatrix4fv(uniform_mvp, 1, GL_FALSE, glm::value_ptr(ortho));
+	text_program->Use();
 	position_label->Draw();
 
 	SDL_GL_SwapWindow(window);

@@ -36,6 +36,7 @@ private:
 	                   glm::vec3& right, glm::vec3& lookat,
 	                   glm::vec3& up);
 	std::unique_ptr<Program> default_program;
+	std::unique_ptr<Program> text_program;
 	std::unique_ptr<Program> sky_program;
 	std::shared_ptr<Texture> diffuse, specular;
 	std::map<uint64_t, ChunkMesh> chunk_meshes;
