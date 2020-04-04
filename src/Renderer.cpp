@@ -139,7 +139,7 @@ void Renderer::Render(World& world, Camera& camera)
 	glEnable(GL_POLYGON_OFFSET_FILL);
 
 	this->sky_program->Use();
-	this->sky_program->SetVec3("camera_position", position);
+	this->sky_program->SetFloat("camera_pitch", camera.pitch);
 	this->sky->Render();
 
 	this->default_program->Use();
