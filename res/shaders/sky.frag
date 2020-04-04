@@ -35,4 +35,13 @@ void main()
 
 	float vertical_angle = dot(middle_y, sun_direction.y);
 	float horizontal_angle = dot(middle_x, sun_direction.x);
+
+	vec3 fragment_vector = vec3(sin(horizontal_angle) * cos(horizontal_angle), sin(vertical_angle), cos(horizontal_angle) * cos(vertical_angle));
+
+	float angle = acos(dot(fragment_vector, sun_direction * vec3(-1.0, -1.0, -1.0)) / (length(fragment_vector) * length(sun_direction)));
+
+	if(angle < 0.5)
+	{
+		out_fragment_color = vec4(1.0, 1.0, 1.0, 1.0);
+	}
 } 
