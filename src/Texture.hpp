@@ -12,11 +12,13 @@ class Texture
 {
 private:
 	SDL_Surface* res;
+	void Load();
 public:
 	void Bind() { glBindTexture(GL_TEXTURE_2D, texture_id); }
 	GLuint texture_id;
 
 	Texture(std::string path);
+	Texture(SDL_Surface* s);
 	~Texture();
 };
 

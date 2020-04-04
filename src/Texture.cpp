@@ -9,7 +9,18 @@ Texture::Texture(std::string path) :
 		throw std::runtime_error(SDL_GetError());
 	}
 
-	std::cerr << "Bytes per pixel of surface : " << res->format->BytesPerPixel << std::endl;
+	Load();
+	SDL_FreeSurface(res);
+}
+
+Texture::Texture(SDL_Surface* s) :
+	res(s)
+{
+	Load();
+}
+
+void Texture::Load()
+{
 	glGenTextures(1, &this->texture_id);
 	glBindTexture(GL_TEXTURE_2D, this->texture_id);
 	glTexImage2D(
@@ -24,8 +35,6 @@ Texture::Texture(std::string path) :
 	float color[] = {1.0f, 0.f, 0.f, 11.f};
 	glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, color);
 	glGenerateMipmap(GL_TEXTURE_2D);
-
-	SDL_FreeSurface(res);
 }
 
 Texture::~Texture()

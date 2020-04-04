@@ -12,13 +12,14 @@ mankind_SOURCES=\
 	Chunk.cpp\
 	World.cpp\
 	Font.cpp\
-	TextRenderer.cpp\
 	Mesh.cpp\
 	WorldGenerator.cpp\
 	TileManager.cpp\
 	PhysicsSystem.cpp\
 	DirectionalLight.cpp\
-	Sky.cpp
+	Sky.cpp\
+	BaseGUIElement.cpp\
+	GUILabel.cpp
 
 AM_LDFLAGS=`pkg-config --libs sdl2`\
 		   `pkg-config --libs SDL2_image`\

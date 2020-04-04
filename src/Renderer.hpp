@@ -11,7 +11,7 @@
 #include "ChunkMesh.hpp"
 #include "Texture.hpp"
 #include "Font.hpp"
-#include "TextRenderer.hpp"
+#include "GUILabel.hpp"
 
 #include "Mesh.hpp"
 #include "DirectionalLight.hpp"
@@ -26,6 +26,8 @@ public:
 	void Render(World& world, Camera& camera);
 	void AddChunk(World& w, int x, int y, int z, Chunk& c);
 private:
+	std::shared_ptr<Font> main_font;
+	std::unique_ptr<GUILabel> position_label;
 	int view_height, view_width;
 	SDL_Window* window;
 	SDL_GLContext context;

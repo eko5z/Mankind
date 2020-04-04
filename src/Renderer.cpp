@@ -71,6 +71,9 @@ void Renderer::OpenWindow()
 
 	LOG("All initialized. Loading resources");
 
+	main_font = std::make_shared<Font>("res/fonts/DejaVuSansMono.ttf", 24);
+	position_label = std::make_unique<GUILabel>("position", main_font, "Position goes here");
+
 	diffuse = std::make_shared<Texture>("res/tex/tiles_diffuse.png");
 	specular = std::make_shared<Texture>("res/tex/tiles_specular.png");
 
@@ -149,6 +152,12 @@ void Renderer::Render(World& world, Camera& camera)
 
 		kc.second.Render();
 	}
+
+	glDisable(GL_DEPTH_TEST);
+
+	auto ortho = glm::ortho(0.f, (float)view_width, (float)view_height, 0.f, 0.f, 1000.f);
+	glUniformMatrix4fv(uniform_mvp, 1, GL_FALSE, glm::value_ptr(ortho));
+	position_label->Draw();
 
 	SDL_GL_SwapWindow(window);
 }
