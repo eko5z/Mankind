@@ -35,5 +35,4 @@ void main()
 
 	float vertical_angle = dot(middle_y, sun_direction.y);
 	float horizontal_angle = dot(middle_x, sun_direction.x);
-
 } 
