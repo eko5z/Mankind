@@ -16,13 +16,12 @@ GUILabel::GUILabel(std::string id, glm::vec2 pos, glm::vec2 screen_dim,
                    std::shared_ptr<Font> font, std::string fmt, ...) :
 	BaseGUIElement::BaseGUIElement(id),
 	font(std::move(font)),
-	fg_color(
-{
+	fg_color( {
 	0, 0, 0, 255
 }),
 dirty(true),
-pos(pos),
-screen_dim(screen_dim)
+      pos(pos),
+      screen_dim(screen_dim)
 {
 	va_list fmt_list;
 	va_start(fmt_list, fmt);
