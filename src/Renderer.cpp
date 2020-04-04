@@ -145,17 +145,21 @@ void Renderer::Render(World& world, Camera& camera)
 	glDisable(GL_DEPTH_TEST);
 
 	this->sky_program->Use();
+	this->sky_program->SetVec3("sun_direction", this->sun.direction);
 	this->sky_program->SetFloat("camera_pitch", camera.pitch);
-	this->sky->Render();
+	this->sky_program->SetFloat("camera_yaw", camera.yaw);
+	this->sky_program->SetFloat("vertical_fov", 45.0f);
+	this->sky_program->SetFloat("horizontal_fov", 2 * atan((this->view_width / this->view_height) * tan(45.0f / 2));
+	                            this->sky->Render();
 
-	glEnable(GL_DEPTH_TEST);
+	                            glEnable(GL_DEPTH_TEST);
 
-	this->default_program->Use();
-	this->default_program->SetVec3("camera_position", position);
-	this->sun.AddToProgram(*(this->default_program), 0);
+	                            this->default_program->Use();
+	                            this->default_program->SetVec3("camera_position", position);
+	                            this->sun.AddToProgram(*(this->default_program), 0);
 
 	for(auto& kc : this->chunk_meshes) {
-		int x(kc.second.GetX() * CHUNK_SIZE),
+	int x(kc.second.GetX() * CHUNK_SIZE),
 		    y(kc.second.GetY() * CHUNK_SIZE),
 		    z(kc.second.GetZ() * CHUNK_SIZE);
 		glm::mat4 translate = glm::translate(glm::mat4(), glm::vec3(x, y, z));
