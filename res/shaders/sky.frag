@@ -32,8 +32,8 @@ void main()
 	vec4 zenith_color = vec4(0.04, 0.22, 0.35, 1.0);
 	vec4 nadir_color = vec4(0.98, 0.96, 0.77, 1.0);
 
-	float frag_X_angle = camera_yaw + (horizontal_fov / 2) * fragment_position.x;
-	float frag_Y_angle = camera_pitch + (vertical_fov / 2) * fragment_position.y;
+	float frag_X_angle = asin(fragment_position.x * sin(horizontal_fov / 2)) + camera_yaw;
+	float frag_Y_angle = asin(fragment_position.y * sin(vertical_fov / 2)) + camera_pitch;
 
 	float factor = (sin(frag_Y_angle) + 1) / 2;
 
@@ -42,11 +42,11 @@ void main()
 
 	// Render the sun.
 	vec3 fragment_vector = normalize(vec3(
-	                            sin(frag_X_angle) * cos(frag_X_angle),
+	                            sin(frag_X_angle) * cos(frag_Y_angle),
 	                            sin(frag_Y_angle),
 		                        cos(frag_X_angle) * cos(frag_Y_angle)));
 
-	if (GetAngle(fragment_vector, normalize(sun_direction * -1.f)) < .4) {
+	if (GetAngle(fragment_vector, normalize(sun_direction * 1.f)) < .1 ) {
 		out_fragment_color = vec4(1.0, 1.0, 1.0, 1.0);
 	} else {
 		out_fragment_color = sky;
