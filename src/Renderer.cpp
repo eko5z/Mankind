@@ -145,12 +145,13 @@ void Renderer::Render(World& world, Camera& camera)
 	glDisable(GL_DEPTH_TEST);
 
 	this->sky_program->Use();
+	this->sky_program->SetFloat("camera_pitch", camera.pitch);
 	this->sky->Render();
 
 	glEnable(GL_DEPTH_TEST);
 
 	this->default_program->Use();
-	default_program->SetVec3("camera_position", position);
+	this->default_program->SetVec3("camera_position", position);
 	this->sun.AddToProgram(*(this->default_program), 0);
 
 	for(auto& kc : this->chunk_meshes) {
