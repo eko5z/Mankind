@@ -12,10 +12,10 @@ out vec4 out_fragment_color;
 
 void main()
 {
-	vec4 bottom_color = vec4(1.0, 0.0, 0.0, 1.0); // < 0.5
-	vec4 top_color = vec4(0.0, 0.4, 0.7, 1.0); // > 0.5
+	vec4 zenith_color = vec4(0.1, 0.1, 1.0, 1.0);
+	vec4 nadir_color = vec4(0.5, 0.5, 1.0, 1.0);
 
 	float factor = (cos(camera_pitch + (radians(45.0) / 2) * fragment_position.y) + 1) / 2;
 
-	out_fragment_color = mix(bottom_color, top_color, factor);
+	out_fragment_color = mix(zenith_color, nadir_color, factor);
 } 
