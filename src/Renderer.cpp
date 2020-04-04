@@ -150,7 +150,11 @@ void Renderer::Render(World& world, Camera& camera)
 	glDisable(GL_DEPTH_TEST);
 
 	this->sky_program->Use();
+	this->sky_program->SetVec3("sun_direction", this->sun.direction);
 	this->sky_program->SetFloat("camera_pitch", camera.pitch);
+	this->sky_program->SetFloat("camera_yaw", camera.yaw);
+	this->sky_program->SetFloat("vertical_fov", 45.0f);
+	this->sky_program->SetFloat("horizontal_fov", 2 * atan((this->view_width / this->view_height) * tan(45.0f / 2)));
 	this->sky->Render();
 
 	glEnable(GL_DEPTH_TEST);
@@ -169,8 +173,8 @@ void Renderer::Render(World& world, Camera& camera)
 
 		kc.second.Render();
 	}
-		text_program->Use();
-		position_label->Draw();
+	text_program->Use();
+	position_label->Draw();
 
 
 	SDL_GL_SwapWindow(window);

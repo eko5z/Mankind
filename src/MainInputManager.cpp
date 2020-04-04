@@ -70,6 +70,9 @@ void MainInputManager::OnKeyDown(char key, bool repeat)
 	case 'd':
 		going_rightward = true;
 		break;
+	case ' ':
+		jumping = true;
+		break;
 	}
 	ChangePlayerVelocity();
 }
@@ -107,7 +110,7 @@ void MainInputManager::OnKeyUp(char key)
 		game.SetPlayerPosition(glm::vec3(0, 100, 0));
 		break;
 	case ' ':
-		jumping = true;
+		jumping = false;
 		break;
 	}
 
