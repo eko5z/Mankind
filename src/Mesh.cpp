@@ -5,13 +5,25 @@
 Mesh::Mesh(std::vector<glm::vec3> vertices, std::vector<glm::vec3> normals,
            std::vector<glm::vec2> uvs, std::vector<unsigned int> indices, std::shared_ptr<Texture> diffuse,
            std::shared_ptr<Texture> specular):
-	diffuse(std::move(diffuse)),
-	specular(std::move(specular))
+	diffuse(nullptr),
+	specular(nullptr)
 {
 	this->vertices = vertices;
 	this->normals = normals;
 	this->uvs = uvs;
 	this->indices = indices;
+
+	if (diffuse != nullptr) {
+		this->diffuse = std::move(diffuse);
+	} else {
+		this->diffuse = nullptr;
+	}
+
+	if (specular != nullptr) {
+		this->specular = std::move(specular);
+	} else {
+		this->specular = nullptr;
+	}
 }
 
 void Mesh::Initialize()

@@ -12,7 +12,8 @@ Renderer::Renderer() :
 	default_program(nullptr),
 	sun(glm::vec3{0.3, 1.0, 0.3},
 	    glm::vec3{0.5, 0.5, 0.5},
-	    glm::vec3{1.0, 1.0, 1.0})
+	    glm::vec3{1.0, 1.0, 1.0}),
+	sky(nullptr)
 {
 	LOG("Initializing renderer");
 
@@ -74,8 +75,10 @@ void Renderer::OpenWindow()
 	diffuse = std::make_shared<Texture>("res/tex/tiles_diffuse.png");
 	specular = std::make_shared<Texture>("res/tex/tiles_specular.png");
 
-	// Load the default program.
+	// Load default programs.
 	this->default_program = std::make_unique<Program>("res/shaders/default.vert", "res/shaders/default.frag");
+	this->sky_program = std::make_unique<Program>("res/shaders/sky.vert", "res/shaders/sky.frag");
+	this->sky = std::make_unique<Sky>();
 
 	LOG("Window correctly opened");
 
@@ -134,6 +137,9 @@ void Renderer::Render(World& world, Camera& camera)
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_POLYGON_OFFSET_FILL);
+
+	this->sky_program->Use();
+	this->sky->Render();
 
 	this->default_program->Use();
 	default_program->SetVec3("camera_position", position);
