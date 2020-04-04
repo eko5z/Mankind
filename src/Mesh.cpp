@@ -78,13 +78,13 @@ void Mesh::Render()
 
 	if(this->diffuse != nullptr) {
 		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, this->diffuse->texture_id);
+		diffuse->Bind();
 	}
 
 	// Activate specular texture.
 	if(this->specular != nullptr) {
 		glActiveTexture(GL_TEXTURE1);
-		glBindTexture(GL_TEXTURE_2D, this->specular->texture_id);
+		specular->Bind();
 	}
 
 	glBindVertexArray(this->VAO);
