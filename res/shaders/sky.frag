@@ -42,9 +42,12 @@ void main()
 		cos(frag_Y_angle),
 		sin(frag_Y_angle) * sin(frag_X_angle)
 	));
-
-	if (GetAngle(fragment_vector, normalize(sun_direction * 1.f)) < .1 ) {
+	
+	float angle = GetAngle(fragment_vector, normalize(sun_direction * 1.f));
+	if (angle < .05 ) {
 		out_fragment_color = vec4(1.0, 1.0, 1.0, 1.0);
+	} else if (angle < .1) {
+		out_fragment_color = mix(vec4(1.0, 1.0, 1.0, 1.0), sky, angle / (.05));
 	} else {
 		out_fragment_color = sky;
 	}

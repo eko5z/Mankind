@@ -9,7 +9,8 @@
 
 #include "MathematX.hpp"
 
-Renderer::Renderer() :
+Renderer::Renderer(Game& g) :
+	game(g),
 	window(nullptr),
 	default_program(nullptr),
 	sun(glm::vec3{0.3, 1.0, 0.3},
@@ -125,9 +126,10 @@ void Renderer::UpdateVectors(glm::vec3& angle, glm::vec3& forward,
 	up = glm::cross(right, lookat);
 }
 
-void Renderer::Render(World& world, Camera& camera)
+void Renderer::Render()
 {
 	++ n_frames;
+	Camera& camera = game.GetCamera();
 	int current_time = SDL_GetTicks();
 	ms_accu += current_time - last_time;
 	last_time = current_time;
@@ -137,7 +139,7 @@ void Renderer::Render(World& world, Camera& camera)
 		n_frames = 0;
 		fps_label->SetText("fps %d", fps);
 	}
-	LoadChunks(world, camera);
+	LoadChunks();
 
 	SDL_GetWindowSize(window, &view_width, &view_height);
 
@@ -146,21 +148,23 @@ void Renderer::Render(World& world, Camera& camera)
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glEnable(GL_POLYGON_OFFSET_FILL);
 
-	DrawSky(camera);
-	DrawTerrain(camera);
-	DrawHighlight(camera);
+	DrawSky();
+	DrawTerrain();
+	DrawHighlight();
 	DrawGUI();
 
 	SDL_GL_SwapWindow(window);
 }
 
-void Renderer::AddChunk(World& world, int x, int y, int z, Chunk& c)
+void Renderer::AddChunk(int x, int y, int z, Chunk& c)
 {
+	World& world = game.GetWorld();
 	this->chunk_meshes.insert(std::make_pair(CHUNK_ID(x, y, z), ChunkMesh(world, c, *tile_manager, x, y, z)));
 }
 
-void Renderer::DrawSky(Camera& camera)
+void Renderer::DrawSky()
 {
+	Camera& camera = game.GetCamera();
 	glDisable(GL_DEPTH_TEST);
 
 	this->sky_program->Use();
@@ -174,8 +178,9 @@ void Renderer::DrawSky(Camera& camera)
 	glEnable(GL_DEPTH_TEST);
 }
 
-void Renderer::DrawTerrain(Camera& camera)
+void Renderer::DrawTerrain()
 {
+	Camera& camera = game.GetCamera();
 	glm::vec3 position(camera.x, camera.y, camera.z);
 	glm::vec3 angle(camera.yaw, camera.pitch, camera.roll);
 	glm::vec3 forward, right, lookat, up;
@@ -207,8 +212,9 @@ void Renderer::DrawGUI()
 	fps_label->Draw();
 }
 
-void Renderer::DrawHighlight(Camera& camera)
+void Renderer::DrawHighlight()
 {
+	Camera& camera = game.GetCamera();
 	GLuint uniform_mvp2 = highlight_program->GetUniform("MVP");
 	glEnable(GL_BLEND);
 	highlight_program->Use();
@@ -230,8 +236,10 @@ void Renderer::DrawHighlight(Camera& camera)
 	glDisable(GL_BLEND);
 }
 
-void Renderer::LoadChunks(World& world, Camera& camera)
+void Renderer::LoadChunks()
 {
+	World& world = game.GetWorld();
+	Camera& camera = game.GetCamera();
 	// find out camera chunk
 	int ccx(camera.x / CHUNK_SIZE),
 	    ccy(camera.y / CHUNK_SIZE),
@@ -243,7 +251,7 @@ void Renderer::LoadChunks(World& world, Camera& camera)
 			for (int k(ccz-5); k < ccz+5; ++k) {
 				int64_t chunkid = CHUNK_ID(i, j, k);
 				if (chunk_meshes.find(CHUNK_ID(i, j, k)) == chunk_meshes.end()) {
-					this->AddChunk(world, i, j, k, world.GetChunk(i, j, k));
+					this->AddChunk(i, j, k, world.GetChunk(i, j, k));
 				} else {
 				}
 			}

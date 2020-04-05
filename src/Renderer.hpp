@@ -21,23 +21,24 @@
 class Renderer
 {
 public:
-	Renderer();
+	Renderer(Game& g);
 	~Renderer();
 
 	void OpenWindow();
-	void Render(World& world, Camera& camera);
-	void AddChunk(World& w, int x, int y, int z, Chunk& c);
+	void Render();
+	void AddChunk(int x, int y, int z, Chunk& c);
 private:
+	Game& game;
 	int n_frames;
 	int fps;
 	int ms_accu, last_time;
 	GLint uniform_mvp;
 	float h_fov, v_fov_rad;
-	void DrawSky(Camera& camera);
-	void DrawTerrain(Camera& camera);
+	void DrawSky();
+	void DrawTerrain();
 	void DrawGUI();
-	void DrawHighlight(Camera& camera);
-	void LoadChunks(World& world, Camera& camera);
+	void DrawHighlight();
+	void LoadChunks();
 	std::shared_ptr<Font> main_font;
 	std::unique_ptr<GUILabel> position_label, version_label, fps_label;
 	std::unique_ptr<TileManager> tile_manager;

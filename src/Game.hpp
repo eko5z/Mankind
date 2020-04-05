@@ -56,13 +56,13 @@ public:
 	void Start(int seed);
 	void OnPunch(glm::vec3 position, glm::vec3 lookat);
 	void OnUse(glm::vec3 position, glm::vec3 lookat);
+	void CalculatePointing(glm::vec3 position, glm::vec3 lookAt, float maxDistance, bool& is_pointing, glm::vec3& pointed, glm::vec3& normal);
 private:
 	World world;
 	Camera camera;
 	bool keep_going;
 	ECS::Entity* player;
 	ECS::World* ecs_world;
-	void CalculatePointing(glm::vec3 position, glm::vec3 lookAt, float maxDistance, bool& is_pointing, glm::vec3& pointed, glm::vec3& normal);
 	void PlaceCube(glm::vec3 position, Cube type);
 	void DestroyCube(glm::vec3 position);
 

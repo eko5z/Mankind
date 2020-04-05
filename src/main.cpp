@@ -13,9 +13,9 @@
 int main()
 {
 	std::cout << PACKAGE_STRING << std::endl;
-	Renderer renderer;
 	Game g;
 
+	Renderer renderer(g);
 	renderer.OpenWindow();
 
 	InputSystem input_system;
@@ -42,7 +42,7 @@ int main()
 			g.Update(dt);
 		}
 
-		renderer.Render(g.GetWorld(), g.GetCamera());
+		renderer.Render();
 	}
 
 	return 0;
