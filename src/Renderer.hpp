@@ -31,6 +31,7 @@ private:
 	float h_fov, v_fov_rad;
 	void DrawSky(Camera& camera);
 	void DrawTerrain(Camera& camera);
+	void DrawGUI();
 	void LoadChunks(World& world, Camera& camera);
 	std::shared_ptr<Font> main_font;
 	std::unique_ptr<GUILabel> position_label, version_label;

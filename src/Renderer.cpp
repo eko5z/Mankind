@@ -129,11 +129,7 @@ void Renderer::Render(World& world, Camera& camera)
 
 	DrawSky(camera);
 	DrawTerrain(camera);
-
-	text_program->Use();
-	position_label->Draw();
-	version_label->Draw();
-
+	DrawGUI();
 
 	SDL_GL_SwapWindow(window);
 }
@@ -181,6 +177,13 @@ void Renderer::DrawTerrain(Camera& camera)
 
 		kc.second.Render();
 	}
+}
+
+void Renderer::DrawGUI()
+{
+	text_program->Use();
+	position_label->Draw();
+	version_label->Draw();
 }
 
 void Renderer::LoadChunks(World& world, Camera& camera)
