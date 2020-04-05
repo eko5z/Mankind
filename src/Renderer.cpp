@@ -147,7 +147,7 @@ void Renderer::Render(World& world, Camera& camera)
 
 	DrawSky(camera);
 	DrawTerrain(camera);
-	//DrawHighlight(camera);
+	DrawHighlight(camera);
 	DrawGUI();
 
 	SDL_GL_SwapWindow(window);
