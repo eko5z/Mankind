@@ -25,8 +25,6 @@
 #define nZm { 0, 0,-1}
 #define nZp { 0, 0,+1}
 
-
-
 /*   3----7
     /|   /|
    2 +- 6 |
@@ -35,37 +33,23 @@
    0----4
 */
 
-HighlightMesh::HighlightMesh() :
-	Mesh::Mesh(
-	    // vertices
-	    std::vector<glm::vec3>
-{
-	Xm, Xp, Ym, Yp, Zm, Zp
-},
-// normals
-std::vector<glm::vec3> {
-	nXm, nXm, nXm, nXm, nXm, nXm,
-	nXp, nXp, nXp, nXp, nXp, nXp,
-	nYm, nYm, nYm, nYm, nYm, nYm,
-	nYp, nYp, nYp, nYp, nYp, nYp,
-	nZm, nZm, nZm, nZm, nZm, nZm,
-	nZp, nZp, nZp, nZp, nZp, nZp
-},
-// UVs
-std::vector<glm::vec2>
-{},
-// indices
-std::vector<GLuint> {         // _    _ _____   __
-	0,  1,  2,  3,  4,  5,    // \\  // |  _|  /__\      |
-	6,  7,  8,  9, 10, 11,    //  \\//  | |_   \\        |
-	12, 13, 14, 15, 16, 17,   //   ||   |  _|   \\       |
-	18, 19, 20, 21, 22, 23,   //   ||   | |_   __\|   _  |
-	24, 25, 26, 27, 28, 29,   //   ||   |___|  \__/  |_| |
-	30, 31, 32, 33, 34, 35
-},  // ________________________|
-nullptr,
-nullptr
-)
-{
-}
+#define vertices std::vector<glm::vec3>{Xm, Xp, Ym, Yp, Zm, Zp}
+#define normals std::vector<glm::vec3>{nXm, nXm, nXm, nXm, nXm, nXm,	\
+					 nXp, nXp, nXp, nXp, nXp, nXp,	\
+					 nYm, nYm, nYm, nYm, nYm, nYm,	\
+					 nYp, nYp, nYp, nYp, nYp, nYp,	\
+					 nZm, nZm, nZm, nZm, nZm, nZm,	\
+					 nZp, nZp, nZp, nZp, nZp, nZp}
+#define uvs std::vector<glm::vec2>{}
+#define indices std::vector<GLuint> {0, 1, 2, 3, 4, 5,		\
+				       6, 7, 8, 9, 10, 11,	\
+				       12, 13, 14, 15, 16, 17,	\
+				       18, 19, 20, 21, 22, 23,	\
+				       24, 25, 26, 27, 28, 29,	\
+				       30, 31, 32, 33, 34, 35}
 
+HighlightMesh::HighlightMesh() :
+  Mesh::Mesh(vertices, normals, uvs, indices, nullptr, nullptr)
+{
+  
+}
