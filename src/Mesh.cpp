@@ -24,11 +24,10 @@ Mesh::Mesh(std::vector<glm::vec3> vertices, std::vector<glm::vec3> normals,
 	} else {
 		this->specular = nullptr;
 	}
-}
 
-void Mesh::Initialize()
-{
-	/// Generate the VAO.
+	//// Put the mesh into OpenGL.
+
+	// Generate the VAO.
 	glGenVertexArrays(1, &this->VAO);
 	glBindVertexArray(this->VAO);
 

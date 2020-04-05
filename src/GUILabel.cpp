@@ -13,13 +13,12 @@ GUILabel::GUILabel(std::string id, glm::vec2 pos, glm::vec2 screen_dim,
                    std::shared_ptr<Font> font, std::string fmt, ...) :
 	BaseGUIElement::BaseGUIElement(id),
 	font(std::move(font)),
-	fg_color(
-{
+	fg_color( {
 	255, 255, 255, 255
 }),
 dirty(true),
-pos(pos),
-screen_dim(screen_dim)
+      pos(pos),
+      screen_dim(screen_dim)
 {
 	std::cerr << "pos = " << pos.x << ", " << pos.y << std::endl;
 	this->pos.x = -1 + ((float)pos.x / screen_dim.x * 2.);
@@ -105,7 +104,6 @@ void GUILabel::Reload()
 	std::vector<glm::vec3> normals(6, glm::vec3(0, 0, -1));
 
 	foreground = std::make_unique<Mesh>(vertices, normals, uvs, indices, fg_texture, nullptr);
-	foreground->Initialize();
 }
 
 void GUILabel::Draw()

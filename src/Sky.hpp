@@ -1,14 +1,9 @@
 #pragma once
 
-#include <glm/glm.hpp>
-
-#include "GraphX.hpp"
 #include "Mesh.hpp"
 
-class Sky
+class Sky: public Mesh
 {
-private:
-	std::unique_ptr<Mesh> mesh;
 public:
 	Sky();
 
