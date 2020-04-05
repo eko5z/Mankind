@@ -38,11 +38,11 @@ void main()
 
 	// Render the sun.
 	vec3 fragment_vector = normalize(vec3(
-		-sin(frag_Y_angle) * cos(frag_X_angle),
-		cos(frag_Y_angle),
-		sin(frag_Y_angle) * sin(frag_X_angle)
+		sin(frag_Y_angle) * cos(frag_X_angle),
+		sin(frag_Y_angle) * sin(frag_X_angle),
+		cos(frag_Y_angle)
 	));
-	
+
 	float angle = GetAngle(fragment_vector, normalize(sun_direction * 1.f));
 	float corona_factor = (angle - 0.05) / 0.1;
 	if (angle < .05 ) {

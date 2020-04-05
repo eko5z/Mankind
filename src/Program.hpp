@@ -35,5 +35,10 @@ public:
 	{
 		glUniform3f(this->GetUniformLocation(name), value.x, value.y, value.z);
 	}
+
+	void SetVec2(const char *name, glm::vec2 value)
+	{
+		glUniform2f(this->GetUniformLocation(name), value.x, value.y);
+	}
 };
 
