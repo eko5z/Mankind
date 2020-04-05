@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Mesh.hpp"
+#include "QuadMesh.hpp"
 
-class Sky: public Mesh
+class Sky: public QuadMesh
 {
 public:
 	Sky();

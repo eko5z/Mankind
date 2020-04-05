@@ -94,7 +94,7 @@ void Renderer::OpenWindow()
 	LOG ("Initialized sky.");
 	this->highlight_mesh = std::make_unique<HighlightMesh>();
 	LOG ("Initialized highlight mesh.");
-	h_fov = 60.0f;
+	h_fov = 90.0f;
 	v_fov_rad = xfov_to_yfov(deg2rad(h_fov), (float)view_width / (float)view_height);
 	v_fov = rad2deg(v_fov_rad);
 	std::cerr << "v_fov = " << v_fov << std::endl;
