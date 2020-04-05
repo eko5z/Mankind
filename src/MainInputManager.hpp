@@ -19,7 +19,6 @@ public:
 		return true;
 	}
 private:
-	void CalculatePointing(World& world, glm::vec3 position, glm::vec3 lookAt, float maxDistance);
 	bool is_pointing;
 	bool going_forward, going_backward, going_leftward, going_rightward;
 	bool jumping;
