@@ -30,7 +30,6 @@ Sky::Sky():
 	    nullptr, nullptr
 	)
 {
-	LOG("In sky constructor");
 }
 
 void Sky::Render()
