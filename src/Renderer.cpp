@@ -15,8 +15,7 @@ Renderer::Renderer(Game& g) :
 	default_program(nullptr),
 	sun(glm::vec3{0.3, 1.0, 0.3},
 	    glm::vec3{0.5, 0.5, 0.5},
-	    glm::vec3{1.0, 1.0, 1.0},
-	    glm::vec3{0.5, 0.5, 0.5}),
+	    glm::vec3{1.0, 1.0, 1.0}),
 	n_frames(0),
 	ms_accu(0),
 	last_time(0),
@@ -201,12 +200,16 @@ void Renderer::DrawSky()
 void Renderer::DrawTerrain()
 {
 	Camera& camera = game.GetCamera();
+	glm::vec3 angle(camera.yaw, camera.pitch, camera.roll);
+	glm::vec3 forward, right, lookat, up;
+	UpdateVectors(angle, forward, right, lookat, up);
 
 	this->default_program->Use();
 	// Set the camera view and projection.
 	this->default_program->SetMat4("view", this->view);
 	this->default_program->SetMat4("projection", this->projection);
 	this->default_program->SetVec3("camera_position", glm::vec3(camera.x, camera.y, camera.z));
+	this->default_program->SetVec3("camera_lookat", lookat);
 	this->sun.AddToProgram(*(this->default_program), 0);
 
 	for(auto& kc : this->chunk_meshes) {

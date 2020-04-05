@@ -14,34 +14,40 @@ out vec4 out_fragment_color;
 struct DirectionalLight
 {
 	vec3 direction;
-	vec3 diffuse_color, ambient_color, specular_color;
+	vec3 diffuse_color, ambient_color;
 };
 
 uniform DirectionalLight directional_lights[N_DIRECTIONAL_LIGHTS];
-uniform vec3 camera_position;
+uniform vec3 camera_position, camera_lookat;
 
 void main()
 {
 	vec3 normal = normalize(fragment_normal);
+	vec3 view_direction = normalize(camera_position - fragment_position);
 	vec4 result;
-
-	vec3 someshit = directional_lights[0].specular_color + vec3(1.0, 1.0, 1.0);
 
 	for (int i = 0; i < N_DIRECTIONAL_LIGHTS; ++i)
 	{
-		vec4 ambient = vec4(directional_lights[i].ambient_color, 1.0) * texture(diffuse_texture, fragment_uv);
+		DirectionalLight light = directional_lights[i];
+		vec3 light_direction = normalize(-light.direction);
 
-		float diff = max(dot(normal, directional_lights[i].direction), 0.0);
-		vec4 diffuse = diff * vec4(directional_lights[i].diffuse_color, 1.0) * texture(diffuse_texture, fragment_uv);
+		vec4 ambient = vec4(light.ambient_color, 1.0) * texture(diffuse_texture, fragment_uv);
+
+		float diff = max(dot(normal, light_direction), 0.0);
+		vec4 diffuse = diff * vec4(light.diffuse_color, 1.0) * texture(diffuse_texture, fragment_uv);
+
+		vec3 reflect_direction = reflect(-light_direction, normal);
+		float spec = pow(max(dot(camera_lookat, reflect_direction), 0.0), 6.f);
+		vec4 specular = spec * vec4(.5, .5, .5, 1.0) * texture(specular_texture, fragment_uv);
 
 		// Maybe the fix for Adrien?
 		if(i == 0)
 		{
-			result = ambient + diffuse;
+			result = ambient + diffuse + specular;
 		}
 		else
 		{
-			result += ambient + diffuse;
+			result += ambient + diffuse + specular;
 		}
 	}
 
