@@ -51,7 +51,7 @@ void Renderer::OpenWindow()
 	window = SDL_CreateWindow(PACKAGE_STRING,
 	                          SDL_WINDOWPOS_CENTERED,
 	                          SDL_WINDOWPOS_CENTERED,
-	                          900, 700,
+	                          400, 600,
 	                          SDL_WINDOW_SHOWN |
 	                          SDL_WINDOW_OPENGL);
 
@@ -137,15 +137,15 @@ void Renderer::Render(World& world, Camera& camera)
 
 	position_label->SetText("(x,y,z) = %.2f %.2f %.2f", camera.x, camera.y, camera.z);
 
-	float v_fov = 45.0f;
-	float h_fov_rad = xfov_to_yfov(deg2rad(v_fov), (float)view_width / (float)view_height);
+	float h_fov = 90.0f;
+	float v_fov_rad = xfov_to_yfov(deg2rad(h_fov), (float)view_width / (float)view_height);
 
 	glm::vec3 position(camera.x, camera.y, camera.z);
 	glm::vec3 angle(camera.yaw, camera.pitch, camera.roll);
 	glm::vec3 forward, right, lookat, up;
 	UpdateVectors(angle, forward, right, lookat, up);
 	glm::mat4 view = glm::lookAt(position, position + lookat, up);
-	glm::mat4 projection = glm::perspective(v_fov, 1.0f*view_width/view_height, 0.01f, 1000.0f);
+	glm::mat4 projection = glm::perspective(v_fov_rad, 1.0f*view_width/view_height, 0.01f, 1000.0f);
 
 	ComputeFrustrum(position, lookat);
 
@@ -158,8 +158,8 @@ void Renderer::Render(World& world, Camera& camera)
 	this->sky_program->SetVec3("sun_direction", this->sun.direction);
 	this->sky_program->SetFloat("camera_pitch", camera.pitch);
 	this->sky_program->SetFloat("camera_yaw", camera.yaw);
-	this->sky_program->SetFloat("vertical_fov", deg2rad(v_fov));
-	this->sky_program->SetFloat("horizontal_fov", h_fov_rad);
+	this->sky_program->SetFloat("vertical_fov", v_fov_rad);
+	this->sky_program->SetFloat("horizontal_fov", deg2rad(h_fov));
 	this->sky->Render();
 
 	glEnable(GL_DEPTH_TEST);
