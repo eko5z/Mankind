@@ -18,11 +18,11 @@ private:
 
 	std::shared_ptr<Texture> diffuse, specular;
 public:
-  	std::vector<glm::vec3> vertices;
+	std::vector<glm::vec3> vertices;
 	std::vector<glm::vec3> normals;
 	std::vector<glm::vec2> uvs;
 	std::vector<GLuint> indices;
-  
+
 	// TODO: 2D mesh or something
 	Mesh(std::vector<glm::vec3> vertices, std::vector<glm::vec3> normals,
 	     std::vector<glm::vec2> uvs, std::vector<GLuint> indices, std::shared_ptr<Texture> diffuse,
