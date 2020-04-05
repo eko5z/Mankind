@@ -117,24 +117,7 @@ void Renderer::UpdateVectors(glm::vec3& angle, glm::vec3& forward,
 
 void Renderer::Render(World& world, Camera& camera)
 {
-	// find out camera chunk
-	int ccx(camera.x / CHUNK_SIZE),
-	    ccy(camera.y / CHUNK_SIZE),
-	    ccz(camera.z / CHUNK_SIZE);
-
-	// Add a chunk.
-	for (int i(ccx-5); i < ccx+5; ++i) {
-		for (int j(ccy-5); j < ccy+5; ++j) {
-			for (int k(ccz-5); k < ccz+5; ++k) {
-				int64_t chunkid = CHUNK_ID(i, j, k);
-				if (chunk_meshes.find(CHUNK_ID(i, j, k)) == chunk_meshes.end()) {
-					this->AddChunk(world, i, j, k, world.GetChunk(i, j, k));
-				} else {
-				}
-			}
-		}
-	}
-
+	LoadChunks(world, camera);
 	GLint uniform_mvp = default_program->GetUniform("MVP");
 
 	SDL_GetWindowSize(window, &view_width, &view_height);
@@ -202,5 +185,27 @@ void Renderer::DrawSky(Camera& camera)
 	this->sky->Render();
 
 	glEnable(GL_DEPTH_TEST);
+}
+
+void Renderer::LoadChunks(World& world, Camera& camera)
+{
+	// find out camera chunk
+	int ccx(camera.x / CHUNK_SIZE),
+	    ccy(camera.y / CHUNK_SIZE),
+	    ccz(camera.z / CHUNK_SIZE);
+
+	// Add a chunk.
+	for (int i(ccx-5); i < ccx+5; ++i) {
+		for (int j(ccy-5); j < ccy+5; ++j) {
+			for (int k(ccz-5); k < ccz+5; ++k) {
+				int64_t chunkid = CHUNK_ID(i, j, k);
+				if (chunk_meshes.find(CHUNK_ID(i, j, k)) == chunk_meshes.end()) {
+					this->AddChunk(world, i, j, k, world.GetChunk(i, j, k));
+				} else {
+				}
+			}
+		}
+	}
+
 }
 
