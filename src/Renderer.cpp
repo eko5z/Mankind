@@ -272,9 +272,13 @@ void Renderer::DrawBillboard()
 
 	GLuint billboard_mvp = billboard_program->GetUniform("MVP");
 
+	glEnable(GL_BLEND);
+
 	this->default_program->Use();
 	glUniformMatrix4fv(billboard_mvp, 1, GL_FALSE, glm::value_ptr(mvp));
 	this->billboard->Render();
+
+	glDisable(GL_BLEND);
 }
 
 void Renderer::LoadChunks()

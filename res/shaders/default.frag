@@ -23,14 +23,14 @@ uniform vec3 camera_position;
 void main()
 {
 	vec3 normal = normalize(fragment_normal);
-	vec3 result;
+	vec4 result;
 
 	for (int i = 0; i < N_DIRECTIONAL_LIGHTS; ++i)
 	{
-		vec3 ambient = directional_lights[i].ambient_color * vec3(texture(diffuse_texture, fragment_uv));
+		vec4 ambient = vec4(directional_lights[i].ambient_color, 1.0) * texture(diffuse_texture, fragment_uv);
 
 		float diff = max(dot(normal, directional_lights[i].direction), 0.0);
-		vec3 diffuse = diff * directional_lights[i].diffuse_color * vec3(texture(diffuse_texture, fragment_uv));
+		vec4 diffuse = diff * vec4(directional_lights[i].diffuse_color, 1.0) * texture(diffuse_texture, fragment_uv);
 
 		// Maybe the fix for Adrien?
 		if(i == 0)
@@ -43,5 +43,5 @@ void main()
 		}
 	}
 
-	out_fragment_color = vec4(result, 0.0);
+	out_fragment_color = result;
 } 
