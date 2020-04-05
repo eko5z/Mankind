@@ -15,7 +15,11 @@ Renderer::Renderer() :
 	sun(glm::vec3{0.3, 1.0, 0.3},
 	    glm::vec3{0.5, 0.5, 0.5},
 	    glm::vec3{1.0, 1.0, 1.0}),
-	sky(nullptr)
+	sky(nullptr),
+	n_frames(0),
+	ms_accu(0),
+	last_time(0),
+	fps(0)
 {
 	LOG("Initializing renderer");
 
@@ -81,6 +85,8 @@ void Renderer::OpenWindow()
 	                glm::vec2{5, view_height - 30}, glm::vec2{view_width, view_height}, main_font, PACKAGE_STRING);
 	position_label = std::make_unique<GUILabel>("position",
 	                 glm::vec2{5, view_height - 60}, glm::vec2{view_width, view_height}, main_font, "Position goes here");
+	fps_label = std::make_unique<GUILabel>("fps",
+	                                       glm::vec2{view_width - 100, view_height - 30}, glm::vec2{view_width, view_height}, main_font, "fps");
 	h_fov = 90.0f;
 	v_fov_rad = xfov_to_yfov(deg2rad(h_fov), (float)view_width / (float)view_height);
 
@@ -118,6 +124,16 @@ void Renderer::UpdateVectors(glm::vec3& angle, glm::vec3& forward,
 
 void Renderer::Render(World& world, Camera& camera)
 {
+	++ n_frames;
+	int current_time = SDL_GetTicks();
+	ms_accu += current_time - last_time;
+	last_time = current_time;
+	if (ms_accu > 1000) {
+		ms_accu -= 1000;
+		fps = n_frames;
+		n_frames = 0;
+		fps_label->SetText("fps %d", fps);
+	}
 	LoadChunks(world, camera);
 
 	SDL_GetWindowSize(window, &view_width, &view_height);
@@ -184,6 +200,7 @@ void Renderer::DrawGUI()
 	text_program->Use();
 	position_label->Draw();
 	version_label->Draw();
+	fps_label->Draw();
 }
 
 void Renderer::LoadChunks(World& world, Camera& camera)

@@ -27,6 +27,9 @@ public:
 	void Render(World& world, Camera& camera);
 	void AddChunk(World& w, int x, int y, int z, Chunk& c);
 private:
+	int n_frames;
+	int fps;
+	int ms_accu, last_time;
 	GLint uniform_mvp;
 	float h_fov, v_fov_rad;
 	void DrawSky(Camera& camera);
@@ -34,7 +37,7 @@ private:
 	void DrawGUI();
 	void LoadChunks(World& world, Camera& camera);
 	std::shared_ptr<Font> main_font;
-	std::unique_ptr<GUILabel> position_label, version_label;
+	std::unique_ptr<GUILabel> position_label, version_label, fps_label;
 	int view_height, view_width;
 	SDL_Window* window;
 	SDL_GLContext context;
