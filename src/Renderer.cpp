@@ -16,7 +16,6 @@ Renderer::Renderer(Game& g) :
 	sun(glm::vec3{0.3, 1.0, 0.3},
 	    glm::vec3{0.5, 0.5, 0.5},
 	    glm::vec3{1.0, 1.0, 1.0}),
-	sky(nullptr),
 	n_frames(0),
 	ms_accu(0),
 	last_time(0),
@@ -98,10 +97,12 @@ void Renderer::OpenWindow()
 	this->sky_program = std::make_unique<Program>("res/shaders/sky.vert", "res/shaders/sky.frag");
 	this->text_program = std::make_unique<Program>("res/shaders/text.vert", "res/shaders/text.frag");
 	this->highlight_program = std::make_unique<Program>("res/shaders/default.vert", "res/shaders/highlight.frag");
-	this->sky = std::make_unique<Sky>();
 	uniform_mvp = default_program->GetUniform("MVP");
 
-	highlight_mesh = std::make_unique<HighlightMesh>();
+	this->highlight_mesh = std::make_unique<HighlightMesh>();
+	LOG ("Initialized highlight mesh.");
+	this->sky = std::make_unique<Sky>();
+	LOG ("Initialized sky.");
 
 	LOG("Window correctly opened");
 
@@ -147,7 +148,7 @@ void Renderer::Render()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glEnable(GL_POLYGON_OFFSET_FILL);
 
-	DrawSky();
+	// DrawSky();
 	DrawTerrain();
 	DrawHighlight();
 	DrawGUI();
@@ -164,7 +165,6 @@ void Renderer::AddChunk(int x, int y, int z, Chunk& c)
 void Renderer::DrawSky()
 {
 	Camera& camera = game.GetCamera();
-	glDisable(GL_DEPTH_TEST);
 
 	this->sky_program->Use();
 	this->sky_program->SetVec3("sun_direction", this->sun.direction);
@@ -173,8 +173,6 @@ void Renderer::DrawSky()
 	this->sky_program->SetFloat("vertical_fov", v_fov_rad);
 	this->sky_program->SetFloat("horizontal_fov", deg2rad(h_fov));
 	this->sky->Render();
-
-	glEnable(GL_DEPTH_TEST);
 }
 
 void Renderer::DrawTerrain()
