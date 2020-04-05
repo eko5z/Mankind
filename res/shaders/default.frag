@@ -14,7 +14,7 @@ out vec4 out_fragment_color;
 struct DirectionalLight
 {
 	vec3 direction;
-	vec3 diffuse_color, ambient_color;
+	vec3 diffuse_color, ambient_color, specular_color;
 };
 
 uniform DirectionalLight directional_lights[N_DIRECTIONAL_LIGHTS];
@@ -24,6 +24,8 @@ void main()
 {
 	vec3 normal = normalize(fragment_normal);
 	vec4 result;
+
+	vec3 someshit = directional_lights[0].specular_color + vec3(1.0, 1.0, 1.0);
 
 	for (int i = 0; i < N_DIRECTIONAL_LIGHTS; ++i)
 	{
