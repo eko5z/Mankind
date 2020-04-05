@@ -76,10 +76,12 @@ void Renderer::OpenWindow()
 		throw std::runtime_error("Error initializing GLEW");
 	}
 
-	LOG("All initialized. Loading resources");
+	LOG("All initialized.");
 
+	LOG("Loading fonts...");
 	main_font = std::make_shared<Font>("res/fonts/DejaVuSansMono.ttf", 16);
 
+	LOG("Loading labels");
 	SDL_GetWindowSize(window, &view_width, &view_height);
 	version_label = std::make_unique<GUILabel>("version",
 	                glm::vec2{5, view_height - 30}, glm::vec2{view_width, view_height}, main_font, PACKAGE_STRING);
@@ -87,11 +89,19 @@ void Renderer::OpenWindow()
 	                 glm::vec2{5, view_height - 60}, glm::vec2{view_width, view_height}, main_font, "Position goes here");
 	fps_label = std::make_unique<GUILabel>("fps",
 	                                       glm::vec2{view_width - 100, view_height - 30}, glm::vec2{view_width, view_height}, main_font, "fps");
-	h_fov = 90.0f;
+	LOG("Loading meshes...");
+	this->sky = std::make_unique<Sky>();
+	LOG ("Initialized sky.");
+	this->highlight_mesh = std::make_unique<HighlightMesh>();
+	LOG ("Initialized highlight mesh.");
+	h_fov = 60.0f;
 	v_fov_rad = xfov_to_yfov(deg2rad(h_fov), (float)view_width / (float)view_height);
+	v_fov = rad2deg(v_fov_rad);
+	std::cerr << "v_fov = " << v_fov << std::endl;
 
 	tile_manager = std::make_unique<TileManager>("res/tex/tiles", 2);
 
+	LOG("Loading shaders...");
 	// Load default programs.
 	this->default_program = std::make_unique<Program>("res/shaders/default.vert", "res/shaders/default.frag");
 	this->sky_program = std::make_unique<Program>("res/shaders/sky.vert", "res/shaders/sky.frag");
@@ -99,10 +109,6 @@ void Renderer::OpenWindow()
 	this->highlight_program = std::make_unique<Program>("res/shaders/default.vert", "res/shaders/highlight.frag");
 	uniform_mvp = default_program->GetUniform("MVP");
 
-	this->highlight_mesh = std::make_unique<HighlightMesh>();
-	LOG ("Initialized highlight mesh.");
-	this->sky = std::make_unique<Sky>();
-	LOG ("Initialized sky.");
 
 	LOG("Window correctly opened");
 
@@ -172,7 +178,7 @@ void Renderer::DrawSky()
 	this->sky_program->SetFloat("camera_pitch", camera.pitch);
 	this->sky_program->SetFloat("camera_yaw", camera.yaw);
 	this->sky_program->SetFloat("vertical_fov", v_fov_rad);
-	this->sky_program->SetFloat("horizontal_fov", deg2rad(h_fov));
+	this->sky_program->SetFloat("horizontal_fov", v_fov_rad);
 	this->sky->Render();
 }
 

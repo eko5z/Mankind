@@ -33,7 +33,7 @@ private:
 	int fps;
 	int ms_accu, last_time;
 	GLint uniform_mvp;
-	float h_fov, v_fov_rad;
+	float h_fov, v_fov_rad, v_fov;
 	void DrawSky();
 	void DrawTerrain();
 	void DrawGUI();

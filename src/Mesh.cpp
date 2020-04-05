@@ -8,10 +8,12 @@ Mesh::Mesh(std::vector<glm::vec3> vertices, std::vector<glm::vec3> normals,
 	diffuse(nullptr),
 	specular(nullptr)
 {
+	LOG("In mesh constructor");
 	this->vertices = vertices;
 	this->normals = normals;
 	this->uvs = uvs;
 	this->indices = indices;
+
 
 	if (diffuse != nullptr) {
 		this->diffuse = std::move(diffuse);
@@ -69,6 +71,7 @@ Mesh::Mesh(std::vector<glm::vec3> vertices, std::vector<glm::vec3> normals,
 	glEnableVertexAttribArray(2);
 	glBindBuffer(GL_ARRAY_BUFFER, this->UVBO);
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, (void*) 0);
+	LOG("Mesh loaded.");
 }
 
 Mesh::~Mesh()
