@@ -57,7 +57,6 @@ Sky::Sky():
 	indices.push_back(5);
 
 	this->mesh = std::make_unique<Mesh>(vertices, normals, uvs, indices, nullptr, nullptr);
-	this->mesh->Initialize();
 }
 
 void Sky::Render()

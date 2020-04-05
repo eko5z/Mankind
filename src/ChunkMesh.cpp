@@ -204,7 +204,6 @@ void ChunkMesh::Update()
 	if (indices.size() > 0) {
 		this->mesh = std::make_unique<Mesh>(real_vertices, normals, uvs, indices,
 		                                    tile_manager.GetDiffuse(), tile_manager.GetSpecular());
-		this->mesh->Initialize();
 	}
 }
 

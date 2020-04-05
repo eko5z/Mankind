@@ -105,7 +105,6 @@ void GUILabel::Reload()
 	std::vector<glm::vec3> normals(6, glm::vec3(0, 0, -1));
 
 	foreground = std::make_unique<Mesh>(vertices, normals, uvs, indices, fg_texture, nullptr);
-	foreground->Initialize();
 }
 
 void GUILabel::Draw()
