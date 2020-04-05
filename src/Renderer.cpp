@@ -90,8 +90,7 @@ void Renderer::OpenWindow()
 	h_fov = 90.0f;
 	v_fov_rad = xfov_to_yfov(deg2rad(h_fov), (float)view_width / (float)view_height);
 
-	diffuse = std::make_shared<Texture>("res/tex/tiles_diffuse.png");
-	specular = std::make_shared<Texture>("res/tex/tiles_specular.png");
+	tile_manager = std::make_unique<TileManager>("res/tex/tiles", 2);
 
 	// Load default programs.
 	this->default_program = std::make_unique<Program>("res/shaders/default.vert", "res/shaders/default.frag");
@@ -152,7 +151,7 @@ void Renderer::Render(World& world, Camera& camera)
 
 void Renderer::AddChunk(World& world, int x, int y, int z, Chunk& c)
 {
-	this->chunk_meshes.insert(std::make_pair(CHUNK_ID(x, y, z), ChunkMesh(world, c, x, y, z, diffuse, specular)));
+	this->chunk_meshes.insert(std::make_pair(CHUNK_ID(x, y, z), ChunkMesh(world, c, *tile_manager, x, y, z)));
 }
 
 void Renderer::DrawSky(Camera& camera)

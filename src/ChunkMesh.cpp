@@ -6,14 +6,12 @@
 
 #define INDEX(x, y, z) ((x) * (CHUNK_SIZE+1) * (CHUNK_SIZE+1) + (y) * (CHUNK_SIZE+1) + (z))
 
-ChunkMesh::ChunkMesh(World& w, Chunk& chunk, int x, int y, int z, std::shared_ptr<Texture> diffuse, std::shared_ptr<Texture> specular) :
+ChunkMesh::ChunkMesh(World& w, Chunk& chunk, TileManager& tile_manager, int x, int y, int z) :
 	world(w),
 	chunk(chunk),
+	tile_manager(tile_manager),
 	mesh(nullptr),
-	x(x), y(y), z(z),
-	tile_manager(2),
-	diffuse(std::move(diffuse)),
-	specular(std::move(specular))
+	x(x), y(y), z(z)
 {
 	/* We only need to generate vertices once*/
 	/* They could be static, too */
@@ -204,7 +202,8 @@ void ChunkMesh::Update()
 
 
 	if (indices.size() > 0) {
-		this->mesh = std::make_unique<Mesh>(real_vertices, normals, uvs, indices, diffuse, specular);
+		this->mesh = std::make_unique<Mesh>(real_vertices, normals, uvs, indices,
+		                                    tile_manager.GetDiffuse(), tile_manager.GetSpecular());
 		this->mesh->Initialize();
 	}
 }

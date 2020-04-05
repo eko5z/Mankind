@@ -38,6 +38,7 @@ private:
 	void LoadChunks(World& world, Camera& camera);
 	std::shared_ptr<Font> main_font;
 	std::unique_ptr<GUILabel> position_label, version_label, fps_label;
+	std::unique_ptr<TileManager> tile_manager;
 	int view_height, view_width;
 	SDL_Window* window;
 	SDL_GLContext context;
@@ -47,7 +48,6 @@ private:
 	std::unique_ptr<Program> default_program;
 	std::unique_ptr<Program> text_program;
 	std::unique_ptr<Program> sky_program;
-	std::shared_ptr<Texture> diffuse, specular;
 	std::map<uint64_t, ChunkMesh> chunk_meshes;
 
 	DirectionalLight sun;
