@@ -27,6 +27,8 @@ public:
 	void Render(World& world, Camera& camera);
 	void AddChunk(World& w, int x, int y, int z, Chunk& c);
 private:
+	float h_fov, v_fov_rad;
+	void DrawSky(Camera& camera);
 	std::shared_ptr<Font> main_font;
 	std::unique_ptr<GUILabel> position_label, version_label;
 	int view_height, view_width;

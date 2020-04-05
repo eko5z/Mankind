@@ -81,6 +81,8 @@ void Renderer::OpenWindow()
 	                glm::vec2{5, view_height - 30}, glm::vec2{view_width, view_height}, main_font, PACKAGE_STRING);
 	position_label = std::make_unique<GUILabel>("position",
 	                 glm::vec2{5, view_height - 60}, glm::vec2{view_width, view_height}, main_font, "Position goes here");
+	h_fov = 90.0f;
+	v_fov_rad = xfov_to_yfov(deg2rad(h_fov), (float)view_width / (float)view_height);
 
 	diffuse = std::make_shared<Texture>("res/tex/tiles_diffuse.png");
 	specular = std::make_shared<Texture>("res/tex/tiles_specular.png");
@@ -139,8 +141,6 @@ void Renderer::Render(World& world, Camera& camera)
 
 	position_label->SetText("(x,y,z) = %.2f %.2f %.2f", camera.x, camera.y, camera.z);
 
-	float h_fov = 90.0f;
-	float v_fov_rad = xfov_to_yfov(deg2rad(h_fov), (float)view_width / (float)view_height);
 
 	glm::vec3 position(camera.x, camera.y, camera.z);
 	glm::vec3 angle(camera.yaw, camera.pitch, camera.roll);
@@ -154,17 +154,7 @@ void Renderer::Render(World& world, Camera& camera)
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glEnable(GL_POLYGON_OFFSET_FILL);
 
-	glDisable(GL_DEPTH_TEST);
-
-	this->sky_program->Use();
-	this->sky_program->SetVec3("sun_direction", this->sun.direction);
-	this->sky_program->SetFloat("camera_pitch", camera.pitch);
-	this->sky_program->SetFloat("camera_yaw", camera.yaw);
-	this->sky_program->SetFloat("vertical_fov", v_fov_rad);
-	this->sky_program->SetFloat("horizontal_fov", deg2rad(h_fov));
-	this->sky->Render();
-
-	glEnable(GL_DEPTH_TEST);
+	DrawSky(camera);
 
 	this->default_program->Use();
 	this->default_program->SetVec3("camera_position", position);
@@ -198,3 +188,19 @@ void Renderer::AddChunk(World& world, int x, int y, int z, Chunk& c)
 {
 	this->chunk_meshes.insert(std::make_pair(CHUNK_ID(x, y, z), ChunkMesh(world, c, x, y, z, diffuse, specular)));
 }
+
+void Renderer::DrawSky(Camera& camera)
+{
+	glDisable(GL_DEPTH_TEST);
+
+	this->sky_program->Use();
+	this->sky_program->SetVec3("sun_direction", this->sun.direction);
+	this->sky_program->SetFloat("camera_pitch", camera.pitch);
+	this->sky_program->SetFloat("camera_yaw", camera.yaw);
+	this->sky_program->SetFloat("vertical_fov", v_fov_rad);
+	this->sky_program->SetFloat("horizontal_fov", deg2rad(h_fov));
+	this->sky->Render();
+
+	glEnable(GL_DEPTH_TEST);
+}
+
