@@ -28,7 +28,7 @@ public:
 	void AddChunk(World& w, int x, int y, int z, Chunk& c);
 private:
 	std::shared_ptr<Font> main_font;
-	std::unique_ptr<GUILabel> position_label;
+	std::unique_ptr<GUILabel> position_label, version_label;
 	int view_height, view_width;
 	SDL_Window* window;
 	SDL_GLContext context;

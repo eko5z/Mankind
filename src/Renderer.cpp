@@ -51,7 +51,7 @@ void Renderer::OpenWindow()
 	window = SDL_CreateWindow(PACKAGE_STRING,
 	                          SDL_WINDOWPOS_CENTERED,
 	                          SDL_WINDOWPOS_CENTERED,
-	                          400, 600,
+	                          800, 600,
 	                          SDL_WINDOW_SHOWN |
 	                          SDL_WINDOW_OPENGL);
 
@@ -74,11 +74,13 @@ void Renderer::OpenWindow()
 
 	LOG("All initialized. Loading resources");
 
-	main_font = std::make_shared<Font>("res/fonts/DejaVuSansMono.ttf", 24);
+	main_font = std::make_shared<Font>("res/fonts/DejaVuSansMono.ttf", 16);
 
 	SDL_GetWindowSize(window, &view_width, &view_height);
+	version_label = std::make_unique<GUILabel>("version",
+	                glm::vec2{5, view_height - 30}, glm::vec2{view_width, view_height}, main_font, PACKAGE_STRING);
 	position_label = std::make_unique<GUILabel>("position",
-	                 glm::vec2{5, 50}, glm::vec2{view_width, view_height}, main_font, "Position goes here");
+	                 glm::vec2{5, view_height - 60}, glm::vec2{view_width, view_height}, main_font, "Position goes here");
 
 	diffuse = std::make_shared<Texture>("res/tex/tiles_diffuse.png");
 	specular = std::make_shared<Texture>("res/tex/tiles_specular.png");
@@ -180,6 +182,7 @@ void Renderer::Render(World& world, Camera& camera)
 	}
 	text_program->Use();
 	position_label->Draw();
+	version_label->Draw();
 
 
 	SDL_GL_SwapWindow(window);
