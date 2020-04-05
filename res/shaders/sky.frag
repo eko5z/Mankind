@@ -3,11 +3,7 @@
 #define M_PI 3.14159
 
 in vec3 fragment_position;
-in vec3 fragment_normal;
-in vec2 fragment_uv;
 
-uniform sampler2D diffuse_texture;
-uniform sampler2D specular_texture;
 uniform vec3 sun_direction;
 uniform float camera_pitch;
 uniform float camera_yaw;
