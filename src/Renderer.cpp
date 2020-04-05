@@ -101,6 +101,7 @@ void Renderer::OpenWindow()
 	uniform_mvp = default_program->GetUniform("MVP");
 
 	highlight_mesh = std::make_unique<HighlightMesh>();
+	this->highlight_mesh->Initialize();
 
 	LOG("Window correctly opened");
 
