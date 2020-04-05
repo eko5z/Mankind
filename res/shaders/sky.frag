@@ -44,10 +44,12 @@ void main()
 	));
 
 	float angle = GetAngle(fragment_vector, normalize(sun_direction * 1.f));
-	float corona_factor = (angle - 0.05) / 0.1;
-	if (angle < .05 ) {
+	float sun_radius = 0.02;
+	float corona_radius = 0.3;
+	float corona_factor = (angle - sun_radius) / (corona_radius - sun_radius);
+	if (angle < sun_radius ) {
 		out_fragment_color = vec4(1.0, 1.0, 1.0, 1.0);
-	} else if (angle < .15) {
+	} else if (angle < corona_radius) {
 		out_fragment_color = mix(vec4(1.0, 1.0, 1.0, 1.0), sky, corona_factor);
 	} else {
 		out_fragment_color = sky;
