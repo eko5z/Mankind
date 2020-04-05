@@ -33,7 +33,6 @@ public:
 	{
 		return dirty;
 	}
-	void Generate(int x, int y, int z);
 	int GetX()
 	{
 		return x;
