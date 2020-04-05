@@ -215,20 +215,27 @@ void Renderer::DrawGUI()
 void Renderer::DrawHighlight()
 {
 	Camera& camera = game.GetCamera();
+	glm::vec3 angle(camera.yaw, camera.pitch, camera.roll);
+	glm::vec3 forward, right, lookat, up;
+	UpdateVectors(angle, forward, right, lookat, up);
+	bool is_pointing;
+	glm::vec3 pointed;
+	glm::vec3 normal;
+	glm::vec3 position(camera.x, camera.y, camera.z);
+	game.CalculatePointing(position, lookat, 10., is_pointing, pointed, normal);
+	if (not is_pointing) {
+		return;
+	}
+
 	GLuint uniform_mvp2 = highlight_program->GetUniform("MVP");
 	glEnable(GL_BLEND);
 	highlight_program->Use();
 
-	glm::vec3 position(camera.x, camera.y, camera.z);
-	glm::vec3 angle(camera.yaw, camera.pitch, camera.roll);
-	glm::vec3 forward, right, lookat, up;
 
-	UpdateVectors(angle, forward, right, lookat, up);
-	float x(camera.x + 1), y(camera.y + 1), z(camera.z);
 
 	glm::mat4 view = glm::lookAt(position, position + lookat, up);
 	glm::mat4 projection = glm::scale(glm::perspective(v_fov_rad, 1.0f*view_width/view_height, 0.01f, 1000.0f), glm::vec3(CUBE_SIZE, CUBE_SIZE, CUBE_SIZE));
-	glm::mat4 translate = glm::translate(glm::mat4(), glm::vec3(x, y, z));
+	glm::mat4 translate = glm::translate(glm::mat4(), pointed);
 	glm::mat4 mvp = projection * view * translate;
 	glUniformMatrix4fv(uniform_mvp, 1, GL_FALSE, glm::value_ptr(mvp));
 

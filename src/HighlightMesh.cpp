@@ -1,13 +1,13 @@
 #include "HighlightMesh.hpp"
 
-#define v0 glm::vec3{0.f, 0.f, 0.f}
-#define v1 glm::vec3{0.f, 0.f, 1.f}
-#define v2 glm::vec3{0.f, 1.f, 0.f}
-#define v3 glm::vec3{0.f, 1.f, 1.f}
-#define v4 glm::vec3{1.f, 0.f, 0.f}
-#define v5 glm::vec3{1.f, 0.f, 1.f}
-#define v6 glm::vec3{1.f, 1.f, 0.f}
-#define v7 glm::vec3{1.f, 1.f, 1.f}
+#define v0 glm::vec3{-0.01f, -0.01f, -0.01f}
+#define v1 glm::vec3{-0.01f, -0.01f, +1.01f}
+#define v2 glm::vec3{-0.01f, +1.01f, -0.01f}
+#define v3 glm::vec3{-0.01f, +1.01f, +1.01f}
+#define v4 glm::vec3{+1.01f, -0.01f, -0.01f}
+#define v5 glm::vec3{+1.01f, -0.01f, +1.01f}
+#define v6 glm::vec3{+1.01f, +1.01f, -0.01f}
+#define v7 glm::vec3{+1.01f, +1.01f, +1.01f}
 
 #define Xm v0, v2, v3, v0, v1, v3
 #define Xp v4, v6, v7, v4, v5, v7
