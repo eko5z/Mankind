@@ -8,7 +8,7 @@
 class Chunk
 {
 public:
-	Chunk();
+	Chunk(int x, int y, int z);
 	Cube& GetCube(int x, int y, int z)
 	{
 		return cubes[CHUNK_INCOORD(x, y, z)];

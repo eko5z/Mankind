@@ -147,7 +147,7 @@ void Renderer::Render(World& world, Camera& camera)
 
 	DrawSky(camera);
 	DrawTerrain(camera);
-	DrawHighlight(camera);
+	//DrawHighlight(camera);
 	DrawGUI();
 
 	SDL_GL_SwapWindow(window);
@@ -209,7 +209,7 @@ void Renderer::DrawGUI()
 void Renderer::DrawHighlight(Camera& camera)
 {
 	GLuint uniform_mvp2 = highlight_program->GetUniform("MVP");
-	//glEnable(GL_BLEND);
+	glEnable(GL_BLEND);
 	highlight_program->Use();
 
 	glm::vec3 position(camera.x, camera.y, camera.z);
@@ -226,7 +226,7 @@ void Renderer::DrawHighlight(Camera& camera)
 	glUniformMatrix4fv(uniform_mvp, 1, GL_FALSE, glm::value_ptr(mvp));
 
 	highlight_mesh->Render();
-	//glDisable(GL_BLEND);
+	glDisable(GL_BLEND);
 }
 
 void Renderer::LoadChunks(World& world, Camera& camera)

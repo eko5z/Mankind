@@ -68,7 +68,7 @@ void World::LoadChunk(int x, int y, int z)
 	int64_t id = CHUNK_ID(x, y, z);
 
 	std::unique_ptr<Chunk> new_chunk;
-	new_chunk = std::make_unique<Chunk>();
+	new_chunk = std::make_unique<Chunk>(x, y, z);
 	chunks.emplace(id, std::move(new_chunk));
 
 	world_generator->GenerateChunk(*chunks[id]);
