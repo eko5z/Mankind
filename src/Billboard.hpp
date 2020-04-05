@@ -2,5 +2,5 @@
 
 class Billboard: public Mesh
 {
-  
+
 }

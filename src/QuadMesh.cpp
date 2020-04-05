@@ -22,7 +22,7 @@
 #define indices std::vector<GLuint>{0, 1, 2, 3, 4, 5}
 
 QuadMesh::QuadMesh(std::shared_ptr<Texture> diffuse, std::shared_ptr<Texture> specular):
-  Mesh::Mesh(vertices, normals, uvs, indices, diffuse, specular)
+	Mesh::Mesh(vertices, normals, uvs, indices, diffuse, specular)
 {
 
 }
