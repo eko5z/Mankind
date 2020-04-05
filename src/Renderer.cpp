@@ -94,6 +94,11 @@ void Renderer::OpenWindow()
 	LOG ("Initialized sky.");
 	this->highlight_mesh = std::make_unique<HighlightMesh>();
 	LOG ("Initialized highlight mesh.");
+
+	this->tree_texture = std::make_shared<Texture>("res/tex/tree.png");
+
+	this->billboard = std::make_unique<QuadMesh>(this->tree_texture, this->tree_texture);
+
 	h_fov = 90.0f;
 	v_fov_rad = xfov_to_yfov(deg2rad(h_fov), (float)view_width / (float)view_height);
 	v_fov = rad2deg(v_fov_rad);
@@ -107,6 +112,7 @@ void Renderer::OpenWindow()
 	this->sky_program = std::make_unique<Program>("res/shaders/sky.vert", "res/shaders/sky.frag");
 	this->text_program = std::make_unique<Program>("res/shaders/text.vert", "res/shaders/text.frag");
 	this->highlight_program = std::make_unique<Program>("res/shaders/default.vert", "res/shaders/highlight.frag");
+	this->billboard_program = std::make_unique<Program>("res/shaders/billboard.vert", "res/shaders/default.frag");
 	uniform_mvp = default_program->GetUniform("MVP");
 
 
@@ -129,6 +135,7 @@ void Renderer::UpdateVectors(glm::vec3& angle, glm::vec3& forward,
 	right.z = sinf(angle.x);
 	lookat.x = sinf(angle.x) * cosf(angle.y);
 	lookat.y = sinf(angle.y);
+
 	lookat.z = cosf(angle.x) * cosf(angle.y);
 	up = glm::cross(right, lookat);
 }
@@ -158,6 +165,7 @@ void Renderer::Render()
 	DrawSky();
 	DrawTerrain();
 	DrawHighlight();
+	DrawBillboard();
 	DrawGUI();
 
 	SDL_GL_SwapWindow(window);
@@ -245,6 +253,28 @@ void Renderer::DrawHighlight()
 
 	highlight_mesh->Render();
 	glDisable(GL_BLEND);
+}
+
+void Renderer::DrawBillboard()
+{
+	Camera& camera = game.GetCamera();
+	glm::vec3 position(camera.x, camera.y, camera.z);
+	glm::vec3 angle(camera.yaw, camera.pitch, camera.roll);
+	glm::vec3 forward, right, lookat, up;
+	UpdateVectors(angle, forward, right, lookat, up);
+	glm::mat4 view = glm::lookAt(position, position + lookat, up);
+	glm::mat4 projection = glm::scale(glm::perspective(v_fov_rad, 1.0f*view_width/view_height, 0.01f, 1000.0f), glm::vec3(CUBE_SIZE, CUBE_SIZE, CUBE_SIZE));
+
+	glm::mat4 model = glm::scale(glm::translate(glm::mat4(), glm::vec3(camera.x + 2.0, camera.y + 2.0, camera.z - 2.0)),
+	                             glm::vec3(1.0, 3.0, 1.0));
+
+	glm::mat4 mvp = projection * view * model;
+
+	GLuint billboard_mvp = billboard_program->GetUniform("MVP");
+
+	this->default_program->Use();
+	glUniformMatrix4fv(billboard_mvp, 1, GL_FALSE, glm::value_ptr(mvp));
+	this->billboard->Render();
 }
 
 void Renderer::LoadChunks()

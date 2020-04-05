@@ -14,6 +14,7 @@
 #include "GUILabel.hpp"
 
 #include "Mesh.hpp"
+#include "QuadMesh.hpp"
 #include "DirectionalLight.hpp"
 #include "Sky.hpp"
 #include "HighlightMesh.hpp"
@@ -38,6 +39,7 @@ private:
 	void DrawTerrain();
 	void DrawGUI();
 	void DrawHighlight();
+	void DrawBillboard();
 	void LoadChunks();
 	std::shared_ptr<Font> main_font;
 	std::unique_ptr<GUILabel> position_label, version_label, fps_label;
@@ -57,5 +59,8 @@ private:
 
 	DirectionalLight sun;
 	std::unique_ptr<Sky> sky;
+	std::unique_ptr<Program> billboard_program;
+	std::unique_ptr<QuadMesh> billboard;
+	std::shared_ptr<Texture> tree_texture;
 };
 
