@@ -33,7 +33,6 @@ private:
 	int n_frames;
 	int fps;
 	int ms_accu, last_time;
-	GLint uniform_mvp;
 	float h_fov, v_fov_rad, v_fov;
 	void DrawSky();
 	void DrawTerrain();
@@ -62,5 +61,7 @@ private:
 	std::unique_ptr<Program> billboard_program;
 	std::unique_ptr<QuadMesh> billboard;
 	std::shared_ptr<Texture> tree_texture;
+
+	glm::mat4 view, projection;
 };
 

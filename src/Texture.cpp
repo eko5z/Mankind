@@ -11,8 +11,6 @@ Texture::Texture(std::string path) :
 		throw std::runtime_error(SDL_GetError());
 	}
 
-	LOG ("Loading: ");
-	LOG (path);
 	Load();
 	SDL_FreeSurface(res);
 }
@@ -32,7 +30,6 @@ void Texture::Load()
 		pixel_format = GL_RGB;
 	} else if (res->format->BytesPerPixel == 4) {
 		pixel_format = GL_RGBA;
-		LOG ("Loaded RGBA texture.");
 	}
 	glTexImage2D(
 	    GL_TEXTURE_2D, 0, pixel_format, res->w, res->h,

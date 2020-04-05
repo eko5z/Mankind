@@ -1,6 +1,7 @@
 #pragma once
 
 #include <glm/glm.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 #include "Shader.hpp"
 
@@ -26,9 +27,9 @@ public:
 		return glGetUniformLocation(program_id, name);
 	}
 
-	void SetFloat(const char *name, float value)
+	void SetMat4(const char *name, glm::mat4 value)
 	{
-		glUniform1f(this->GetUniformLocation(name), value);
+		glUniformMatrix4fv(this->GetUniformLocation(name), 1, GL_FALSE, glm::value_ptr(value));
 	}
 
 	void SetVec3(const char *name, glm::vec3 value)
@@ -39,6 +40,11 @@ public:
 	void SetVec2(const char *name, glm::vec2 value)
 	{
 		glUniform2f(this->GetUniformLocation(name), value.x, value.y);
+	}
+
+	void SetFloat(const char *name, float value)
+	{
+		glUniform1f(this->GetUniformLocation(name), value);
 	}
 };
 

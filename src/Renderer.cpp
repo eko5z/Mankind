@@ -113,8 +113,6 @@ void Renderer::OpenWindow()
 	this->text_program = std::make_unique<Program>("res/shaders/text.vert", "res/shaders/text.frag");
 	this->highlight_program = std::make_unique<Program>("res/shaders/default.vert", "res/shaders/highlight.frag");
 	this->billboard_program = std::make_unique<Program>("res/shaders/billboard.vert", "res/shaders/default.frag");
-	uniform_mvp = default_program->GetUniform("MVP");
-
 
 	LOG("Window correctly opened");
 
@@ -142,8 +140,17 @@ void Renderer::UpdateVectors(glm::vec3& angle, glm::vec3& forward,
 
 void Renderer::Render()
 {
-	++ n_frames;
+	// Calculate the view and projection.
 	Camera& camera = game.GetCamera();
+	glm::vec3 position(camera.x, camera.y, camera.z);
+	glm::vec3 angle(camera.yaw, camera.pitch, camera.roll);
+	glm::vec3 forward, right, lookat, up;
+	UpdateVectors(angle, forward, right, lookat, up);
+	this->view = glm::lookAt(position, position + lookat, up);
+	this->projection = glm::scale(glm::perspective(v_fov_rad, 1.0f*view_width/view_height, 0.01f, 1000.0f), glm::vec3(CUBE_SIZE, CUBE_SIZE, CUBE_SIZE));
+
+
+	++ n_frames;
 	int current_time = SDL_GetTicks();
 	ms_accu += current_time - last_time;
 	last_time = current_time;
@@ -193,25 +200,19 @@ void Renderer::DrawSky()
 void Renderer::DrawTerrain()
 {
 	Camera& camera = game.GetCamera();
-	glm::vec3 position(camera.x, camera.y, camera.z);
-	glm::vec3 angle(camera.yaw, camera.pitch, camera.roll);
-	glm::vec3 forward, right, lookat, up;
-	UpdateVectors(angle, forward, right, lookat, up);
-	glm::mat4 view = glm::lookAt(position, position + lookat, up);
-	glm::mat4 projection = glm::scale(glm::perspective(v_fov_rad, 1.0f*view_width/view_height, 0.01f, 1000.0f), glm::vec3(CUBE_SIZE, CUBE_SIZE, CUBE_SIZE));
 
 	this->default_program->Use();
-	this->default_program->SetVec3("camera_position", position);
+	// Set the camera view and projection.
+	this->default_program->SetMat4("view", this->view);
+	this->default_program->SetMat4("projection", this->projection);
+	this->default_program->SetVec3("camera_position", glm::vec3(camera.x, camera.y, camera.z));
 	this->sun.AddToProgram(*(this->default_program), 0);
 
 	for(auto& kc : this->chunk_meshes) {
 		int x(kc.second.GetX() * CHUNK_SIZE),
 		    y(kc.second.GetY() * CHUNK_SIZE),
 		    z(kc.second.GetZ() * CHUNK_SIZE);
-		glm::mat4 translate = glm::translate(glm::mat4(), glm::vec3(x, y, z));
-		glm::mat4 mvp = projection * view * translate;
-		glUniformMatrix4fv(uniform_mvp, 1, GL_FALSE, glm::value_ptr(mvp));
-
+		this->default_program->SetMat4("model", glm::translate(glm::mat4(), glm::vec3(x, y, z)));
 		kc.second.Render();
 	}
 }
@@ -239,17 +240,12 @@ void Renderer::DrawHighlight()
 		return;
 	}
 
-	GLuint uniform_mvp2 = highlight_program->GetUniform("MVP");
 	glEnable(GL_BLEND);
 	highlight_program->Use();
 
-
-
-	glm::mat4 view = glm::lookAt(position, position + lookat, up);
-	glm::mat4 projection = glm::scale(glm::perspective(v_fov_rad, 1.0f*view_width/view_height, 0.01f, 1000.0f), glm::vec3(CUBE_SIZE, CUBE_SIZE, CUBE_SIZE));
-	glm::mat4 translate = glm::translate(glm::mat4(), pointed);
-	glm::mat4 mvp = projection * view * translate;
-	glUniformMatrix4fv(uniform_mvp, 1, GL_FALSE, glm::value_ptr(mvp));
+	this->highlight_program->SetMat4("view", this->view);
+	this->highlight_program->SetMat4("projection", this->projection);
+	this->highlight_program->SetMat4("model", glm::translate(glm::mat4(), pointed));
 
 	highlight_mesh->Render();
 	glDisable(GL_BLEND);
@@ -258,24 +254,17 @@ void Renderer::DrawHighlight()
 void Renderer::DrawBillboard()
 {
 	Camera& camera = game.GetCamera();
-	glm::vec3 position(camera.x, camera.y, camera.z);
-	glm::vec3 angle(camera.yaw, camera.pitch, camera.roll);
-	glm::vec3 forward, right, lookat, up;
-	UpdateVectors(angle, forward, right, lookat, up);
-	glm::mat4 view = glm::lookAt(position, position + lookat, up);
-	glm::mat4 projection = glm::scale(glm::perspective(v_fov_rad, 1.0f*view_width/view_height, 0.01f, 1000.0f), glm::vec3(CUBE_SIZE, CUBE_SIZE, CUBE_SIZE));
-
 	glm::mat4 model = glm::scale(glm::translate(glm::mat4(), glm::vec3(camera.x + 2.0, camera.y + 2.0, camera.z - 2.0)),
 	                             glm::vec3(1.0, 3.0, 1.0));
-
-	glm::mat4 mvp = projection * view * model;
-
-	GLuint billboard_mvp = billboard_program->GetUniform("MVP");
 
 	glEnable(GL_BLEND);
 
 	this->default_program->Use();
-	glUniformMatrix4fv(billboard_mvp, 1, GL_FALSE, glm::value_ptr(mvp));
+
+	this->default_program->SetMat4("view", this->view);
+	this->default_program->SetMat4("projection", this->projection);
+	this->default_program->SetMat4("model", model);
+
 	this->billboard->Render();
 
 	glDisable(GL_BLEND);
