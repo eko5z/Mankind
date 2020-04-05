@@ -92,6 +92,7 @@ void Renderer::OpenWindow()
 	this->sky_program = std::make_unique<Program>("res/shaders/sky.vert", "res/shaders/sky.frag");
 	this->text_program = std::make_unique<Program>("res/shaders/text.vert", "res/shaders/text.frag");
 	this->sky = std::make_unique<Sky>();
+	uniform_mvp = default_program->GetUniform("MVP");
 
 	LOG("Window correctly opened");
 
@@ -118,41 +119,17 @@ void Renderer::UpdateVectors(glm::vec3& angle, glm::vec3& forward,
 void Renderer::Render(World& world, Camera& camera)
 {
 	LoadChunks(world, camera);
-	GLint uniform_mvp = default_program->GetUniform("MVP");
 
 	SDL_GetWindowSize(window, &view_width, &view_height);
 
 	position_label->SetText("(x,y,z) = %.2f %.2f %.2f", camera.x, camera.y, camera.z);
 
-
-	glm::vec3 position(camera.x, camera.y, camera.z);
-	glm::vec3 angle(camera.yaw, camera.pitch, camera.roll);
-	glm::vec3 forward, right, lookat, up;
-	UpdateVectors(angle, forward, right, lookat, up);
-	glm::mat4 view = glm::lookAt(position, position + lookat, up);
-	glm::mat4 projection = glm::perspective(v_fov_rad, 1.0f*view_width/view_height, 0.01f, 1000.0f);
-
-	ComputeFrustrum(position, lookat);
-
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glEnable(GL_POLYGON_OFFSET_FILL);
 
 	DrawSky(camera);
+	DrawTerrain(camera);
 
-	this->default_program->Use();
-	this->default_program->SetVec3("camera_position", position);
-	this->sun.AddToProgram(*(this->default_program), 0);
-
-	for(auto& kc : this->chunk_meshes) {
-		int x(kc.second.GetX() * CHUNK_SIZE),
-		    y(kc.second.GetY() * CHUNK_SIZE),
-		    z(kc.second.GetZ() * CHUNK_SIZE);
-		glm::mat4 translate = glm::translate(glm::mat4(), glm::vec3(x, y, z));
-		glm::mat4 mvp = projection * view * translate;
-		glUniformMatrix4fv(uniform_mvp, 1, GL_FALSE, glm::value_ptr(mvp));
-
-		kc.second.Render();
-	}
 	text_program->Use();
 	position_label->Draw();
 	version_label->Draw();
@@ -185,6 +162,31 @@ void Renderer::DrawSky(Camera& camera)
 	this->sky->Render();
 
 	glEnable(GL_DEPTH_TEST);
+}
+
+void Renderer::DrawTerrain(Camera& camera)
+{
+	glm::vec3 position(camera.x, camera.y, camera.z);
+	glm::vec3 angle(camera.yaw, camera.pitch, camera.roll);
+	glm::vec3 forward, right, lookat, up;
+	UpdateVectors(angle, forward, right, lookat, up);
+	glm::mat4 view = glm::lookAt(position, position + lookat, up);
+	glm::mat4 projection = glm::perspective(v_fov_rad, 1.0f*view_width/view_height, 0.01f, 1000.0f);
+
+	this->default_program->Use();
+	this->default_program->SetVec3("camera_position", position);
+	this->sun.AddToProgram(*(this->default_program), 0);
+
+	for(auto& kc : this->chunk_meshes) {
+		int x(kc.second.GetX() * CHUNK_SIZE),
+		    y(kc.second.GetY() * CHUNK_SIZE),
+		    z(kc.second.GetZ() * CHUNK_SIZE);
+		glm::mat4 translate = glm::translate(glm::mat4(), glm::vec3(x, y, z));
+		glm::mat4 mvp = projection * view * translate;
+		glUniformMatrix4fv(uniform_mvp, 1, GL_FALSE, glm::value_ptr(mvp));
+
+		kc.second.Render();
+	}
 }
 
 void Renderer::LoadChunks(World& world, Camera& camera)
