@@ -96,8 +96,11 @@ void Renderer::OpenWindow()
 	this->default_program = std::make_unique<Program>("res/shaders/default.vert", "res/shaders/default.frag");
 	this->sky_program = std::make_unique<Program>("res/shaders/sky.vert", "res/shaders/sky.frag");
 	this->text_program = std::make_unique<Program>("res/shaders/text.vert", "res/shaders/text.frag");
+	this->highlight_program = std::make_unique<Program>("res/shaders/default.vert", "res/shaders/highlight.frag");
 	this->sky = std::make_unique<Sky>();
 	uniform_mvp = default_program->GetUniform("MVP");
+
+	highlight_mesh = std::make_unique<HighlightMesh>();
 
 	LOG("Window correctly opened");
 
@@ -144,6 +147,7 @@ void Renderer::Render(World& world, Camera& camera)
 
 	DrawSky(camera);
 	DrawTerrain(camera);
+	DrawHighlight(camera);
 	DrawGUI();
 
 	SDL_GL_SwapWindow(window);
@@ -200,6 +204,29 @@ void Renderer::DrawGUI()
 	position_label->Draw();
 	version_label->Draw();
 	fps_label->Draw();
+}
+
+void Renderer::DrawHighlight(Camera& camera)
+{
+	GLuint uniform_mvp2 = highlight_program->GetUniform("MVP");
+	//glEnable(GL_BLEND);
+	highlight_program->Use();
+
+	glm::vec3 position(camera.x, camera.y, camera.z);
+	glm::vec3 angle(camera.yaw, camera.pitch, camera.roll);
+	glm::vec3 forward, right, lookat, up;
+
+	UpdateVectors(angle, forward, right, lookat, up);
+	float x(camera.x + 1), y(camera.y + 1), z(camera.z);
+
+	glm::mat4 view = glm::lookAt(position, position + lookat, up);
+	glm::mat4 projection = glm::scale(glm::perspective(v_fov_rad, 1.0f*view_width/view_height, 0.01f, 1000.0f), glm::vec3(CUBE_SIZE, CUBE_SIZE, CUBE_SIZE));
+	glm::mat4 translate = glm::translate(glm::mat4(), glm::vec3(x, y, z));
+	glm::mat4 mvp = projection * view * translate;
+	glUniformMatrix4fv(uniform_mvp, 1, GL_FALSE, glm::value_ptr(mvp));
+
+	highlight_mesh->Render();
+	//glDisable(GL_BLEND);
 }
 
 void Renderer::LoadChunks(World& world, Camera& camera)

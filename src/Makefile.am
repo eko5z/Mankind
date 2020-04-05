@@ -19,7 +19,8 @@ mankind_SOURCES=\
 	DirectionalLight.cpp\
 	Sky.cpp\
 	BaseGUIElement.cpp\
-	GUILabel.cpp
+	GUILabel.cpp\
+	HighlightMesh.cpp
 
 AM_LDFLAGS=`pkg-config --libs sdl2`\
 		   `pkg-config --libs SDL2_image`\

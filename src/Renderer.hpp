@@ -16,6 +16,7 @@
 #include "Mesh.hpp"
 #include "DirectionalLight.hpp"
 #include "Sky.hpp"
+#include "HighlightMesh.hpp"
 
 class Renderer
 {
@@ -35,10 +36,12 @@ private:
 	void DrawSky(Camera& camera);
 	void DrawTerrain(Camera& camera);
 	void DrawGUI();
+	void DrawHighlight(Camera& camera);
 	void LoadChunks(World& world, Camera& camera);
 	std::shared_ptr<Font> main_font;
 	std::unique_ptr<GUILabel> position_label, version_label, fps_label;
 	std::unique_ptr<TileManager> tile_manager;
+	std::unique_ptr<HighlightMesh> highlight_mesh;
 	int view_height, view_width;
 	SDL_Window* window;
 	SDL_GLContext context;
@@ -48,6 +51,7 @@ private:
 	std::unique_ptr<Program> default_program;
 	std::unique_ptr<Program> text_program;
 	std::unique_ptr<Program> sky_program;
+	std::unique_ptr<Program> highlight_program;
 	std::map<uint64_t, ChunkMesh> chunk_meshes;
 
 	DirectionalLight sun;
