@@ -176,7 +176,7 @@ void Renderer::DrawTerrain(Camera& camera)
 	glm::vec3 forward, right, lookat, up;
 	UpdateVectors(angle, forward, right, lookat, up);
 	glm::mat4 view = glm::lookAt(position, position + lookat, up);
-	glm::mat4 projection = glm::perspective(v_fov_rad, 1.0f*view_width/view_height, 0.01f, 1000.0f);
+	glm::mat4 projection = glm::scale(glm::perspective(v_fov_rad, 1.0f*view_width/view_height, 0.01f, 1000.0f), glm::vec3(CUBE_SIZE, CUBE_SIZE, CUBE_SIZE));
 
 	this->default_program->Use();
 	this->default_program->SetVec3("camera_position", position);

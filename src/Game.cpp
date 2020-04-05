@@ -36,7 +36,7 @@ void Game::Update(float dt)
 	auto campos = GetPlayerPosition();
 	auto camrot = GetPlayerRotation();
 	camera.x = campos.x;
-	camera.y = campos.y + 1.6; /* player is a Neanderthal 1,60 m Chad */
+	camera.y = campos.y + 1.6 / CUBE_SIZE; /* player is a Neanderthal 1,60 m Chad */
 	camera.z = campos.z;
 	camera.yaw = camrot.x;
 	camera.pitch = camrot.y;
