@@ -138,12 +138,6 @@ void Renderer::Render(World& world, Camera& camera)
 	SDL_GL_SwapWindow(window);
 }
 
-void Renderer::ComputeFrustrum(glm::vec3 position, glm::vec3 lookAt)
-{
-	static glm::vec3 up(0., 1., 0.), right(1., 0., 0.);
-	lookAt = glm::normalize(lookAt);
-}
-
 void Renderer::AddChunk(World& world, int x, int y, int z, Chunk& c)
 {
 	this->chunk_meshes.insert(std::make_pair(CHUNK_ID(x, y, z), ChunkMesh(world, c, x, y, z, diffuse, specular)));
