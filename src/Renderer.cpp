@@ -112,7 +112,7 @@ void Renderer::OpenWindow()
 	this->sky_program = std::make_unique<Program>("res/shaders/sky.vert", "res/shaders/sky.frag");
 	this->text_program = std::make_unique<Program>("res/shaders/text.vert", "res/shaders/text.frag");
 	this->highlight_program = std::make_unique<Program>("res/shaders/default.vert", "res/shaders/highlight.frag");
-	this->billboard_program = std::make_unique<Program>("res/shaders/billboard.vert", "res/shaders/default.frag");
+	this->billboard_program = std::make_unique<Program>("res/shaders/billboard.vert", "res/shaders/billboard.frag");
 
 	LOG("Window correctly opened");
 
@@ -209,7 +209,6 @@ void Renderer::DrawTerrain()
 	this->default_program->SetMat4("view", this->view);
 	this->default_program->SetMat4("projection", this->projection);
 	this->default_program->SetVec3("camera_position", glm::vec3(camera.x, camera.y, camera.z));
-	this->default_program->SetVec3("camera_lookat", lookat);
 	this->sun.AddToProgram(*(this->default_program), 0);
 
 	for(auto& kc : this->chunk_meshes) {
@@ -263,11 +262,13 @@ void Renderer::DrawBillboard()
 
 	glEnable(GL_BLEND);
 
-	this->default_program->Use();
+	this->billboard_program->Use();
 
-	this->default_program->SetMat4("view", this->view);
-	this->default_program->SetMat4("projection", this->projection);
-	this->default_program->SetMat4("model", model);
+	this->billboard_program->SetMat4("view", this->view);
+	this->billboard_program->SetMat4("projection", this->projection);
+	this->billboard_program->SetMat4("model", model);
+	this->billboard_program->SetVec3("camera_position", glm::vec3(camera.x, camera.y, camera.z));
+	this->sun.AddToProgram(*(this->billboard_program), 0);
 
 	this->billboard->Render();
 
