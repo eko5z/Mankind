@@ -14,7 +14,7 @@ out vec4 out_fragment_color;
 struct DirectionalLight
 {
 	vec3 direction;
-	vec3 diffuse_color, ambient_color;
+	vec3 diffuse_color, ambient_color, specular_color;
 };
 
 uniform DirectionalLight directional_lights[N_DIRECTIONAL_LIGHTS];

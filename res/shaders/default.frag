@@ -14,7 +14,7 @@ out vec4 out_fragment_color;
 struct DirectionalLight
 {
 	vec3 direction;
-	vec3 diffuse_color, ambient_color;
+	vec3 diffuse_color, ambient_color, specular_color;
 };
 
 uniform DirectionalLight directional_lights[N_DIRECTIONAL_LIGHTS];
@@ -38,7 +38,7 @@ void main()
 
 		vec3 reflect_direction = reflect(-light_direction, normal);
 		float spec = pow(max(dot(view_direction, reflect_direction), 0.0), 32.f);
-		vec4 specular = spec * vec4(.5, .5, .5, 1.0) * texture(specular_texture, fragment_uv);
+		vec4 specular = spec * vec4(light.specular_color, 1.0) * texture(specular_texture, fragment_uv);
 
 		// Maybe the fix for Adrien?
 		if(i == 0)
