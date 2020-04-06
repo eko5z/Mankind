@@ -15,7 +15,8 @@ Renderer::Renderer(Game& g) :
 	default_program(nullptr),
 	sun(glm::vec3{0.3, 1.0, 0.3},
 	    glm::vec3{0.5, 0.5, 0.5},
-	    glm::vec3{1.0, 1.0, 1.0}),
+	    glm::vec3{1.0, 1.0, 1.0},
+	    glm::vec3{0.5, 0.5, 0.5}),
 	n_frames(0),
 	ms_accu(0),
 	last_time(0),
@@ -112,11 +113,12 @@ void Renderer::OpenWindow()
 	this->sky_program = std::make_unique<Program>("res/shaders/sky.vert", "res/shaders/sky.frag");
 	this->text_program = std::make_unique<Program>("res/shaders/text.vert", "res/shaders/text.frag");
 	this->highlight_program = std::make_unique<Program>("res/shaders/default.vert", "res/shaders/highlight.frag");
-	this->billboard_program = std::make_unique<Program>("res/shaders/billboard.vert", "res/shaders/default.frag");
+	this->billboard_program = std::make_unique<Program>("res/shaders/billboard.vert", "res/shaders/billboard.frag");
 
 	LOG("Window correctly opened");
 
 	glEnable(GL_DEPTH_TEST);
+	glDepthFunc(GL_LESS);
 	glClearColor(0.6, 0.8, 1.0, 0.0);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
@@ -145,6 +147,7 @@ void Renderer::Render()
 
 	position_label->SetText("(x,y,z) = %.2f %.2f %.2f", camera.pos.x, camera.pos.y, camera.pos.z);
 
+	glClear(GL_DEPTH_BUFFER_BIT);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glEnable(GL_POLYGON_OFFSET_FILL);
 
@@ -235,11 +238,13 @@ void Renderer::DrawBillboard()
 
 	glEnable(GL_BLEND);
 
-	this->default_program->Use();
+	this->billboard_program->Use();
 
-	this->default_program->SetMat4("view", this->view);
-	this->default_program->SetMat4("projection", this->projection);
-	this->default_program->SetMat4("model", model);
+	this->billboard_program->SetMat4("view", this->view);
+	this->billboard_program->SetMat4("projection", this->projection);
+	this->billboard_program->SetMat4("model", model);
+	this->billboard_program->SetVec3("camera_position", camera.pos);
+	this->sun.AddToProgram(*(this->billboard_program), 0);
 
 	this->billboard->Render();
 

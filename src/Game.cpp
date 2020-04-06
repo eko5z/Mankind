@@ -23,6 +23,7 @@ Game::Game() :
 	ecs_world(ECS::World::createWorld())
 {
 	ecs_world->registerSystem(new PhysicsSystem(world));
+	ecs_world->registerSystem(new GraphicsSystem(world));
 	CreatePlayer();
 }
 

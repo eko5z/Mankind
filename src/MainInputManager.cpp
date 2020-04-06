@@ -8,7 +8,8 @@ MainInputManager::MainInputManager(Game& g) :
 	going_backward(false),
 	going_leftward(false),
 	going_rightward(false),
-	jumping(false)
+	jumping(false),
+	wireframe(false)
 {
 }
 
@@ -59,6 +60,15 @@ void MainInputManager::OnKeyDown(char key, bool repeat)
 		break;
 	case ' ':
 		jumping = true;
+		break;
+	case 'p':
+		if(this->wireframe) {
+			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+			this->wireframe = !this->wireframe;
+		} else {
+			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+			this->wireframe = !this->wireframe;
+		}
 		break;
 	}
 	ChangePlayerVelocity();

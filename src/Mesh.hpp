@@ -29,5 +29,5 @@ public:
 	     std::shared_ptr<Texture> specular);
 	~Mesh();
 
-	void Render();
+	virtual void Render();
 };

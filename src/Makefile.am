@@ -22,7 +22,8 @@ mankind_SOURCES=\
 	GUILabel.cpp\
 	HighlightMesh.cpp\
 	QuadMesh.cpp\
-	Camera.cpp
+	Camera.cpp\
+	GraphicsSystem.cpp
 
 AM_LDFLAGS=`pkg-config --libs sdl2`\
 		   `pkg-config --libs SDL2_image`\
