@@ -75,7 +75,6 @@ void MainInputManager::OnKeyDown(char key, bool repeat)
 		jumping = true;
 		break;
 	case 'p':
-		this->wireframe = !this->wireframe;
 		if(this->wireframe) {
 			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 			this->wireframe = !this->wireframe;
