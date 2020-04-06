@@ -1,7 +1,7 @@
 #include "Camera.hpp"
 
 glm::vec3 Camera::GetForward()
-{	
+{
 	return glm::normalize(glm::vec3 {
 		sinf(rot.x),
 		0,

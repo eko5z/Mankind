@@ -5,6 +5,9 @@
 struct Cube {
 	char typeID;
 
-	bool IsSolid() { return typeID != 0; }
+	bool IsSolid()
+	{
+		return typeID != 0;
+	}
 };
 
