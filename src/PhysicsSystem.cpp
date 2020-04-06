@@ -32,41 +32,56 @@ void PhysicsSystem::tick(ECS::World& ecs_world, float dt)
 		if (tc.isValid()) {
 			glm::vec3 ds = body->vel * dt;
 			glm::vec3 new_pos = tc->pos + ds;
-			if (body->vel.x < 0) {
-				if (world.GetCube(floor(new_pos.x), floor(tc->pos.y), floor(tc->pos.z)).typeID != 0) {
-					new_pos.x = floor(tc->pos.x);
-					body->vel.x = 0;
-				}
-			} else if (body->vel.x > 0) {
-				if (world.GetCube(floor(new_pos.x), floor(tc->pos.y), floor(tc->pos.z)).typeID != 0) {
-					new_pos.x = tc->pos.x;
-					body->vel.x = 0;
+			glm::vec3 box = body->box_whd;
+
+			/* X direction: for every block contained within the box */
+			for (float x(new_pos.x); x <= new_pos.x + box.x; x += 1.) {
+				for (float y(tc->pos.y); y <= tc->pos.y + box.y; y += 1.) {
+					for (float z(tc->pos.z); z <= tc->pos.z + box.z; z += 1) {
+						if (world.GetCube(x, y, z).IsSolid() ) {
+							if (body->vel.x < 0) {
+								new_pos.x = floor(tc->pos.x) + EPSILON;
+							} else if (body->vel.x > 0) {
+								new_pos.x = tc->pos.x - EPSILON - box.x;
+							}
+							body->vel.x = 0;
+						}
+					}
 				}
 			}
 
-			if (body->vel.y < 0) {
-				if (world.GetCube(floor(tc->pos.x), floor(new_pos.y), floor(tc->pos.z)).typeID != 0) {
-					new_pos.y = floor(tc->pos.y);
-					body->vel.y = 0;
-				}
-			} else if (body->vel.y > 0) {
-				if (world.GetCube(floor(tc->pos.x), floor(new_pos.y), floor(tc->pos.z)).typeID != 0) {
-					new_pos.y = floor(tc->pos.y);
-					body->vel.y = 0;
+			/* Y direction: for every block contained within the box */
+			for (float x(tc->pos.x); x <= tc->pos.x + box.x; x += 1.) {
+				for (float y(new_pos.y); y <= new_pos.y + box.y; y += 1.) {
+					for (float z(tc->pos.z); z <= tc->pos.z + box.z; z += 1) {
+						if (world.GetCube(x, y, z).IsSolid() ) {
+							if (body->vel.y < 0) {
+								new_pos.y = floor(tc->pos.y) + EPSILON;
+							} else if (body->vel.y > 0) {
+								new_pos.y = tc->pos.y - EPSILON - box.y;
+							}
+							body->vel.y = 0;
+						}
+					}
 				}
 			}
 
-			if (body->vel.z < 0) {
-				if (world.GetCube(floor(tc->pos.x), floor(tc->pos.y), floor(new_pos.z)).typeID != 0) {
-					new_pos.z = floor(tc->pos.z);
-					body->vel.z = 0;
-				}
-			} else if (body->vel.z > 0) {
-				if (world.GetCube(floor(tc->pos.x), floor(tc->pos.y), floor(new_pos.z)).typeID != 0) {
-					new_pos.z = tc->pos.z;
-					body->vel.z = 0;
+			/* Z direction: for every block contained within the box */
+			for (float x(tc->pos.x); x <= tc->pos.x + box.x; x += 1.) {
+				for (float y(tc->pos.y); y <= tc->pos.y + box.y; y += 1.) {
+					for (float z(new_pos.z); z <= new_pos.z + box.z; z += 1) {
+						if (world.GetCube(x, y, z).IsSolid() ) {
+							if (body->vel.z < 0) {
+								new_pos.z = floor(tc->pos.z) + EPSILON;
+							} else if (body->vel.z > 0) {
+								new_pos.z = tc->pos.z - EPSILON - box.z;
+							}
+							body->vel.z = 0;
+						}
+					}
 				}
 			}
+
 			tc->pos = new_pos;
 		}
 	});

@@ -41,6 +41,10 @@ public:
 	{
 		return player->get<PhysicsComponent>()->vel;
 	}
+	glm::vec3 GetPlayerBox()
+	{
+		return player->get<PhysicsComponent>()->box_whd;
+	}
 	void SetPlayerPosition(glm::vec3 v)
 	{
 		player->get<TransformComponent>()->pos = v;

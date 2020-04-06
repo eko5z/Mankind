@@ -121,32 +121,11 @@ void Renderer::OpenWindow()
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
-void Renderer::UpdateVectors(glm::vec3& angle, glm::vec3& forward,
-                             glm::vec3& right, glm::vec3& lookat,
-                             glm::vec3& up)
-{
-	forward.x = sinf(angle.x);
-	forward.y = 0;
-	forward.z = cosf(angle.x);
-	right.x = -cosf(angle.x);
-	right.y = 0;
-	right.z = sinf(angle.x);
-	lookat.x = sinf(angle.x) * cosf(angle.y);
-	lookat.y = sinf(angle.y);
-
-	lookat.z = cosf(angle.x) * cosf(angle.y);
-	up = glm::cross(right, lookat);
-}
-
 void Renderer::Render()
 {
 	// Calculate the view and projection.
 	Camera& camera = game.GetCamera();
-	glm::vec3 position(camera.x, camera.y, camera.z);
-	glm::vec3 angle(camera.yaw, camera.pitch, camera.roll);
-	glm::vec3 forward, right, lookat, up;
-	UpdateVectors(angle, forward, right, lookat, up);
-	this->view = glm::lookAt(position, position + lookat, up);
+	this->view = glm::lookAt(camera.pos, camera.pos + camera.GetLookAt(), camera.GetUp());
 	this->projection = glm::scale(glm::perspective(v_fov_rad, 1.0f*view_width/view_height, 0.01f, 1000.0f), glm::vec3(CUBE_SIZE, CUBE_SIZE, CUBE_SIZE));
 
 
@@ -164,7 +143,7 @@ void Renderer::Render()
 
 	SDL_GetWindowSize(window, &view_width, &view_height);
 
-	position_label->SetText("(x,y,z) = %.2f %.2f %.2f", camera.x, camera.y, camera.z);
+	position_label->SetText("(x,y,z) = %.2f %.2f %.2f", camera.pos.x, camera.pos.y, camera.pos.z);
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glEnable(GL_POLYGON_OFFSET_FILL);
@@ -190,8 +169,8 @@ void Renderer::DrawSky()
 
 	this->sky_program->Use();
 	this->sky_program->SetVec3("sun_direction", this->sun.direction);
-	this->sky_program->SetFloat("camera_pitch", camera.pitch);
-	this->sky_program->SetFloat("camera_yaw", camera.yaw);
+	this->sky_program->SetFloat("camera_pitch", camera.rot.y);
+	this->sky_program->SetFloat("camera_yaw", camera.rot.x);
 	this->sky_program->SetFloat("vertical_fov", v_fov_rad);
 	this->sky_program->SetFloat("horizontal_fov", v_fov_rad);
 	this->sky->Render();
@@ -200,16 +179,13 @@ void Renderer::DrawSky()
 void Renderer::DrawTerrain()
 {
 	Camera& camera = game.GetCamera();
-	glm::vec3 angle(camera.yaw, camera.pitch, camera.roll);
-	glm::vec3 forward, right, lookat, up;
-	UpdateVectors(angle, forward, right, lookat, up);
 
 	this->default_program->Use();
 	// Set the camera view and projection.
 	this->default_program->SetMat4("view", this->view);
 	this->default_program->SetMat4("projection", this->projection);
-	this->default_program->SetVec3("camera_position", glm::vec3(camera.x, camera.y, camera.z));
-	this->default_program->SetVec3("camera_lookat", lookat);
+	this->default_program->SetVec3("camera_position", camera.pos);
+	this->default_program->SetVec3("camera_lookat", camera.GetLookAt());
 	this->sun.AddToProgram(*(this->default_program), 0);
 
 	for(auto& kc : this->chunk_meshes) {
@@ -232,14 +208,10 @@ void Renderer::DrawGUI()
 void Renderer::DrawHighlight()
 {
 	Camera& camera = game.GetCamera();
-	glm::vec3 angle(camera.yaw, camera.pitch, camera.roll);
-	glm::vec3 forward, right, lookat, up;
-	UpdateVectors(angle, forward, right, lookat, up);
 	bool is_pointing;
 	glm::vec3 pointed;
 	glm::vec3 normal;
-	glm::vec3 position(camera.x, camera.y, camera.z);
-	game.CalculatePointing(position, lookat, 10., is_pointing, pointed, normal);
+	game.CalculatePointing(camera.pos, camera.GetLookAt(), 10., is_pointing, pointed, normal);
 	if (not is_pointing) {
 		return;
 	}
@@ -258,7 +230,7 @@ void Renderer::DrawHighlight()
 void Renderer::DrawBillboard()
 {
 	Camera& camera = game.GetCamera();
-	glm::mat4 model = glm::scale(glm::translate(glm::mat4(), glm::vec3(camera.x + 2.0, camera.y + 2.0, camera.z - 2.0)),
+	glm::mat4 model = glm::scale(glm::translate(glm::mat4(), camera.pos + glm::vec3(2, 2, 2)),
 	                             glm::vec3(1.0, 3.0, 1.0));
 
 	glEnable(GL_BLEND);
@@ -279,9 +251,9 @@ void Renderer::LoadChunks()
 	World& world = game.GetWorld();
 	Camera& camera = game.GetCamera();
 	// find out camera chunk
-	int ccx(camera.x / CHUNK_SIZE),
-	    ccy(camera.y / CHUNK_SIZE),
-	    ccz(camera.z / CHUNK_SIZE);
+	int ccx(camera.pos.x / CHUNK_SIZE),
+	    ccy(camera.pos.y / CHUNK_SIZE),
+	    ccz(camera.pos.z / CHUNK_SIZE);
 
 	// Add a chunk.
 	for (int i(ccx-5); i < ccx+5; ++i) {

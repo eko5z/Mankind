@@ -6,6 +6,7 @@ void Game::Start(int seed)
 {
 	world.Generate(seed);
 	SetPlayerPosition(glm::vec3{0, world.GetSpawnHeight(0, 0), 0});
+	SetPlayerRotation(glm::vec3{-3.14159/2.f, 0, 0}); /* look on the Z axis */
 	std::cerr << "Player spawns at y=" << GetPlayerPosition().y << std::endl;
 }
 
@@ -14,6 +15,7 @@ void Game::CreatePlayer()
 	player = ecs_world->create();
 	player->assign<TransformComponent>();
 	player->assign<PhysicsComponent>();
+	player->get<PhysicsComponent>()->box_whd = glm::vec3(1.5, 3.2, 1.5);
 }
 
 Game::Game() :
@@ -33,14 +35,11 @@ void Game::Update(float dt)
 {
 	ecs_world->tick(dt);
 	world.Update(dt);
-	auto campos = GetPlayerPosition();
-	auto camrot = GetPlayerRotation();
-	camera.x = campos.x;
-	camera.y = campos.y + 1.6 / CUBE_SIZE; /* player is a Neanderthal 1,60 m Chad */
-	camera.z = campos.z;
-	camera.yaw = camrot.x;
-	camera.pitch = camrot.y;
-	camera.roll = camrot.z;
+	/* this places campos in the exact middle of the box */
+	auto campos = GetPlayerPosition() + GetPlayerBox() / 2.f;
+	float eyes_height(1.6 / CUBE_SIZE / 2.); /* player is a Neanderthal 1,60 m Chad */
+	camera.pos = campos + glm::vec3(0, eyes_height, 0);
+	camera.rot = GetPlayerRotation();
 }
 
 void Game::OnPunch(glm::vec3 position, glm::vec3 lookat)

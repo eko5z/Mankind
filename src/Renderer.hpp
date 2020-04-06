@@ -47,9 +47,6 @@ private:
 	int view_height, view_width;
 	SDL_Window* window;
 	SDL_GLContext context;
-	void UpdateVectors(glm::vec3& angle, glm::vec3& forward,
-	                   glm::vec3& right, glm::vec3& lookat,
-	                   glm::vec3& up);
 	std::unique_ptr<Program> default_program;
 	std::unique_ptr<Program> text_program;
 	std::unique_ptr<Program> sky_program;

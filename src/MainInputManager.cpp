@@ -15,35 +15,22 @@ MainInputManager::MainInputManager(Game& g) :
 void MainInputManager::ChangePlayerVelocity()
 {
 	auto player_vel = game.GetPlayerVelocity();
-	auto player_rot = game.GetPlayerRotation();
-	glm::vec3 forward, right;
-	forward.x = sinf(player_rot.x);
-	forward.y = 0;
-	forward.z = cosf(player_rot.x);
+	Camera camera = game.GetCamera();
 
-	right.x = -cosf(player_rot.x);
-	right.y = 0;
-	right.z = sinf(player_rot.x);
-
-	forward = glm::normalize(forward);
-	right = glm::normalize(right);
 	float velocity_scale = 5;
 	player_vel.x = 0;
 	player_vel.z = 0;
+
 	if (going_forward) {
-		player_vel.x += forward.x * velocity_scale;
-		player_vel.z += forward.z * velocity_scale;
+		player_vel += camera.GetForward() * velocity_scale;
 	} else if (going_backward) {
-		player_vel.x -= forward.x * velocity_scale;
-		player_vel.z -= forward.z * velocity_scale;
+		player_vel -= camera.GetForward() * velocity_scale;
 	}
 
 	if (going_rightward) {
-		player_vel.x += right.x * velocity_scale;
-		player_vel.z += right.z * velocity_scale;
+		player_vel += camera.GetRight() * velocity_scale;
 	} else if (going_leftward) {
-		player_vel.x -= right.x * velocity_scale;
-		player_vel.z -= right.z * velocity_scale;
+		player_vel -= camera.GetRight() * velocity_scale;
 	}
 
 	if (jumping) {
@@ -79,20 +66,6 @@ void MainInputManager::OnKeyDown(char key, bool repeat)
 
 void MainInputManager::OnKeyUp(char key)
 {
-	auto player_vel = game.GetPlayerVelocity();
-	auto player_rot = game.GetPlayerRotation();
-	glm::vec3 forward, right;
-	forward.x = sinf(player_rot.x);
-	forward.y = 0;
-	forward.z = cosf(player_rot.y);
-
-	right.x = -cosf(player_rot.x);
-	right.y = 0;
-	right.z = sinf(player_rot.x);
-
-	forward = glm::normalize(forward);
-	right = glm::normalize(right);
-
 	switch (key) {
 	case 'w':
 		going_forward = false;
@@ -120,15 +93,11 @@ void MainInputManager::OnKeyUp(char key)
 void MainInputManager::OnMouseButtonDown(MouseButton button)
 {
 	Camera& c = game.GetCamera();
-	glm::vec3 position(c.x, c.y, c.z);
-	glm::vec3 lookat( sinf(c.yaw) * cosf(c.pitch),
-	                  sinf(c.pitch),
-	                  cosf(c.yaw) * cosf(c.pitch));
 
 	if (button == MouseButton::LEFT) {
-		game.OnPunch(position, lookat);
+		game.OnPunch(c.pos, c.GetLookAt());
 	} else if (button == MouseButton::RIGHT) {
-		game.OnUse(position, lookat);
+		game.OnUse(c.pos, c.GetLookAt());
 	}
 }
 

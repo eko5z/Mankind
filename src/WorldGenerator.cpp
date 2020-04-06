@@ -38,6 +38,7 @@ double WorldGenerator::grad(int hash, double x, double y, double z)
 
 double WorldGenerator::noise(double x, double y, double z)
 {
+	return 1;
 	// Find the unit cube that contains the point
 	int X = (int) floor(x) & 255;
 	int Y = (int) floor(y) & 255;
