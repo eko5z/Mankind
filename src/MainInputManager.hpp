@@ -2,6 +2,7 @@
 
 #include <glm/glm.hpp>
 
+#include "GraphX.hpp"
 #include "InputManager.hpp"
 
 class MainInputManager : public InputManager
@@ -22,6 +23,7 @@ private:
 	bool is_pointing;
 	bool going_forward, going_backward, going_leftward, going_rightward;
 	bool jumping;
+	bool wireframe;
 	glm::vec3 pointed_cube;
 	glm::vec3 pointed_normal;
 	void ChangePlayerVelocity();

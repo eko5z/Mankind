@@ -26,5 +26,5 @@ void DirectionalLight::AddToProgram(Program &program, GLuint index)
 	program.SetVec3(direction_stream.str().c_str(), this->direction);
 	program.SetVec3(ambient_stream.str().c_str(), this->ambient_color);
 	program.SetVec3(diffuse_stream.str().c_str(), this->diffuse_color);
-      	program.SetVec3(specular_stream.str().c_str(), this->specular_color);
+	program.SetVec3(specular_stream.str().c_str(), this->specular_color);
 }
