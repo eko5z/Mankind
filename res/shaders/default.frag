@@ -29,7 +29,7 @@ void main()
 	for (int i = 0; i < N_DIRECTIONAL_LIGHTS; ++i)
 	{
 		DirectionalLight light = directional_lights[i];
-		vec3 light_direction = normalize(-light.direction);
+		vec3 light_direction = normalize(light.direction);
 
 		vec4 ambient = vec4(light.ambient_color, 1.0) * texture(diffuse_texture, fragment_uv);
 
@@ -37,7 +37,7 @@ void main()
 		vec4 diffuse = diff * vec4(light.diffuse_color, 1.0) * texture(diffuse_texture, fragment_uv);
 
 		vec3 reflect_direction = reflect(-light_direction, normal);
-		float spec = pow(max(dot(camera_lookat, reflect_direction), 0.0), 6.f);
+		float spec = pow(max(dot(view_direction, reflect_direction), 0.0), 32.f);
 		vec4 specular = spec * vec4(.5, .5, .5, 1.0) * texture(specular_texture, fragment_uv);
 
 		// Maybe the fix for Adrien?
