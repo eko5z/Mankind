@@ -6,6 +6,8 @@
 #include "TransformComponent.hpp"
 #include "PhysicsComponent.hpp"
 #include "PhysicsSystem.hpp"
+#include "GraphicsComponent.hpp"
+#include "GraphicsSystem.hpp"
 
 class Game
 {
