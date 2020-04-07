@@ -3,12 +3,16 @@
 #include <glm/glm.hpp>
 
 struct Camera {
-	glm::vec3 pos;
-	glm::vec3 rot;
+	unsigned int view_width, view_height;
+
+	glm::vec3 position, rotation;
 
 	glm::vec3 GetForward();
 	glm::vec3 GetLookAt();
 	glm::vec3 GetRight();
 	glm::vec3 GetUp();
+
+	Camera(unsigned int view_width, unsigned int view_height):
+		view_width(view_width), view_height(view_height) {}
 };
 

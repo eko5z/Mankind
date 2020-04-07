@@ -33,11 +33,11 @@ public:
 	void Update(float dt);
 	glm::vec3 GetPlayerPosition()
 	{
-		return player->get<TransformComponent>()->pos;
+		return player->get<TransformComponent>()->position;
 	}
 	glm::vec3 GetPlayerRotation()
 	{
-		return player->get<TransformComponent>()->rot;
+		return player->get<TransformComponent>()->rotation;
 	}
 	glm::vec3 GetPlayerVelocity()
 	{
@@ -49,11 +49,11 @@ public:
 	}
 	void SetPlayerPosition(glm::vec3 v)
 	{
-		player->get<TransformComponent>()->pos = v;
+		player->get<TransformComponent>()->position = v;
 	}
 	void SetPlayerRotation(glm::vec3 v)
 	{
-		player->get<TransformComponent>()->rot = v;
+		player->get<TransformComponent>()->rotation = v;
 	}
 	void SetPlayerVelocity(glm::vec3 v)
 	{
@@ -68,6 +68,7 @@ private:
 	Camera camera;
 	bool keep_going;
 	ECS::Entity* player;
+	ECS::Entity* tree;
 	ECS::World* ecs_world;
 	void PlaceCube(glm::vec3 position, Cube type);
 	void DestroyCube(glm::vec3 position);

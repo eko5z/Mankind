@@ -127,7 +127,7 @@ void Renderer::Render()
 {
 	// Calculate the view and projection.
 	Camera& camera = game.GetCamera();
-	this->view = glm::lookAt(camera.pos, camera.pos + camera.GetLookAt(), camera.GetUp());
+	this->view = glm::lookAt(camera.position, camera.position + camera.GetLookAt(), camera.GetUp());
 	this->projection = glm::scale(glm::perspective(v_fov_rad, 1.0f*view_width/view_height, 0.01f, 1000.0f), glm::vec3(CUBE_SIZE, CUBE_SIZE, CUBE_SIZE));
 
 
@@ -145,7 +145,7 @@ void Renderer::Render()
 
 	SDL_GetWindowSize(window, &view_width, &view_height);
 
-	position_label->SetText("(x,y,z) = %.2f %.2f %.2f", camera.pos.x, camera.pos.y, camera.pos.z);
+	position_label->SetText("(x,y,z) = %.2f %.2f %.2f", camera.position.x, camera.position.y, camera.position.z);
 
 	glClear(GL_DEPTH_BUFFER_BIT);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -172,8 +172,8 @@ void Renderer::DrawSky()
 
 	this->sky_program->Use();
 	this->sky_program->SetVec3("sun_direction", this->sun.direction);
-	this->sky_program->SetFloat("camera_pitch", camera.rot.y);
-	this->sky_program->SetFloat("camera_yaw", camera.rot.x);
+	this->sky_program->SetFloat("camera_pitch", camera.rotation.y);
+	this->sky_program->SetFloat("camera_yaw", camera.rotation.x);
 	this->sky_program->SetFloat("vertical_fov", v_fov_rad);
 	this->sky_program->SetFloat("horizontal_fov", v_fov_rad);
 	this->sky->Render();
@@ -187,7 +187,7 @@ void Renderer::DrawTerrain()
 	// Set the camera view and projection.
 	this->default_program->SetMat4("view", this->view);
 	this->default_program->SetMat4("projection", this->projection);
-	this->default_program->SetVec3("camera_position", camera.pos);
+	this->default_program->SetVec3("camera_position", camera.position);
 	this->default_program->SetVec3("camera_lookat", camera.GetLookAt());
 	this->sun.AddToProgram(*(this->default_program), 0);
 
@@ -214,7 +214,7 @@ void Renderer::DrawHighlight()
 	bool is_pointing;
 	glm::vec3 pointed;
 	glm::vec3 normal;
-	game.CalculatePointing(camera.pos, camera.GetLookAt(), 10., is_pointing, pointed, normal);
+	game.CalculatePointing(camera.position, camera.GetLookAt(), 10., is_pointing, pointed, normal);
 	if (not is_pointing) {
 		return;
 	}
@@ -233,7 +233,7 @@ void Renderer::DrawHighlight()
 void Renderer::DrawBillboard()
 {
 	Camera& camera = game.GetCamera();
-	glm::mat4 model = glm::scale(glm::translate(glm::mat4(), camera.pos + glm::vec3(2, 2, 2)),
+	glm::mat4 model = glm::scale(glm::translate(glm::mat4(), camera.position + glm::vec3(2, 2, 2)),
 	                             glm::vec3(1.0, 3.0, 1.0));
 
 	glEnable(GL_BLEND);
@@ -243,7 +243,7 @@ void Renderer::DrawBillboard()
 	this->billboard_program->SetMat4("view", this->view);
 	this->billboard_program->SetMat4("projection", this->projection);
 	this->billboard_program->SetMat4("model", model);
-	this->billboard_program->SetVec3("camera_position", camera.pos);
+	this->billboard_program->SetVec3("camera_position", camera.position);
 	this->sun.AddToProgram(*(this->billboard_program), 0);
 
 	this->billboard->Render();
@@ -256,9 +256,9 @@ void Renderer::LoadChunks()
 	Terrain& terrain = game.GetTerrain();
 	Camera& camera = game.GetCamera();
 	// find out camera chunk
-	int ccx(camera.pos.x / CHUNK_SIZE),
-	    ccy(camera.pos.y / CHUNK_SIZE),
-	    ccz(camera.pos.z / CHUNK_SIZE);
+	int ccx(camera.position.x / CHUNK_SIZE),
+	    ccy(camera.position.y / CHUNK_SIZE),
+	    ccz(camera.position.z / CHUNK_SIZE);
 
 	// Add a chunk.
 	for (int i(ccx-5); i < ccx+5; ++i) {

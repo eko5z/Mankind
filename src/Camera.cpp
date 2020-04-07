@@ -3,18 +3,18 @@
 glm::vec3 Camera::GetForward()
 {
 	return glm::normalize(glm::vec3 {
-		sinf(rot.x),
+		sinf(rotation.x),
 		0,
-		cosf(rot.x)
+		cosf(rotation.x)
 	});
 }
 
 glm::vec3 Camera::GetLookAt()
 {
 	return glm::normalize(glm::vec3 {
-		sinf(rot.x) * cosf(rot.y),
-		sinf(rot.y),
-		cosf(rot.x) * cosf(rot.y)
+		sinf(rotation.x) * cosf(rotation.y),
+		sinf(rotation.y),
+		cosf(rotation.x) * cosf(rotation.y)
 	});
 
 }

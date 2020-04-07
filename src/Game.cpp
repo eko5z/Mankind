@@ -4,6 +4,17 @@
 
 void Game::Start(int seed)
 {
+	this->keep_going = true;
+	this->ecs_world = ECS::World::createWorld();
+	this->ecs_world->registerSystem(new PhysicsSystem(this->terrain));
+	this->ecs_world->registerSystem(new GraphicsSystem(this->camera));
+	this->CreatePlayer();
+
+	// Create a tree.
+	this->tree = ecs_world->create();
+	this->tree->assign<TransformComponent>();
+	this->tree->assign<GraphicsComponent>(0, 0, 0, 0);
+
 	terrain.Generate(seed);
 	SetPlayerPosition(glm::vec3{0, terrain.GetSpawnHeight(0, 0), 0});
 	SetPlayerRotation(glm::vec3{-3.14159/2.f, 0, 0}); /* look on the Z axis */
@@ -18,13 +29,10 @@ void Game::CreatePlayer()
 	player->get<PhysicsComponent>()->box_whd = glm::vec3(1.5, 3.2, 1.5);
 }
 
-Game::Game() :
-	keep_going(true),
-	ecs_world(ECS::World::createWorld())
+Game::Game():
+	camera(800, 600)
 {
-	ecs_world->registerSystem(new PhysicsSystem(terrain));
-	ecs_world->registerSystem(new GraphicsSystem());
-	CreatePlayer();
+
 }
 
 Game::~Game()
@@ -39,8 +47,8 @@ void Game::Update(float dt)
 	/* this places campos in the exact middle of the box */
 	auto campos = GetPlayerPosition() + GetPlayerBox() / 2.f;
 	float eyes_height(1.6 / CUBE_SIZE / 2.); /* player is a Neanderthal 1,60 m Chad */
-	camera.pos = campos + glm::vec3(0, eyes_height, 0);
-	camera.rot = GetPlayerRotation();
+	camera.position = campos + glm::vec3(0, eyes_height, 0);
+	camera.rotation = GetPlayerRotation();
 }
 
 void Game::OnPunch(glm::vec3 position, glm::vec3 lookat)

@@ -105,9 +105,9 @@ void MainInputManager::OnMouseButtonDown(MouseButton button)
 	Camera& c = game.GetCamera();
 
 	if (button == MouseButton::LEFT) {
-		game.OnPunch(c.pos, c.GetLookAt());
+		game.OnPunch(c.position, c.GetLookAt());
 	} else if (button == MouseButton::RIGHT) {
-		game.OnUse(c.pos, c.GetLookAt());
+		game.OnUse(c.position, c.GetLookAt());
 	}
 }
 
