@@ -9,8 +9,9 @@
 
 #include "MathematX.hpp"
 
-Renderer::Renderer(Game& g) :
+Renderer::Renderer(Game& g, GraphXManager& graphics_manager) :
 	game(g),
+	graphics_manager(graphics_manager),
 	window(nullptr),
 	default_program(nullptr),
 	sun(glm::vec3{0.3, 1.0, 0.3},
@@ -154,7 +155,7 @@ void Renderer::Render()
 	DrawSky();
 	DrawTerrain();
 	DrawHighlight();
-	DrawBillboard();
+	DrawObjects();
 	DrawGUI();
 
 	SDL_GL_SwapWindow(window);
@@ -200,6 +201,31 @@ void Renderer::DrawTerrain()
 	}
 }
 
+void Renderer::DrawObjects()
+{
+	Camera& camera = game.GetCamera();
+
+	glEnable(GL_BLEND);
+
+	this->default_program->Use();
+	while (graphics_manager.HasRenderingInstances()) {
+		auto ri = graphics_manager.PopRenderingInstance();
+		auto mesh = graphics_manager.GetMesh(ri.meshID);
+		auto program = graphics_manager.GetProgram(ri.programID);
+		auto tex0 = graphics_manager.GetTexture(ri.textureID[0]);
+		program.Use();
+		program.SetMat4("model", ri.model_matrix);
+		program.SetMat4("view", this->view);
+		program.SetMat4("projection", this->projection);
+		program.SetVec3("camera_position", camera.position);
+		this->sun.AddToProgram(program, 0);
+		tex0.Bind();
+		mesh.Render();
+	}
+
+	glDisable(GL_BLEND);
+}
+
 void Renderer::DrawGUI()
 {
 	text_program->Use();
@@ -227,27 +253,6 @@ void Renderer::DrawHighlight()
 	this->highlight_program->SetMat4("model", glm::translate(glm::mat4(), pointed));
 
 	highlight_mesh->Render();
-	glDisable(GL_BLEND);
-}
-
-void Renderer::DrawBillboard()
-{
-	Camera& camera = game.GetCamera();
-	glm::mat4 model = glm::scale(glm::translate(glm::mat4(), camera.position + glm::vec3(2, 2, 2)),
-	                             glm::vec3(1.0, 3.0, 1.0));
-
-	glEnable(GL_BLEND);
-
-	this->billboard_program->Use();
-
-	this->billboard_program->SetMat4("view", this->view);
-	this->billboard_program->SetMat4("projection", this->projection);
-	this->billboard_program->SetMat4("model", model);
-	this->billboard_program->SetVec3("camera_position", camera.position);
-	this->sun.AddToProgram(*(this->billboard_program), 0);
-
-	this->billboard->Render();
-
 	glDisable(GL_BLEND);
 }
 

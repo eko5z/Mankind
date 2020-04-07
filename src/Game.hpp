@@ -8,11 +8,12 @@
 #include "PhysicsSystem.hpp"
 #include "GraphicsComponent.hpp"
 #include "GraphicsSystem.hpp"
+#include "GraphXManager.hpp"
 
 class Game
 {
 public:
-	Game();
+	Game(GraphXManager& graphics_manager);
 	~Game();
 	bool KeepGoing()
 	{
@@ -63,7 +64,12 @@ public:
 	void OnPunch(glm::vec3 position, glm::vec3 lookat);
 	void OnUse(glm::vec3 position, glm::vec3 lookat);
 	void CalculatePointing(glm::vec3 position, glm::vec3 lookAt, float maxDistance, bool& is_pointing, glm::vec3& pointed, glm::vec3& normal);
+
+	/* TODO: should go into a special factory */
+	void CreateTree(glm::vec3 position);
 private:
+	/* TODO: this too should be moved to a factory */
+	GraphXManager& graphics_manager;
 	Terrain terrain;
 	Camera camera;
 	bool keep_going;

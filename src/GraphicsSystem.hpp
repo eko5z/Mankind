@@ -2,27 +2,21 @@
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include <queue>
 
 #include "ECS.hpp"
-#include "GraphicsComponent.hpp"
-#include "TransformComponent.hpp"
-#include "Camera.hpp"
-
-#include "Mesh.hpp"
-#include "Texture.hpp"
-#include "Program.hpp"
 
 #include "QuadMesh.hpp"
+#include "RenderingInstance.hpp"
+#include "GraphXManager.hpp"
 
 class GraphicsSystem: public ECS::EntitySystem
 {
 private:
-	Camera &camera;
-	std::vector<std::unique_ptr<Mesh>> meshes;
-	std::vector<Texture> textures;
-	std::vector<Program> programs;
+	GraphXManager& manager;
 
-	virtual void tick(ECS::World& world, float dt) override;
 public:
-	GraphicsSystem(Camera &camera);
+	GraphicsSystem(GraphXManager& manager);
+	virtual void tick(ECS::World& world, float dt) override;
 };
+

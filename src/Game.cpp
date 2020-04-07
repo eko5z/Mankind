@@ -7,17 +7,14 @@ void Game::Start(int seed)
 	this->keep_going = true;
 	this->ecs_world = ECS::World::createWorld();
 	this->ecs_world->registerSystem(new PhysicsSystem(this->terrain));
-	this->ecs_world->registerSystem(new GraphicsSystem(this->camera));
+	this->ecs_world->registerSystem(new GraphicsSystem(graphics_manager));
 	this->CreatePlayer();
-
-	// Create a tree.
-	this->tree = ecs_world->create();
-	this->tree->assign<TransformComponent>();
-	this->tree->assign<GraphicsComponent>(0, 0, 0, 0);
 
 	terrain.Generate(seed);
 	SetPlayerPosition(glm::vec3{0, terrain.GetSpawnHeight(0, 0), 0});
 	SetPlayerRotation(glm::vec3{-3.14159/2.f, 0, 0}); /* look on the Z axis */
+	CreateTree(glm::vec3{1, terrain.GetSpawnHeight(0, 0), 1});
+	CreateTree(glm::vec3{2, terrain.GetSpawnHeight(0, 0), -1});
 	std::cerr << "Player spawns at y=" << GetPlayerPosition().y << std::endl;
 }
 
@@ -29,7 +26,8 @@ void Game::CreatePlayer()
 	player->get<PhysicsComponent>()->box_whd = glm::vec3(1.5, 3.2, 1.5);
 }
 
-Game::Game():
+Game::Game(GraphXManager& graphics_manager):
+	graphics_manager(graphics_manager),
 	camera(800, 600)
 {
 
@@ -84,6 +82,23 @@ void Game::DestroyCube(glm::vec3 position)
 {
 	/* TODO: trigger 'OnDestroyCube' */
 	terrain.SetCube(position.x, position.y, position.z, Cube{0});
+}
+
+void Game::CreateTree(glm::vec3 position)
+{
+	auto t = ecs_world->create();
+	t->assign<TransformComponent>();
+	auto tc = t->get<TransformComponent>();
+	tc->position = position;
+	tc->scale = glm::vec3{3, 3, 3};
+	t->assign<GraphicsComponent>();
+	auto gc = t->get<GraphicsComponent>();
+	gc->meshID = graphics_manager.GetMeshID("tree");
+	gc->textureID[0] = graphics_manager.GetTextureID("tree_diffuse");
+	gc->textureID[1] = -1;
+	gc->textureID[2] = -1;
+	gc->textureID[3] = -1;
+	gc->programID = graphics_manager.GetProgramID("billboard");
 }
 
 void Game::CalculatePointing(glm::vec3 position, glm::vec3 lookAt, float maxDistance, bool& is_pointing, glm::vec3& pointed, glm::vec3& normal)

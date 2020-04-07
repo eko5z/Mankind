@@ -18,11 +18,12 @@
 #include "DirectionalLight.hpp"
 #include "Sky.hpp"
 #include "HighlightMesh.hpp"
+#include "GraphXManager.hpp"
 
 class Renderer
 {
 public:
-	Renderer(Game& g);
+	Renderer(Game& g, GraphXManager& graphics_manager);
 	~Renderer();
 
 	void OpenWindow();
@@ -30,6 +31,7 @@ public:
 	void AddChunk(int x, int y, int z, Chunk& c);
 private:
 	Game& game;
+	GraphXManager& graphics_manager;
 	int n_frames;
 	int fps;
 	int ms_accu, last_time;
@@ -38,7 +40,7 @@ private:
 	void DrawTerrain();
 	void DrawGUI();
 	void DrawHighlight();
-	void DrawBillboard();
+	void DrawObjects();
 	void LoadChunks();
 	std::shared_ptr<Font> main_font;
 	std::unique_ptr<GUILabel> position_label, version_label, fps_label;
