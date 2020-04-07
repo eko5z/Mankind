@@ -10,10 +10,10 @@ mankind_SOURCES=\
 	ChunkMesh.cpp\
 	Program.cpp\
 	Chunk.cpp\
-	World.cpp\
+	Terrain.cpp\
 	Font.cpp\
 	Mesh.cpp\
-	WorldGenerator.cpp\
+	TerrainGenerator.cpp\
 	TileManager.cpp\
 	PhysicsSystem.cpp\
 	DirectionalLight.cpp\

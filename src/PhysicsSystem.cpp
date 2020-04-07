@@ -38,7 +38,7 @@ void PhysicsSystem::tick(ECS::World& ecs_world, float dt)
 			for (float x(new_pos.x); x <= new_pos.x + box.x; x += 1.) {
 				for (float y(tc->pos.y); y <= tc->pos.y + box.y; y += 1.) {
 					for (float z(tc->pos.z); z <= tc->pos.z + box.z; z += 1) {
-						if (world.GetCube(x, y, z).IsSolid() ) {
+						if (terrain.GetCube(x, y, z).IsSolid() ) {
 							if (body->vel.x < 0) {
 								new_pos.x = floor(tc->pos.x) + EPSILON;
 							} else if (body->vel.x > 0) {
@@ -54,7 +54,7 @@ void PhysicsSystem::tick(ECS::World& ecs_world, float dt)
 			for (float x(tc->pos.x); x <= tc->pos.x + box.x; x += 1.) {
 				for (float y(new_pos.y); y <= new_pos.y + box.y; y += 1.) {
 					for (float z(tc->pos.z); z <= tc->pos.z + box.z; z += 1) {
-						if (world.GetCube(x, y, z).IsSolid() ) {
+						if (terrain.GetCube(x, y, z).IsSolid() ) {
 							if (body->vel.y < 0) {
 								new_pos.y = floor(tc->pos.y) + EPSILON;
 							} else if (body->vel.y > 0) {
@@ -70,7 +70,7 @@ void PhysicsSystem::tick(ECS::World& ecs_world, float dt)
 			for (float x(tc->pos.x); x <= tc->pos.x + box.x; x += 1.) {
 				for (float y(tc->pos.y); y <= tc->pos.y + box.y; y += 1.) {
 					for (float z(new_pos.z); z <= new_pos.z + box.z; z += 1) {
-						if (world.GetCube(x, y, z).IsSolid() ) {
+						if (terrain.GetCube(x, y, z).IsSolid() ) {
 							if (body->vel.z < 0) {
 								new_pos.z = floor(tc->pos.z) + EPSILON;
 							} else if (body->vel.z > 0) {

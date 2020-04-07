@@ -1,4 +1,4 @@
-#include "WorldGenerator.hpp"
+#include "TerrainGenerator.hpp"
 #include "Log.hpp"
 
 #include <random>
@@ -6,7 +6,7 @@
 #include <algorithm>
 #include <cmath>
 
-WorldGenerator::WorldGenerator(int seed):
+TerrainGenerator::TerrainGenerator(int seed):
 	seed(seed),
 	p(256)
 {
@@ -17,17 +17,17 @@ WorldGenerator::WorldGenerator(int seed):
 	p.insert(std::end(p), std::begin(p), std::end(p));
 }
 
-double WorldGenerator::fade(double t)
+double TerrainGenerator::fade(double t)
 {
 	return t * t * t * (t * (t * 6 - 15) + 10);
 }
 
-double WorldGenerator::lerp(double t, double a, double b)
+double TerrainGenerator::lerp(double t, double a, double b)
 {
 	return a + t * (b - a);
 }
 
-double WorldGenerator::grad(int hash, double x, double y, double z)
+double TerrainGenerator::grad(int hash, double x, double y, double z)
 {
 	int h = hash & 15;
 	// Convert lower 4 bits of hash into 12 gradient directions
@@ -36,7 +36,7 @@ double WorldGenerator::grad(int hash, double x, double y, double z)
 	return ((h & 1) == 0 ? u : -u) + ((h & 2) == 0 ? v : -v);
 }
 
-double WorldGenerator::noise(double x, double y, double z)
+double TerrainGenerator::noise(double x, double y, double z)
 {
 	// Find the unit cube that contains the point
 	int X = (int) floor(x) & 255;
@@ -70,7 +70,7 @@ double WorldGenerator::noise(double x, double y, double z)
 	return (res + 1.0)/2.0;
 }
 
-int WorldGenerator::HeightAt(int x, int z)
+int TerrainGenerator::HeightAt(int x, int z)
 {
 	int acc(0);
 	float u = ((float)x / 100.);
@@ -86,7 +86,7 @@ int WorldGenerator::HeightAt(int x, int z)
 	return acc;
 }
 
-void WorldGenerator::GenerateChunk(Chunk& c)
+void TerrainGenerator::GenerateChunk(Chunk& c)
 {
 	int baseX(c.GetX() * CHUNK_SIZE),
 	    baseY(c.GetY() * CHUNK_SIZE),

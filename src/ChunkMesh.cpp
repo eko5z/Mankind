@@ -6,8 +6,8 @@
 
 #define INDEX(x, y, z) ((x) * (CHUNK_SIZE+1) * (CHUNK_SIZE+1) + (y) * (CHUNK_SIZE+1) + (z))
 
-ChunkMesh::ChunkMesh(World& w, Chunk& chunk, TileManager& tile_manager, int x, int y, int z) :
-	world(w),
+ChunkMesh::ChunkMesh(Terrain& t, Chunk& chunk, TileManager& tile_manager, int x, int y, int z) :
+	terrain(t),
 	chunk(chunk),
 	tile_manager(tile_manager),
 	mesh(nullptr),
@@ -114,12 +114,12 @@ void ChunkMesh::Update()
 				int bx(x * CHUNK_SIZE + i),
 				    by(y * CHUNK_SIZE + j),
 				    bz(z * CHUNK_SIZE + k);
-				int typeID = world.GetCube(bx, by, bz).typeID;
+				int typeID = terrain.GetCube(bx, by, bz).typeID;
 				if (typeID == 0) {
 					continue;
 				}
 
-				if (world.GetCube(bx-1, by, bz).typeID == 0) {
+				if (terrain.GetCube(bx-1, by, bz).typeID == 0) {
 					/* -X or left face
 						3 2
 						1 0
@@ -132,7 +132,7 @@ void ChunkMesh::Update()
 					         typeID);
 				}
 
-				if (world.GetCube(bx+1, by, bz).typeID == 0) {
+				if (terrain.GetCube(bx+1, by, bz).typeID == 0) {
 					/* +X or right face
 						6 7
 						4 5
@@ -145,7 +145,7 @@ void ChunkMesh::Update()
 					         typeID);
 				}
 
-				if (world.GetCube(bx, by, bz-1).typeID == 0) {
+				if (terrain.GetCube(bx, by, bz-1).typeID == 0) {
 					/* -Z or front face
 						2 6
 						0 4
@@ -158,7 +158,7 @@ void ChunkMesh::Update()
 					         typeID);
 				}
 
-				if (world.GetCube(bx, by, bz+1).typeID == 0) {
+				if (terrain.GetCube(bx, by, bz+1).typeID == 0) {
 					/* +Z or back face
 						7 3
 						5 1
@@ -171,7 +171,7 @@ void ChunkMesh::Update()
 					         typeID);
 				}
 
-				if (world.GetCube(bx, by-1, bz).typeID == 0) {
+				if (terrain.GetCube(bx, by-1, bz).typeID == 0) {
 					/* -Y or bottom face
 						0 4
 						1 5
@@ -184,7 +184,7 @@ void ChunkMesh::Update()
 					         typeID);
 				}
 
-				if (world.GetCube(bx, by+1, bz).typeID == 0) {
+				if (terrain.GetCube(bx, by+1, bz).typeID == 0) {
 					/* +Y or top face
 						3 7
 						2 6

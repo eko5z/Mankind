@@ -1,19 +1,19 @@
-#include "World.hpp"
+#include "Terrain.hpp"
 
 #include "Log.hpp"
 
 #include <cmath>
 
-void World::Update(float dt)
+void Terrain::Update(float dt)
 {
 }
 
-int World::GetSpawnHeight(int x, int z)
+int Terrain::GetSpawnHeight(int x, int z)
 {
-	return world_generator->HeightAt(x, z) + 1;
+	return terrain_generator->HeightAt(x, z) + 1;
 }
 
-Cube& World::GetCube(int x, int y, int z)
+Cube& Terrain::GetCube(int x, int y, int z)
 {
 	int cx(floor((float)x / CHUNK_SIZE)),
 	    cy(floor((float)y / CHUNK_SIZE)),
@@ -25,7 +25,7 @@ Cube& World::GetCube(int x, int y, int z)
 	return c.GetCube(ix, iy, iz);
 }
 
-void World::SetCube(int x, int y, int z, Cube cu)
+void Terrain::SetCube(int x, int y, int z, Cube cu)
 {
 	int cx(floor((float)x / CHUNK_SIZE)),
 	    cy(floor((float)y / CHUNK_SIZE)),
@@ -54,7 +54,7 @@ void World::SetCube(int x, int y, int z, Cube cu)
 	c.SetCube(ix, iy, iz, cu);
 }
 
-Chunk& World::GetChunk(int x, int y, int z)
+Chunk& Terrain::GetChunk(int x, int y, int z)
 {
 	uint64_t id = CHUNK_ID(x, y, z);
 	if (chunks.find(id) == chunks.end()) {
@@ -63,7 +63,7 @@ Chunk& World::GetChunk(int x, int y, int z)
 	return *chunks[id];
 }
 
-void World::LoadChunk(int x, int y, int z)
+void Terrain::LoadChunk(int x, int y, int z)
 {
 	int64_t id = CHUNK_ID(x, y, z);
 
@@ -71,14 +71,14 @@ void World::LoadChunk(int x, int y, int z)
 	new_chunk = std::make_unique<Chunk>(x, y, z);
 	chunks.emplace(id, std::move(new_chunk));
 
-	world_generator->GenerateChunk(*chunks[id]);
+	terrain_generator->GenerateChunk(*chunks[id]);
 }
 
-void World::Generate(int s)
+void Terrain::Generate(int s)
 {
 	seed = s;
-	world_generator = std::make_unique<WorldGenerator>(seed);
-	LOG("Generating world");
+	terrain_generator = std::make_unique<TerrainGenerator>(seed);
+	LOG("Generating terrain");
 	for (int i(0); i < 4; ++i) {
 		for (int j(0); j < 4; ++j) {
 			for (int k(GetSpawnHeight(0, 0)); k < GetSpawnHeight(0, 0)+4; ++k) {

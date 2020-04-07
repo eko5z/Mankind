@@ -1,7 +1,6 @@
 #include "GraphicsSystem.hpp"
 
-GraphicsSystem::GraphicsSystem(World &w):
-	world(w)
+GraphicsSystem::GraphicsSystem()
 {
 	// Add a quad mesh.
 	// this->meshes.push_back(std::make_unique<QuadMesh>());

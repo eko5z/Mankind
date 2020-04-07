@@ -5,12 +5,12 @@
 #include "Program.hpp"
 #include "Mesh.hpp"
 #include "TileManager.hpp"
-#include "World.hpp"
+#include "Terrain.hpp"
 
 class ChunkMesh
 {
 private:
-	World& world;
+	Terrain& terrain;
 	Chunk& chunk;
 	std::unique_ptr<Mesh> mesh;
 	void Update();
@@ -26,7 +26,7 @@ private:
 	/* v MUST MOVE ASAP */
 	TileManager &tile_manager;
 public:
-	ChunkMesh(World& w, Chunk& chunk, TileManager& tile_manager, int x, int y, int z);
+	ChunkMesh(Terrain& t, Chunk& chunk, TileManager& tile_manager, int x, int y, int z);
 	void Render();
 
 	int GetX()

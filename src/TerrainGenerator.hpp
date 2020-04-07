@@ -5,10 +5,10 @@
 
 #include "Chunk.hpp"
 
-class WorldGenerator
+class TerrainGenerator
 {
 public:
-	WorldGenerator(int seed);
+	TerrainGenerator(int seed);
 	void GenerateChunk(Chunk& c);
 	int HeightAt(int x, int z);
 private:

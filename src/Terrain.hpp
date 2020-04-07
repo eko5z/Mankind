@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Chunk.hpp"
-#include "WorldGenerator.hpp"
+#include "TerrainGenerator.hpp"
 #include <map>
 #include <tuple>
 #include <memory>
@@ -11,7 +11,7 @@
 	(0x0000ffff00000000 & ((int64_t)(y) << 32)) |\
 	(0x00000000ffff0000 & ((int64_t)(z) << 16))
 
-class World
+class Terrain
 {
 public:
 	Cube& GetCube(int x, int y, int z);
@@ -24,7 +24,7 @@ public:
 private:
 	std::map<uint64_t, std::unique_ptr<Chunk>> chunks;
 	void LoadChunk(int, int, int);
-	std::unique_ptr<WorldGenerator> world_generator;
+	std::unique_ptr<TerrainGenerator> terrain_generator;
 	int seed;
 };
 

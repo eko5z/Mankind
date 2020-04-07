@@ -1,6 +1,6 @@
 #pragma once
 
-#include "World.hpp"
+#include "Terrain.hpp"
 #include "Camera.hpp"
 #include "ECS.hpp"
 #include "TransformComponent.hpp"
@@ -22,9 +22,9 @@ public:
 	{
 		keep_going = false;
 	}
-	World& GetWorld()
+	Terrain& GetTerrain()
 	{
-		return world;
+		return terrain;
 	}
 	Camera& GetCamera()
 	{
@@ -64,7 +64,7 @@ public:
 	void OnUse(glm::vec3 position, glm::vec3 lookat);
 	void CalculatePointing(glm::vec3 position, glm::vec3 lookAt, float maxDistance, bool& is_pointing, glm::vec3& pointed, glm::vec3& normal);
 private:
-	World world;
+	Terrain terrain;
 	Camera camera;
 	bool keep_going;
 	ECS::Entity* player;

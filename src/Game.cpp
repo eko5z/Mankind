@@ -4,8 +4,8 @@
 
 void Game::Start(int seed)
 {
-	world.Generate(seed);
-	SetPlayerPosition(glm::vec3{0, world.GetSpawnHeight(0, 0), 0});
+	terrain.Generate(seed);
+	SetPlayerPosition(glm::vec3{0, terrain.GetSpawnHeight(0, 0), 0});
 	SetPlayerRotation(glm::vec3{-3.14159/2.f, 0, 0}); /* look on the Z axis */
 	std::cerr << "Player spawns at y=" << GetPlayerPosition().y << std::endl;
 }
@@ -22,8 +22,8 @@ Game::Game() :
 	keep_going(true),
 	ecs_world(ECS::World::createWorld())
 {
-	ecs_world->registerSystem(new PhysicsSystem(world));
-	ecs_world->registerSystem(new GraphicsSystem(world));
+	ecs_world->registerSystem(new PhysicsSystem(terrain));
+	ecs_world->registerSystem(new GraphicsSystem());
 	CreatePlayer();
 }
 
@@ -35,7 +35,7 @@ Game::~Game()
 void Game::Update(float dt)
 {
 	ecs_world->tick(dt);
-	world.Update(dt);
+	terrain.Update(dt);
 	/* this places campos in the exact middle of the box */
 	auto campos = GetPlayerPosition() + GetPlayerBox() / 2.f;
 	float eyes_height(1.6 / CUBE_SIZE / 2.); /* player is a Neanderthal 1,60 m Chad */
@@ -69,13 +69,13 @@ void Game::OnUse(glm::vec3 position, glm::vec3 lookat)
 void Game::PlaceCube(glm::vec3 position, Cube type)
 {
 	/* TODO: trigger 'OnPlaceCube' */
-	world.SetCube(position.x, position.y, position.z, type);
+	terrain.SetCube(position.x, position.y, position.z, type);
 }
 
 void Game::DestroyCube(glm::vec3 position)
 {
 	/* TODO: trigger 'OnDestroyCube' */
-	world.SetCube(position.x, position.y, position.z, Cube{0});
+	terrain.SetCube(position.x, position.y, position.z, Cube{0});
 }
 
 void Game::CalculatePointing(glm::vec3 position, glm::vec3 lookAt, float maxDistance, bool& is_pointing, glm::vec3& pointed, glm::vec3& normal)
@@ -189,7 +189,7 @@ void Game::CalculatePointing(glm::vec3 position, glm::vec3 lookAt, float maxDist
 				}
 			}
 		}
-		if (world.GetCube(current_voxel.x, current_voxel.y, current_voxel.z).typeID != 0) {
+		if (terrain.GetCube(current_voxel.x, current_voxel.y, current_voxel.z).typeID != 0) {
 			is_pointing = true;
 			pointed = current_voxel;
 			return;

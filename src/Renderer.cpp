@@ -162,8 +162,8 @@ void Renderer::Render()
 
 void Renderer::AddChunk(int x, int y, int z, Chunk& c)
 {
-	World& world = game.GetWorld();
-	this->chunk_meshes.insert(std::make_pair(CHUNK_ID(x, y, z), ChunkMesh(world, c, *tile_manager, x, y, z)));
+	Terrain& terrain = game.GetTerrain();
+	this->chunk_meshes.insert(std::make_pair(CHUNK_ID(x, y, z), ChunkMesh(terrain, c, *tile_manager, x, y, z)));
 }
 
 void Renderer::DrawSky()
@@ -253,7 +253,7 @@ void Renderer::DrawBillboard()
 
 void Renderer::LoadChunks()
 {
-	World& world = game.GetWorld();
+	Terrain& terrain = game.GetTerrain();
 	Camera& camera = game.GetCamera();
 	// find out camera chunk
 	int ccx(camera.pos.x / CHUNK_SIZE),
@@ -266,7 +266,7 @@ void Renderer::LoadChunks()
 			for (int k(ccz-5); k < ccz+5; ++k) {
 				int64_t chunkid = CHUNK_ID(i, j, k);
 				if (chunk_meshes.find(CHUNK_ID(i, j, k)) == chunk_meshes.end()) {
-					this->AddChunk(i, j, k, world.GetChunk(i, j, k));
+					this->AddChunk(i, j, k, terrain.GetChunk(i, j, k));
 				} else {
 				}
 			}
