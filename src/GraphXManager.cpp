@@ -30,6 +30,7 @@ int GraphXManager::AddTexture(std::string strID, std::unique_ptr<Texture> textur
 		textures.push_back(std::move(texture));
 		int id(textures.size() - 1);
 		textureIDmap[strID] = id;
+		return id;
 	} else {
 		throw std::runtime_error("Duplicate texture ID");
 	}
