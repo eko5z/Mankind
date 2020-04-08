@@ -68,6 +68,7 @@ void Game::OnUse(glm::vec3 position, glm::vec3 lookat)
 	if (is_pointing) {
 		/* TODO: place if holding a cube in the inventory */
 		PlaceCube(pointed + normal, Cube{1});
+		CreateTree(position);
 	} else {
 	}
 }

@@ -37,10 +37,10 @@ void GUILabel::SetText(std::string fmt, va_list vl)
 	va_copy(vl2, vl);
 	dirty = true;
 	size_t text_size = vsnprintf(nullptr, 0, fmt.c_str(), vl);
-	char *tmp_str = new char[text_size+1] {0};
+	char *tmp_str = new char[text_size+1]();
 	vsnprintf(tmp_str, text_size+1, fmt.c_str(), vl2);
 	text = std::string(tmp_str);
-	delete tmp_str;
+	delete[] tmp_str;
 }
 
 void GUILabel::SetText(std::string fmt, ...)

@@ -14,13 +14,12 @@ void GraphicsSystem::tick(ECS::World& ecs_world, float dt)
 {
 	ecs_world.each<GraphicsComponent>(
 	[&](ECS::Entity& ent, ECS::ComponentHandle<GraphicsComponent> gc) {
+		manager.ResetRenderingInstances();
 		if(ent.has<TransformComponent>()) {
 			// Get the transform component.
 			auto transform = ent.get<TransformComponent>();
 
-			glm::mat4 translate = glm::translate(glm::mat4(), transform->position);
-			glm::mat4 rotate = glm::rotate(translate, 3.14159f, transform->rotation);
-			glm::mat4 model = glm::scale(rotate, transform->scale);
+			glm::mat4 model = glm::translate(glm::mat4(), transform->position);
 
 			RenderingInstance ri;
 			ri.model_matrix = model;

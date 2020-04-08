@@ -208,18 +208,33 @@ void Renderer::DrawObjects()
 	glEnable(GL_BLEND);
 
 	this->default_program->Use();
+	graphics_manager.Rewind();
 	while (graphics_manager.HasRenderingInstances()) {
-		auto ri = graphics_manager.PopRenderingInstance();
+		auto ri = graphics_manager.GetNextRenderingInstance();
 		auto mesh = graphics_manager.GetMesh(ri.meshID);
 		auto program = graphics_manager.GetProgram(ri.programID);
-		auto tex0 = graphics_manager.GetTexture(ri.textureID[0]);
 		program.Use();
 		program.SetMat4("model", ri.model_matrix);
 		program.SetMat4("view", this->view);
 		program.SetMat4("projection", this->projection);
 		program.SetVec3("camera_position", camera.position);
 		this->sun.AddToProgram(program, 0);
-		tex0.Bind();
+		if (ri.textureID[0] != -1) {
+			glActiveTexture(GL_TEXTURE0);
+			graphics_manager.GetTexture(ri.textureID[0]).Bind();
+		}
+		if (ri.textureID[1] != -1) {
+			glActiveTexture(GL_TEXTURE1);
+			graphics_manager.GetTexture(ri.textureID[1]).Bind();
+		}
+		if (ri.textureID[2] != -1) {
+			glActiveTexture(GL_TEXTURE1);
+			graphics_manager.GetTexture(ri.textureID[2]).Bind();
+		}
+		if (ri.textureID[3] != -1) {
+			glActiveTexture(GL_TEXTURE1);
+			graphics_manager.GetTexture(ri.textureID[3]).Bind();
+		}
 		mesh.Render();
 	}
 

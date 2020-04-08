@@ -3,7 +3,6 @@
 #include <map>
 #include <vector>
 #include <string>
-#include <queue>
 
 #include "Program.hpp"
 #include "Texture.hpp"
@@ -22,7 +21,8 @@ private:
 	std::map<std::string, int> programIDmap;
 	std::map<std::string, int> textureIDmap;
 
-	std::queue<RenderingInstance> rendering_instances;
+	std::vector<RenderingInstance> rendering_instances;
+	int ri_index;
 public:
 	/*!
 	 \param strID a unique string id, used by outsiders
@@ -64,15 +64,22 @@ public:
 
 	void AddRenderingInstance(RenderingInstance rendering_intance);
 
+	void ResetRenderingInstances()
+	{
+		rendering_instances.clear();
+		ri_index = 0;
+	}
+	void Rewind()
+	{
+		ri_index = 0;
+	}
 	bool HasRenderingInstances()
 	{
-		return rendering_instances.size() > 0;
+		return ri_index < rendering_instances.size();
 	}
-	RenderingInstance PopRenderingInstance()
+	RenderingInstance GetNextRenderingInstance()
 	{
-		auto ri = rendering_instances.front();
-		rendering_instances.pop();
-		return ri;
+		return rendering_instances.at(ri_index++);
 	}
 };
 
