@@ -905,27 +905,27 @@ private:
 
 template<typename T>
 struct ComponentContainer : public BaseComponentContainer {
-ComponentContainer() {}
-ComponentContainer(const T& data) : data(data) {}
+	ComponentContainer() {}
+	ComponentContainer(const T& data) : data(data) {}
 
-T data;
+	T data;
 
 protected:
-virtual void destroy(World* world)
-{
-	using ComponentAllocator = std::allocator_traits<World::EntityAllocator>::template rebind_alloc<ComponentContainer<T>>;
+	virtual void destroy(World* world)
+	{
+		using ComponentAllocator = std::allocator_traits<World::EntityAllocator>::template rebind_alloc<ComponentContainer<T>>;
 
-	ComponentAllocator alloc(world->getPrimaryAllocator());
-	std::allocator_traits<ComponentAllocator>::destroy(alloc, this);
-	std::allocator_traits<ComponentAllocator>::deallocate(alloc, this, 1);
-}
+		ComponentAllocator alloc(world->getPrimaryAllocator());
+		std::allocator_traits<ComponentAllocator>::destroy(alloc, this);
+		std::allocator_traits<ComponentAllocator>::deallocate(alloc, this, 1);
+	}
 
-virtual void removed(Entity* ent)
-{
-	auto handle = ComponentHandle<T>(&data);
-	ent->getWorld()->emit<Events::OnComponentRemoved<T>>({ ent, handle });
-}
-                                                                                                                  };
+	virtual void removed(Entity* ent)
+	{
+		auto handle = ComponentHandle<T>(&data);
+		ent->getWorld()->emit<Events::OnComponentRemoved<T>>({ ent, handle });
+	}
+};
 }
 
 inline World::~World()

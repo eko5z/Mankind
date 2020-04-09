@@ -211,8 +211,8 @@ void Renderer::DrawObjects()
 	graphics_manager.Rewind();
 	while (graphics_manager.HasRenderingInstances()) {
 		auto ri = graphics_manager.GetNextRenderingInstance();
-		auto mesh = graphics_manager.GetMesh(ri.meshID);
-		auto program = graphics_manager.GetProgram(ri.programID);
+		auto& mesh = graphics_manager.GetMesh(ri.meshID);
+		auto& program = graphics_manager.GetProgram(ri.programID);
 		program.Use();
 		program.SetMat4("model", ri.model_matrix);
 		program.SetMat4("view", this->view);
