@@ -24,7 +24,14 @@ private:
 
 	std::map<int, std::vector<RenderingInstance>> rendering_instances;
 	int ri_index;
+	static const int PIXELS_PER_CUBE = 32;
 public:
+	/*!
+	 \param textureID name of the billboard texture
+	 \param scale proper scale will be stored there
+	 */
+	void GetBillBoardScale(std::string textureID, glm::vec3& scale);
+
 	/*!
 	 \param strID a unique string id, used by outsiders
 	 \param mesh a mesh corresponding to the above id

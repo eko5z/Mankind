@@ -23,6 +23,8 @@ Texture::Texture(SDL_Surface* s) :
 
 void Texture::Load()
 {
+	pixel_width = res->w;
+	pixel_height = res->h;
 	glGenTextures(1, &this->texture_id);
 	glBindTexture(GL_TEXTURE_2D, this->texture_id);
 	GLuint pixel_format;

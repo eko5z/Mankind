@@ -2,6 +2,15 @@
 
 #include "Log.hpp"
 
+void GraphXManager::GetBillBoardScale(std::string textureID, glm::vec3& scale)
+{
+	auto tex = GetTexture(GetTextureID(textureID));
+	float h = (float) tex.GetPixelHeight() / PIXELS_PER_CUBE;
+	float w = (float) tex.GetPixelWidth() / PIXELS_PER_CUBE;
+	scale.x = scale.z = w;
+	scale.y = h;
+}
+
 int GraphXManager::AddMesh(std::string strID, std::unique_ptr<Mesh> mesh)
 {
 	if (meshIDmap.find(strID) == std::end(meshIDmap)) {
