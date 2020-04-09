@@ -7,6 +7,7 @@
 #include "Program.hpp"
 #include "Texture.hpp"
 #include "Mesh.hpp"
+#include "Log.hpp"
 
 #include "RenderingInstance.hpp"
 
@@ -62,24 +63,17 @@ public:
 		return textureIDmap.at(textureID);
 	}
 
-	void AddRenderingInstance(RenderingInstance rendering_intance);
-
+	void AddRenderingInstance(RenderingInstance ri)
+	{
+		rendering_instances.push_back(ri);
+	}
 	void ResetRenderingInstances()
 	{
 		rendering_instances.clear();
-		ri_index = 0;
 	}
-	void Rewind()
+	std::vector<RenderingInstance>& GetRenderingInstances()
 	{
-		ri_index = 0;
-	}
-	bool HasRenderingInstances()
-	{
-		return ri_index < rendering_instances.size();
-	}
-	RenderingInstance GetNextRenderingInstance()
-	{
-		return rendering_instances.at(ri_index++);
+		return rendering_instances;
 	}
 };
 

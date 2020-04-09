@@ -97,7 +97,8 @@ void TerrainGenerator::GenerateChunk(Chunk& c)
 	for (int i(0); i < CHUNK_SIZE; ++i) {
 		for (int j(0); j < CHUNK_SIZE; ++j) {
 			int newHeight = HeightAt(baseX+i, baseZ+j);
-			int in_chunk_height = std::min(newHeight - baseY, 16);
+			int in_chunk_height = std::min(newHeight - baseY, CHUNK_SIZE);
+			bool column_is_terrain(in_chunk_height > 0 and in_chunk_height < CHUNK_SIZE); /* neither empty nor full*/
 			if (in_chunk_height < 0) {
 				in_chunk_height = 0;
 			}
@@ -108,8 +109,8 @@ void TerrainGenerator::GenerateChunk(Chunk& c)
 				}
 				c.SetCube(i, k, j, Cube{typeID});
 			}
-			if (rand() % 40 == 0 && in_chunk_height > 0 && in_chunk_height < CHUNK_SIZE - 1) {
-				game.CreateTree(glm::vec3(i, in_chunk_height+1, j));
+			if (rand() % 10 == 1 and column_is_terrain) {
+				game.CreateTree(glm::vec3(baseX+i, newHeight+2, baseZ+j));
 			}
 		}
 	}

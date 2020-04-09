@@ -207,9 +207,7 @@ void Renderer::DrawObjects()
 	glEnable(GL_BLEND);
 
 	this->default_program->Use();
-	graphics_manager.Rewind();
-	while (graphics_manager.HasRenderingInstances()) {
-		auto ri = graphics_manager.GetNextRenderingInstance();
+	for (auto& ri : graphics_manager.GetRenderingInstances()) {
 		auto& mesh = graphics_manager.GetMesh(ri.meshID);
 		auto& program = graphics_manager.GetProgram(ri.programID);
 		program.Use();

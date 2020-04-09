@@ -12,9 +12,9 @@ GraphicsSystem::GraphicsSystem(GraphXManager& manager) :
 
 void GraphicsSystem::tick(ECS::World& ecs_world, float dt)
 {
+	manager.ResetRenderingInstances();
 	ecs_world.each<GraphicsComponent>(
 	[&](ECS::Entity& ent, ECS::ComponentHandle<GraphicsComponent> gc) {
-		manager.ResetRenderingInstances();
 		if(ent.has<TransformComponent>()) {
 			// Get the transform component.
 			auto transform = ent.get<TransformComponent>();

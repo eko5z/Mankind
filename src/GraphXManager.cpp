@@ -56,8 +56,3 @@ Texture& GraphXManager::GetTexture(int textureID)
 	return *(textures.at(textureID));
 }
 
-void GraphXManager::AddRenderingInstance(RenderingInstance rendering_instance)
-{
-	rendering_instances.push_back(rendering_instance);
-}
-
