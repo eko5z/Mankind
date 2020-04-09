@@ -54,7 +54,7 @@ void GUILabel::SetText(std::string fmt, ...)
 void GUILabel::SetFont(std::shared_ptr<Font> font)
 {
 	dirty = true;
-	this->font = std::move(font);
+	this->font = font;
 }
 
 void GUILabel::SetForegroundColor(SDL_Color new_color)
