@@ -97,9 +97,9 @@ void ChunkMesh::Update()
 	uvs.clear();
 	normals.clear();
 
-	for (int i(0); i < 16; ++i) {
-		for (int j(0); j < 16; ++j) {
-			for (int k(0); k < 16; ++k) {
+	for (int i(0); i < CHUNK_SIZE; ++i) {
+		for (int j(0); j < CHUNK_SIZE; ++j) {
+			for (int k(0); k < CHUNK_SIZE; ++k) {
 				/* Aliasing the vertices will make it easier */
 				glm::vec3 vertex_alias[8] = {
 					vertices[INDEX(i,   j,   k  )], // 0
