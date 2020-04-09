@@ -91,7 +91,8 @@ void Game::CreateTree(glm::vec3 position)
 	t->assign<TransformComponent>();
 	auto tc = t->get<TransformComponent>();
 	tc->position = position;
-	tc->scale = glm::vec3{3, 3, 3};
+	tc->scale = glm::vec3{1, 3, 1};
+	tc->rotation = glm::vec3{0, 0, 0}; // TODO: sum math king figure out how rotation works in OpenGL
 	t->assign<GraphicsComponent>();
 	auto gc = t->get<GraphicsComponent>();
 	gc->meshID = graphics_manager.GetMeshID("tree");

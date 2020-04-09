@@ -19,7 +19,8 @@ void GraphicsSystem::tick(ECS::World& ecs_world, float dt)
 			// Get the transform component.
 			auto transform = ent.get<TransformComponent>();
 
-			glm::mat4 model = glm::scale(glm::translate(glm::mat4(), transform->position), glm::vec3(1.f, 3.f, 1.f));
+			// TODO: figure out how glm::rotate gets an angle and shit?
+			glm::mat4 model = glm::scale(glm::translate(glm::mat4(), transform->position), transform->scale);
 
 			RenderingInstance ri;
 			ri.model_matrix = model;
