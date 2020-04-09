@@ -92,7 +92,7 @@ void ChunkMesh::Update()
 	 */
 
 	global_index = 0;
-	real_indices.clear();
+	indices.clear();
 	real_vertices.clear();
 	uvs.clear();
 	normals.clear();

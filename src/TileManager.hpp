@@ -24,11 +24,11 @@ public:
 
 	std::shared_ptr<Texture> GetDiffuse()
 	{
-		return std::move(diffuse);
+		return diffuse;
 	}
 	std::shared_ptr<Texture> GetSpecular()
 	{
-		return std::move(specular);
+		return specular;
 	}
 };
 
