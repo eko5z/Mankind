@@ -119,6 +119,7 @@ void MainInputManager::OnMouseMotion(int x, int y, int dx, int dy)
 {
 	auto rot = game.GetPlayerRotation();
 	rot += glm::vec3(-dx / 500., -dy / 500., 0.);
+	rot.y = std::min(std::max(rot.y, -3.14159f / 2), +3.14159f / 2);
 	game.SetPlayerRotation(rot);
 	ChangePlayerVelocity();
 }

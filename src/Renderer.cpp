@@ -92,14 +92,10 @@ void Renderer::OpenWindow()
 	fps_label = std::make_unique<GUILabel>("fps",
 	                                       glm::vec2{view_width - 100, view_height - 30}, glm::vec2{view_width, view_height}, main_font, "fps");
 	LOG("Loading meshes...");
-	this->sky = std::make_unique<Sky>();
+	this->sky = std::make_unique<QuadMesh>(nullptr, nullptr);
 	LOG ("Initialized sky.");
 	this->highlight_mesh = std::make_unique<HighlightMesh>();
 	LOG ("Initialized highlight mesh.");
-
-	this->tree_texture = std::make_shared<Texture>("res/tex/tree.png");
-
-	this->billboard = std::make_unique<QuadMesh>(this->tree_texture, this->tree_texture);
 
 	h_fov = 90.0f;
 	v_fov_rad = xfov_to_yfov(deg2rad(h_fov), (float)view_width / (float)view_height);
@@ -114,7 +110,6 @@ void Renderer::OpenWindow()
 	this->sky_program = std::make_unique<Program>("res/shaders/sky.vert", "res/shaders/sky.frag");
 	this->text_program = std::make_unique<Program>("res/shaders/text.vert", "res/shaders/text.frag");
 	this->highlight_program = std::make_unique<Program>("res/shaders/default.vert", "res/shaders/highlight.frag");
-	this->billboard_program = std::make_unique<Program>("res/shaders/billboard.vert", "res/shaders/billboard.frag");
 
 	LOG("Window correctly opened");
 
@@ -171,6 +166,8 @@ void Renderer::DrawSky()
 {
 	Camera& camera = game.GetCamera();
 
+	glDisable(GL_DEPTH_TEST);
+
 	this->sky_program->Use();
 	this->sky_program->SetVec3("sun_direction", this->sun.direction);
 	this->sky_program->SetFloat("camera_pitch", camera.rotation.y);
@@ -178,6 +175,8 @@ void Renderer::DrawSky()
 	this->sky_program->SetFloat("vertical_fov", v_fov_rad);
 	this->sky_program->SetFloat("horizontal_fov", v_fov_rad);
 	this->sky->Render();
+
+	glEnable(GL_DEPTH_TEST);
 }
 
 void Renderer::DrawTerrain()

@@ -13,6 +13,8 @@ void Game::Start(int seed)
 	terrain.SetTerrainGenerator(std::make_unique<TerrainGenerator>(*this, seed));
 	SetPlayerPosition(glm::vec3{0, terrain.GetSpawnHeight(0, 0), 0});
 	SetPlayerRotation(glm::vec3{-3.14159/2.f, 0, 0}); /* look on the Z axis */
+	CreateTree(glm::vec3{1, terrain.GetSpawnHeight(0, 0) + 2, 1});
+	CreateTree(glm::vec3{2, terrain.GetSpawnHeight(0, 0) + 2, -1});
 	std::cerr << "Player spawns at y=" << GetPlayerPosition().y << std::endl;
 }
 
@@ -66,6 +68,7 @@ void Game::OnUse(glm::vec3 position, glm::vec3 lookat)
 	if (is_pointing) {
 		/* TODO: place if holding a cube in the inventory */
 		PlaceCube(pointed + normal, Cube{1});
+		CreateTree(position + glm::vec3(0, 2, 0));
 	} else {
 	}
 }
@@ -88,7 +91,8 @@ void Game::CreateTree(glm::vec3 position)
 	t->assign<TransformComponent>();
 	auto tc = t->get<TransformComponent>();
 	tc->position = position;
-	tc->scale = glm::vec3{3, 3, 3};
+	tc->scale = glm::vec3{1, 3, 1};
+	tc->rotation = glm::vec3{0, 0, 0}; // TODO: sum math king figure out how rotation works in OpenGL
 	t->assign<GraphicsComponent>();
 	auto gc = t->get<GraphicsComponent>();
 	gc->meshID = graphics_manager.GetMeshID("tree");

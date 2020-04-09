@@ -16,7 +16,6 @@
 #include "Mesh.hpp"
 #include "QuadMesh.hpp"
 #include "DirectionalLight.hpp"
-#include "Sky.hpp"
 #include "HighlightMesh.hpp"
 #include "GraphXManager.hpp"
 
@@ -56,10 +55,7 @@ private:
 	std::map<uint64_t, ChunkMesh> chunk_meshes;
 
 	DirectionalLight sun;
-	std::unique_ptr<Sky> sky;
-	std::unique_ptr<Program> billboard_program;
-	std::unique_ptr<QuadMesh> billboard;
-	std::shared_ptr<Texture> tree_texture;
+	std::unique_ptr<QuadMesh> sky;
 
 	glm::mat4 view, projection;
 };
