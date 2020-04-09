@@ -16,7 +16,6 @@
 #include "Mesh.hpp"
 #include "QuadMesh.hpp"
 #include "DirectionalLight.hpp"
-#include "Sky.hpp"
 #include "HighlightMesh.hpp"
 #include "GraphXManager.hpp"
 

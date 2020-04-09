@@ -17,7 +17,6 @@ mankind_SOURCES=\
 	TileManager.cpp\
 	PhysicsSystem.cpp\
 	DirectionalLight.cpp\
-	Sky.cpp\
 	BaseGUIElement.cpp\
 	GUILabel.cpp\
 	HighlightMesh.cpp\
