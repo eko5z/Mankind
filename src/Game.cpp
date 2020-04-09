@@ -7,7 +7,7 @@ void Game::Start(int seed)
 	this->keep_going = true;
 	this->ecs_world = ECS::World::createWorld();
 	this->ecs_world->registerSystem(new PhysicsSystem(this->terrain));
-	this->ecs_world->registerSystem(new GraphicsSystem(graphics_manager));
+	this->ecs_world->registerSystem(new GraphicsSystem(*this, graphics_manager));
 	this->CreatePlayer();
 
 	terrain.SetTerrainGenerator(std::make_unique<TerrainGenerator>(*this, seed));

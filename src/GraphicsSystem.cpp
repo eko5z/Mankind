@@ -5,7 +5,12 @@
 
 #include "Log.hpp"
 
-GraphicsSystem::GraphicsSystem(GraphXManager& manager) :
+#include "Game.hpp"
+
+#include "glm/gtx/vector_angle.hpp"
+
+GraphicsSystem::GraphicsSystem(Game& game, GraphXManager& manager) :
+	game(game),
 	manager(manager)
 {
 }
@@ -18,6 +23,15 @@ void GraphicsSystem::tick(ECS::World& ecs_world, float dt)
 		if(ent.has<TransformComponent>()) {
 			// Get the transform component.
 			auto transform = ent.get<TransformComponent>();
+
+			/* Cull entities not within 90 degrees of our lookAt
+			 */
+			glm::vec3 clookat = game.GetCamera().GetLookAt();
+			glm::vec3 toEnt = glm::normalize(transform->position - game.GetCamera().position);
+			float angle = glm::orientedAngle(clookat, toEnt, glm::vec3(0, 1, 0));
+			if (fabs(angle) > 3.14159 / 2) {
+				return;
+			}
 
 			// TODO: figure out how glm::rotate gets an angle and shit?
 			glm::mat4 model = glm::mat4();

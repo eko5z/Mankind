@@ -10,13 +10,16 @@
 #include "RenderingInstance.hpp"
 #include "GraphXManager.hpp"
 
+class Game;
+
 class GraphicsSystem: public ECS::EntitySystem
 {
 private:
 	GraphXManager& manager;
+	Game& game;
 
 public:
-	GraphicsSystem(GraphXManager& manager);
+	GraphicsSystem(Game& game, GraphXManager& manager);
 	virtual void tick(ECS::World& world, float dt) override;
 };
 
