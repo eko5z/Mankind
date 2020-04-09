@@ -12,7 +12,7 @@
 GUILabel::GUILabel(std::string id, glm::vec2 pos, glm::vec2 screen_dim,
                    std::shared_ptr<Font> font, std::string fmt, ...) :
 	BaseGUIElement::BaseGUIElement(id),
-	font(std::move(font)),
+	font(font),
 	fg_color(
 {
 	255, 255, 255, 255
