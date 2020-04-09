@@ -110,7 +110,7 @@ void TerrainGenerator::GenerateChunk(Chunk& c)
 				c.SetCube(i, k, j, Cube{typeID});
 			}
 			if (rand() % 10 == 1 and column_is_terrain) {
-				game.CreateTree(glm::vec3(baseX+i, newHeight+2, baseZ+j));
+				game.CreateTree(glm::vec3(baseX+i, newHeight+3, baseZ+j));
 			}
 		}
 	}
