@@ -6,6 +6,8 @@
 #include "ECS.hpp"
 #include "Terrain.hpp"
 
+class Terrain;
+
 class PhysicsSystem : public ECS::EntitySystem
 {
 private:

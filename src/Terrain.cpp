@@ -74,17 +74,3 @@ void Terrain::LoadChunk(int x, int y, int z)
 	terrain_generator->GenerateChunk(*chunks[id]);
 }
 
-void Terrain::Generate(int s)
-{
-	seed = s;
-	terrain_generator = std::make_unique<TerrainGenerator>(seed);
-	LOG("Generating terrain");
-	for (int i(0); i < 4; ++i) {
-		for (int j(0); j < 4; ++j) {
-			for (int k(GetSpawnHeight(0, 0)); k < GetSpawnHeight(0, 0)+4; ++k) {
-				LoadChunk(i, j, k);
-			}
-		}
-	}
-}
-

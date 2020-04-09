@@ -5,13 +5,16 @@
 
 #include "Chunk.hpp"
 
+class Game;
+
 class TerrainGenerator
 {
 public:
-	TerrainGenerator(int seed);
+	TerrainGenerator(Game& game, int seed);
 	void GenerateChunk(Chunk& c);
 	int HeightAt(int x, int z);
 private:
+	Game& game;
 	int seed;
 	std::vector<int> p;
 	double fade(double t);

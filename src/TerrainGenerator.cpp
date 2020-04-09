@@ -6,7 +6,10 @@
 #include <algorithm>
 #include <cmath>
 
-TerrainGenerator::TerrainGenerator(int seed):
+#include "Game.hpp"
+
+TerrainGenerator::TerrainGenerator(Game& game, int seed):
+	game(game),
 	seed(seed),
 	p(256)
 {
@@ -38,7 +41,6 @@ double TerrainGenerator::grad(int hash, double x, double y, double z)
 
 double TerrainGenerator::noise(double x, double y, double z)
 {
-	return 0;
 	// Find the unit cube that contains the point
 	int X = (int) floor(x) & 255;
 	int Y = (int) floor(y) & 255;
@@ -105,6 +107,9 @@ void TerrainGenerator::GenerateChunk(Chunk& c)
 					typeID = 2;
 				}
 				c.SetCube(i, k, j, Cube{typeID});
+			}
+			if (rand() % 40 == 0 && in_chunk_height > 0 && in_chunk_height < CHUNK_SIZE - 1) {
+				game.CreateTree(glm::vec3(i, in_chunk_height+1, j));
 			}
 		}
 	}

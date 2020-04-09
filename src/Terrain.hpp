@@ -17,9 +17,12 @@ public:
 	Cube& GetCube(int x, int y, int z);
 	void SetCube(int x, int y, int z, Cube c);
 	Chunk& GetChunk(int x, int y, int z);
-	void Generate(int seed);
 	void Update(float dt);
 	int GetSpawnHeight(int x, int z);
+	void SetTerrainGenerator(std::unique_ptr<TerrainGenerator> tg)
+	{
+		terrain_generator = std::move(tg);
+	}
 
 private:
 	std::map<uint64_t, std::unique_ptr<Chunk>> chunks;

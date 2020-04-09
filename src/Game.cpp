@@ -10,11 +10,9 @@ void Game::Start(int seed)
 	this->ecs_world->registerSystem(new GraphicsSystem(graphics_manager));
 	this->CreatePlayer();
 
-	terrain.Generate(seed);
+	terrain.SetTerrainGenerator(std::make_unique<TerrainGenerator>(*this, seed));
 	SetPlayerPosition(glm::vec3{0, terrain.GetSpawnHeight(0, 0), 0});
 	SetPlayerRotation(glm::vec3{-3.14159/2.f, 0, 0}); /* look on the Z axis */
-	CreateTree(glm::vec3{1, terrain.GetSpawnHeight(0, 0), 1});
-	CreateTree(glm::vec3{2, terrain.GetSpawnHeight(0, 0), -1});
 	std::cerr << "Player spawns at y=" << GetPlayerPosition().y << std::endl;
 }
 
@@ -68,7 +66,6 @@ void Game::OnUse(glm::vec3 position, glm::vec3 lookat)
 	if (is_pointing) {
 		/* TODO: place if holding a cube in the inventory */
 		PlaceCube(pointed + normal, Cube{1});
-		CreateTree(position);
 	} else {
 	}
 }
