@@ -205,32 +205,36 @@ void Renderer::DrawObjects()
 	Camera& camera = game.GetCamera();
 
 	this->default_program->Use();
-	for (auto& ri : graphics_manager.GetRenderingInstances()) {
-		auto& mesh = graphics_manager.GetMesh(ri.meshID);
-		auto& program = graphics_manager.GetProgram(ri.programID);
-		program.Use();
-		program.SetMat4("model", ri.model_matrix);
-		program.SetMat4("view", this->view);
-		program.SetMat4("projection", this->projection);
-		program.SetVec3("camera_position", camera.position);
-		this->sun.AddToProgram(program, 0);
-		if (ri.textureID[0] != -1) {
-			glActiveTexture(GL_TEXTURE0);
-			graphics_manager.GetTexture(ri.textureID[0]).Bind();
+	auto& programs = graphics_manager.GetPrograms();
+	for (int i(0); i < programs.size(); ++i) {
+		programs[i]->Use();
+		programs[i]->SetMat4("view", this->view);
+		programs[i]->SetMat4("projection", this->projection);
+		programs[i]->SetVec3("camera_position", camera.position);
+		this->sun.AddToProgram(*programs[i], 0);
+
+		for (auto& ri : graphics_manager.GetRenderingInstances(i)) {
+			auto& mesh = graphics_manager.GetMesh(ri.meshID);
+			programs[i]->SetMat4("model", ri.model_matrix);
+
+			if (ri.textureID[0] != -1) {
+				glActiveTexture(GL_TEXTURE0);
+				graphics_manager.GetTexture(ri.textureID[0]).Bind();
+			}
+			if (ri.textureID[1] != -1) {
+				glActiveTexture(GL_TEXTURE1);
+				graphics_manager.GetTexture(ri.textureID[1]).Bind();
+			}
+			if (ri.textureID[2] != -1) {
+				glActiveTexture(GL_TEXTURE1);
+				graphics_manager.GetTexture(ri.textureID[2]).Bind();
+			}
+			if (ri.textureID[3] != -1) {
+				glActiveTexture(GL_TEXTURE1);
+				graphics_manager.GetTexture(ri.textureID[3]).Bind();
+			}
+			mesh.Render();
 		}
-		if (ri.textureID[1] != -1) {
-			glActiveTexture(GL_TEXTURE1);
-			graphics_manager.GetTexture(ri.textureID[1]).Bind();
-		}
-		if (ri.textureID[2] != -1) {
-			glActiveTexture(GL_TEXTURE1);
-			graphics_manager.GetTexture(ri.textureID[2]).Bind();
-		}
-		if (ri.textureID[3] != -1) {
-			glActiveTexture(GL_TEXTURE1);
-			graphics_manager.GetTexture(ri.textureID[3]).Bind();
-		}
-		mesh.Render();
 	}
 }
 

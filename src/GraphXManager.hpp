@@ -22,7 +22,7 @@ private:
 	std::map<std::string, int> programIDmap;
 	std::map<std::string, int> textureIDmap;
 
-	std::vector<RenderingInstance> rendering_instances;
+	std::map<int, std::vector<RenderingInstance>> rendering_instances;
 	int ri_index;
 public:
 	/*!
@@ -65,15 +65,19 @@ public:
 
 	void AddRenderingInstance(RenderingInstance ri)
 	{
-		rendering_instances.push_back(ri);
+		rendering_instances[ri.programID].push_back(ri);
 	}
 	void ResetRenderingInstances()
 	{
 		rendering_instances.clear();
 	}
-	std::vector<RenderingInstance>& GetRenderingInstances()
+	std::vector<RenderingInstance>& GetRenderingInstances(int programID)
 	{
-		return rendering_instances;
+		return rendering_instances[programID];
+	}
+	std::vector<std::unique_ptr<Program>>& GetPrograms()
+	{
+		return programs;
 	}
 };
 
