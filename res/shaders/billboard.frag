@@ -24,13 +24,17 @@ void main()
 {
 	vec3 normal = normalize(fragment_normal);
 	vec4 result;
+	vec4 diff_tex = texture(diffuse_texture, fragment_uv);
+	if (diff_tex.a < 0.5) {
+		discard;
+	}
 
 	for (int i = 0; i < N_DIRECTIONAL_LIGHTS; ++i)
 	{
 		DirectionalLight light = directional_lights[i];
 		vec3 light_direction = normalize(light.direction);
 
-		vec4 ambient = vec4(light.ambient_color, 1.0) * texture(diffuse_texture, fragment_uv);
+		vec4 ambient = vec4(light.ambient_color, 1.0) * diff_tex;
 
 		float diff = max(dot(normal, light_direction), 0.0);
 		vec4 diffuse = diff * vec4(light.diffuse_color, 1.0) * texture(diffuse_texture, fragment_uv);

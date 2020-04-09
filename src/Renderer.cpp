@@ -204,8 +204,6 @@ void Renderer::DrawObjects()
 {
 	Camera& camera = game.GetCamera();
 
-	glEnable(GL_BLEND);
-
 	this->default_program->Use();
 	for (auto& ri : graphics_manager.GetRenderingInstances()) {
 		auto& mesh = graphics_manager.GetMesh(ri.meshID);
@@ -234,8 +232,6 @@ void Renderer::DrawObjects()
 		}
 		mesh.Render();
 	}
-
-	glDisable(GL_BLEND);
 }
 
 void Renderer::DrawGUI()
