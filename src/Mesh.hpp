@@ -15,8 +15,6 @@ class Mesh
 private:
 	// Vertex Array Object, Vertex Buffer Object, Normal Buffer Object, UV Buffer Object, Element Buffer Object.
 	GLuint VAO, VBO, NBO, UVBO, EBO;
-
-	std::shared_ptr<Texture> diffuse, specular;
 public:
 	std::vector<glm::vec3> vertices;
 	std::vector<glm::vec3> normals;
@@ -25,8 +23,7 @@ public:
 
 	// TODO: 2D mesh or something
 	Mesh(std::vector<glm::vec3> vertices, std::vector<glm::vec3> normals,
-	     std::vector<glm::vec2> uvs, std::vector<GLuint> indices, std::shared_ptr<Texture> diffuse,
-	     std::shared_ptr<Texture> specular);
+	     std::vector<glm::vec2> uvs, std::vector<GLuint> indices);
 	~Mesh();
 
 	virtual void Render();

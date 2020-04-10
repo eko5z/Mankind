@@ -3,10 +3,7 @@
 #include "Log.hpp"
 
 Mesh::Mesh(std::vector<glm::vec3> vertices, std::vector<glm::vec3> normals,
-           std::vector<glm::vec2> uvs, std::vector<unsigned int> indices, std::shared_ptr<Texture> diffuse,
-           std::shared_ptr<Texture> specular):
-	diffuse(diffuse),
-	specular(specular)
+           std::vector<glm::vec2> uvs, std::vector<unsigned int> indices)
 {
 	this->vertices = vertices;
 	this->normals = normals;
@@ -73,19 +70,6 @@ Mesh::~Mesh()
 
 void Mesh::Render()
 {
-	// Activate diffuse texture.
-
-	if(this->diffuse != nullptr) {
-		glActiveTexture(GL_TEXTURE0);
-		diffuse->Bind();
-	}
-
-	// Activate specular texture.
-	if(this->specular != nullptr) {
-		glActiveTexture(GL_TEXTURE1);
-		specular->Bind();
-	}
-
 	glBindVertexArray(this->VAO);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->EBO);
 

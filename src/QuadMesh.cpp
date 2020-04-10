@@ -21,8 +21,8 @@
 #define uvs std::vector<glm::vec2>{UV_BOTTOM_LEFT, UV_TOP_LEFT, UV_BOTTOM_RIGHT, UV_BOTTOM_RIGHT, UV_TOP_LEFT, UV_TOP_RIGHT}
 #define indices std::vector<GLuint>{0, 1, 2, 3, 4, 5}
 
-QuadMesh::QuadMesh(std::shared_ptr<Texture> diffuse, std::shared_ptr<Texture> specular):
-	Mesh::Mesh(vertices, normals, uvs, indices, diffuse, specular)
+QuadMesh::QuadMesh():
+	Mesh::Mesh(vertices, normals, uvs, indices)
 {
 
 }

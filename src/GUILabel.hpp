@@ -22,5 +22,6 @@ private:
 	void Reload();
 	void SetText(std::string fmt, va_list vl);
 	SDL_Color fg_color;
+	std::shared_ptr<Texture> fg_texture;
 };
 

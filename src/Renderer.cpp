@@ -91,8 +91,9 @@ void Renderer::OpenWindow()
 	                 glm::vec2{5, view_height - 60}, glm::vec2{view_width, view_height}, main_font, "Position goes here");
 	fps_label = std::make_unique<GUILabel>("fps",
 	                                       glm::vec2{view_width - 100, view_height - 30}, glm::vec2{view_width, view_height}, main_font, "fps");
+
 	LOG("Loading meshes...");
-	this->sky = std::make_unique<QuadMesh>(nullptr, nullptr);
+	this->sky = std::make_unique<QuadMesh>();
 	LOG ("Initialized sky.");
 	this->highlight_mesh = std::make_unique<HighlightMesh>();
 	LOG ("Initialized highlight mesh.");
@@ -196,6 +197,9 @@ void Renderer::DrawTerrain()
 		    y(kc.second.GetY() * CHUNK_SIZE),
 		    z(kc.second.GetZ() * CHUNK_SIZE);
 		this->default_program->SetMat4("model", glm::translate(glm::mat4(), glm::vec3(x, y, z)));
+		// TODO: Get this from graphics manager, perhaps?
+		glActiveTexture(GL_TEXTURE0);
+		this->tile_manager->GetDiffuse()->Bind();
 		kc.second.Render();
 	}
 }

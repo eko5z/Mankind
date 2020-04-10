@@ -49,7 +49,7 @@
 				       30, 31, 32, 33, 34, 35}
 
 HighlightMesh::HighlightMesh() :
-	Mesh::Mesh(vertices, normals, uvs, indices, nullptr, nullptr)
+	Mesh::Mesh(vertices, normals, uvs, indices)
 {
 
 }

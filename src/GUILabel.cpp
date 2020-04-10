@@ -66,7 +66,7 @@ void GUILabel::Reload()
 {
 	dirty = false;
 	SDL_Surface* text_surface = TTF_RenderText_Blended(font->GetPointer(), text.c_str(), fg_color);
-	std::shared_ptr<Texture> fg_texture = std::make_shared<Texture>(text_surface);
+	this->fg_texture = std::make_shared<Texture>(text_surface);
 	glm::vec2 wh{
 		text_surface->w / screen_dim.x * 2,
 		text_surface->h / screen_dim.y * 2};
@@ -103,7 +103,7 @@ void GUILabel::Reload()
 	};
 	std::vector<glm::vec3> normals(6, glm::vec3(0, 0, -1));
 
-	foreground = std::make_unique<Mesh>(vertices, normals, uvs, indices, fg_texture, nullptr);
+	foreground = std::make_unique<Mesh>(vertices, normals, uvs, indices);
 }
 
 void GUILabel::Draw()
@@ -112,6 +112,8 @@ void GUILabel::Draw()
 		Reload();
 	}
 	glEnable(GL_BLEND);
+	glActiveTexture(GL_TEXTURE0);
+	this->fg_texture->Bind();
 	BaseGUIElement::Draw();
 	glDisable(GL_BLEND);
 }
