@@ -80,7 +80,7 @@ int TerrainGenerator::HeightAt(int x, int z)
 	float v = ((float)z / 100.);
 	u = u < 0 ? u * -1 : u;
 	v = v < 0 ? v * -1 : v;
-	for (int i(1); i < 5; ++i) {
+	for (int i(1); i < 2; ++i) {
 		float n = noise(u, 0.5, v);
 		acc += (n * 200) / i;
 		v = u;
