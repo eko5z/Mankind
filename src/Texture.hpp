@@ -21,8 +21,14 @@ public:
 	}
 	GLuint texture_id;
 
-	int GetPixelHeight() { return pixel_height; }
-	int GetPixelWidth() { return pixel_width; }
+	int GetPixelHeight()
+	{
+		return pixel_height;
+	}
+	int GetPixelWidth()
+	{
+		return pixel_width;
+	}
 
 	Texture(std::string path);
 	Texture(SDL_Surface* s);

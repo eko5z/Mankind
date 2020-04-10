@@ -23,7 +23,8 @@ mankind_SOURCES=\
 	QuadMesh.cpp\
 	Camera.cpp\
 	GraphicsSystem.cpp\
-	GraphXManager.cpp
+	GraphXManager.cpp\
+	CrossMesh.cpp
 
 mankind_CPPFLAGS = @DEPS_CPPFLAGS@ --std=c++14 -g
 mankind_LDFLAGS  = @DEPS_LDFLAGS@
