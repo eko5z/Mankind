@@ -13,6 +13,7 @@ void Game::Start(int seed)
 	terrain.SetTerrainGenerator(std::make_unique<TerrainGenerator>(*this, seed));
 	SetPlayerPosition(glm::vec3{0, terrain.GetSpawnHeight(0, 0), 0});
 	SetPlayerRotation(glm::vec3{-3.14159/2.f, 0, 0}); /* look on the Z axis */
+	CreateTree(glm::vec3(0, terrain.GetSpawnHeight(0, 0) + 4, 0));
 	std::cerr << "Player spawns at y=" << GetPlayerPosition().y << std::endl;
 }
 
@@ -88,9 +89,9 @@ void Game::CreateTree(glm::vec3 position)
 	t->assign<TransformComponent>();
 	auto tc = t->get<TransformComponent>();
 	tc->position = position;
-	tc->scale = glm::vec3{3, 15, 3};
 	tc->rotation = glm::vec3{0, 0, 0}; // TODO: sum math king figure out how rotation works in OpenGL
 	graphics_manager.GetBillBoardScale("tree_diffuse", tc->scale);
+	tc->position.y += tc->scale.y / 2;
 	t->assign<GraphicsComponent>();
 	auto gc = t->get<GraphicsComponent>();
 	gc->meshID = graphics_manager.GetMeshID("tree");
