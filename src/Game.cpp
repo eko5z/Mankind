@@ -91,7 +91,7 @@ void Game::CreateTree(glm::vec3 position)
 	tc->position = position;
 	tc->rotation = glm::vec3{0, 0, 0}; // TODO: sum math king figure out how rotation works in OpenGL
 	graphics_manager.GetBillBoardScale("tree_diffuse", tc->scale);
-	tc->position.y += tc->scale.y / 2;
+	tc->position.y += tc->scale.y - 1;
 	t->assign<GraphicsComponent>();
 	auto gc = t->get<GraphicsComponent>();
 	gc->meshID = graphics_manager.GetMeshID("tree");
