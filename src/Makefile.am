@@ -3,8 +3,8 @@ mankind_SOURCES=\
 	main.cpp\
 	Renderer.cpp\
 	Game.cpp\
-	InputSystem.cpp\
-	MainInputManager.cpp\
+	InputManager.cpp\
+	MainInputMode.cpp\
 	Texture.cpp\
 	Shader.cpp\
 	ChunkMesh.cpp\
@@ -24,7 +24,9 @@ mankind_SOURCES=\
 	Camera.cpp\
 	GraphicsSystem.cpp\
 	GraphXManager.cpp\
-	CrossMesh.cpp
+	CrossMesh.cpp\
+	Controller.cpp\
+	GUIInputMode.cpp
 
 mankind_CPPFLAGS = @DEPS_CPPFLAGS@ --std=c++14 -g
 mankind_LDFLAGS  = @DEPS_LDFLAGS@

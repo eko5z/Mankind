@@ -1,28 +1,29 @@
-#include "InputSystem.hpp"
+#include "InputManager.hpp"
+#include "InputMode.hpp"
 #include "Log.hpp"
 
-InputSystem::InputSystem() :
-	input_manager(nullptr)
+InputManager::InputManager() :
+	input_mode(nullptr)
 {
 }
 
-void InputSystem::ProcessEvent(SDL_Event e)
+void InputManager::ProcessEvent(SDL_Event e)
 {
-	if (input_manager->LockMouse()) {
+	if (input_mode->LockMouse()) {
 	}
 	MouseButton mb;
 	switch (e.type) {
 	case SDL_QUIT:
 		LOG("Quit event");
-		input_manager->OnQuit();
+		input_mode->OnQuit();
 		break;
 
 	case SDL_KEYUP:
-		input_manager->OnKeyUp(e.key.keysym.sym);
+		input_mode->OnKeyUp(e.key.keysym.sym);
 		break;
 
 	case SDL_KEYDOWN:
-		input_manager->OnKeyDown(e.key.keysym.sym, e.key.repeat);
+		input_mode->OnKeyDown(e.key.keysym.sym, e.key.repeat);
 		break;
 
 	case SDL_MOUSEBUTTONDOWN:
@@ -39,7 +40,7 @@ void InputSystem::ProcessEvent(SDL_Event e)
 			mb = MouseButton::RIGHT;
 			break;
 		}
-		input_manager->OnMouseButtonDown(mb);
+		input_mode->OnMouseButtonDown(mb);
 		break;
 
 	case SDL_MOUSEBUTTONUP:
@@ -56,18 +57,29 @@ void InputSystem::ProcessEvent(SDL_Event e)
 			mb = MouseButton::RIGHT;
 			break;
 		}
-		input_manager->OnMouseButtonUp(mb);
+		input_mode->OnMouseButtonUp(mb);
 		break;
 
 	case SDL_MOUSEMOTION:
-		input_manager->OnMouseMotion(e.motion.x, e.motion.y, e.motion.xrel, e.motion.yrel);
+		input_mode->OnMouseMotion(e.motion.x, e.motion.y, e.motion.xrel, e.motion.yrel);
 	}
 }
 
-void InputSystem::ProcessEvents()
+void InputManager::SetInputMode(std::shared_ptr<InputMode> ptr)
+{
+input_mode = ptr;
+if (input_mode->LockMouse() ){
+	SDL_SetRelativeMouseMode(SDL_TRUE);
+} else {
+	SDL_SetRelativeMouseMode(SDL_FALSE);
+}
+
+}
+
+void InputManager::ProcessEvents()
 {
 	SDL_Event e;
-	if (input_manager->LockMouse()) {
+	if (input_mode->LockMouse()) {
 
 	}
 	while (SDL_PollEvent(&e)) {
