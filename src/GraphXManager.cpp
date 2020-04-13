@@ -17,7 +17,7 @@ int GraphXManager::AddMesh(std::string strID, std::unique_ptr<Mesh> mesh)
 		meshes.push_back(std::move(mesh));
 		int id(meshes.size() - 1);
 		meshIDmap[strID] = id;
-		std::cerr << "Loaded mesh '" << strID << "' with ID " << id << std::endl;
+		LOG("Loaded mesh %s with ID %d.", strID.c_str(), id);
 		return id;
 	} else {
 		throw std::runtime_error("Duplicate mesh ID");
@@ -30,7 +30,7 @@ int GraphXManager::AddProgram(std::string strID, std::unique_ptr<Program> progra
 		programs.push_back(std::move(program));
 		int id(programs.size() - 1);
 		programIDmap[strID] = id;
-		std::cerr << "Loaded program '" << strID << "' with ID " << id << std::endl;
+		LOG("Loaded program %s with ID %d.", strID.c_str(), id);
 		return id;
 	} else {
 		throw std::runtime_error("Duplicate program ID");
@@ -43,7 +43,7 @@ int GraphXManager::AddTexture(std::string strID, std::unique_ptr<Texture> textur
 		textures.push_back(std::move(texture));
 		int id(textures.size() - 1);
 		textureIDmap[strID] = id;
-		std::cerr << "Loaded texture '" << strID << "' with ID " << id << std::endl;
+		LOG("Loaded texture %s with ID %d.", strID.c_str(), id);
 		return id;
 	} else {
 		throw std::runtime_error("Duplicate texture ID");

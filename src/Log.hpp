@@ -1,6 +1,5 @@
 #pragma once
 
-#include <iostream>
+#include <stdio.h>
 
-#define LOG(s) do { std::cerr << "[" << __FILE__ << ":" << __LINE__ << "] " << (s) << std::endl; } while (0)
-
+#define LOG(fmt, args...) (fprintf (stderr, "\x1B[34m%s:%d:%s(): " fmt "\x1B[0m\n", __FILE__, __LINE__, __func__, ##args))

@@ -7,7 +7,7 @@
 
 Shader::Shader(std::string& path, GLenum type)
 {
-	LOG(path);
+	LOG("Loading shader: %s", path.c_str());
 	shader_id = glCreateShader(type);
 	std::ifstream source_file(path);
 	if (not source_file.is_open()) {

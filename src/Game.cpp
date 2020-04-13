@@ -15,7 +15,7 @@ void Game::Start(int seed)
 	SetPlayerPosition(glm::vec3{0, terrain.GetSpawnHeight(0, 0), 0});
 	SetPlayerRotation(glm::vec3{-3.14159/2.f, 0, 0}); /* look on the Z axis */
 	CreateTree(glm::vec3(0, terrain.GetSpawnHeight(0, 0) + 4, 0));
-	std::cerr << "Player spawns at y=" << GetPlayerPosition().y << std::endl;
+	LOG("Player spawns at y = %d", GetPlayerPosition().y);
 }
 
 void Game::CreatePlayer()
