@@ -67,12 +67,12 @@ void InputManager::ProcessEvent(SDL_Event e)
 
 void InputManager::SetInputMode(std::shared_ptr<InputMode> ptr)
 {
-input_mode = ptr;
-if (input_mode->LockMouse() ){
-	SDL_SetRelativeMouseMode(SDL_TRUE);
-} else {
-	SDL_SetRelativeMouseMode(SDL_FALSE);
-}
+	input_mode = ptr;
+	if (input_mode->LockMouse() ) {
+		SDL_SetRelativeMouseMode(SDL_TRUE);
+	} else {
+		SDL_SetRelativeMouseMode(SDL_FALSE);
+	}
 
 }
 

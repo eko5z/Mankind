@@ -31,8 +31,14 @@ public:
 	void CloseMainMenu();
 	void Step();
 	void Render();
-	float GetDeltaTime() { return ms_per_tick / 1000.f; }
-	int GetMSPerTick() { return ms_per_tick; }
+	float GetDeltaTime()
+	{
+		return ms_per_tick / 1000.f;
+	}
+	int GetMSPerTick()
+	{
+		return ms_per_tick;
+	}
 
 	void Respawn();
 	void GoForward();

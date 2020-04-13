@@ -2,7 +2,7 @@
 
 
 Controller::Controller(Game& game, Renderer& renderer) :
-	game(game), 
+	game(game),
 	renderer(renderer),
 	ms_per_tick(25),
 	main_input_mode(std::make_shared<MainInputMode>(*this)),
@@ -114,9 +114,13 @@ void Controller::Quit()
 
 void Controller::Use()
 {
+	auto camera(game.GetCamera());
+	game.OnUse(camera.position, camera.GetLookAt());
 }
 
 void Controller::Punch()
 {
+	auto camera(game.GetCamera());
+	game.OnPunch(camera.position, camera.GetLookAt());
 }
 

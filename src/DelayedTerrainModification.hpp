@@ -2,8 +2,7 @@
 
 #include "Cube.hpp"
 
-struct DelayedTerrainModification
-{
+struct DelayedTerrainModification {
 	int x, y, z;
 	Cube value;
 };

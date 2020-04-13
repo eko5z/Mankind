@@ -9,7 +9,7 @@ void GUIInputMode::OnKeyUp(char key)
 {
 	/* escape key */
 	if (key == '\033') {
-		controller.CloseMainMenu();	
+		controller.CloseMainMenu();
 	}
 }
 
