@@ -42,6 +42,7 @@ private:
 	void DrawObjects();
 	void LoadChunks();
 	std::shared_ptr<Font> main_font;
+	GUIElement gui_root;
 	std::unique_ptr<GUILabel> position_label, version_label, fps_label;
 	std::unique_ptr<TileManager> tile_manager;
 	std::unique_ptr<HighlightMesh> highlight_mesh;

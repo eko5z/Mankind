@@ -1,4 +1,5 @@
 #include "GUILabel.hpp"
+#include "FormatString.hpp"
 
 #include "Log.hpp"
 
@@ -9,15 +10,14 @@
 #define UV_TOP_LEFT     {0, 0}
 #define UV_TOP_RIGHT    {1, 0}
 
-GUILabel::GUILabel(std::string id, glm::vec2 pos, glm::vec2 screen_dim,
+GUILabel::GUILabel(GUIElement& p, std::string id, glm::vec2 pos, glm::vec2 screen_dim,
                    std::shared_ptr<Font> font, std::string fmt, ...) :
-	BaseGUIElement::BaseGUIElement(id),
+	GUIElement::GUIElement(id, p),
 	font(font),
 	fg_color(
 {
 	255, 255, 255, 255
 }),
-dirty(true),
 pos(pos),
 screen_dim(screen_dim)
 {
@@ -26,29 +26,10 @@ screen_dim(screen_dim)
 	this->pos.y = -1 + ((float)pos.y / screen_dim.y * 2.);
 	va_list fmt_list;
 	va_start(fmt_list, fmt);
-	SetText(fmt, fmt_list);
+	attributes.emplace("text", "");
+	SetAttribute("text", FormatString::StringF(fmt, fmt_list));
 	va_end(fmt_list);
 	Reload();
-}
-
-void GUILabel::SetText(std::string fmt, va_list vl)
-{
-	va_list vl2;
-	va_copy(vl2, vl);
-	dirty = true;
-	size_t text_size = vsnprintf(nullptr, 0, fmt.c_str(), vl);
-	char *tmp_str = new char[text_size+1]();
-	vsnprintf(tmp_str, text_size+1, fmt.c_str(), vl2);
-	text = std::string(tmp_str);
-	delete[] tmp_str;
-}
-
-void GUILabel::SetText(std::string fmt, ...)
-{
-	va_list fmt_list;
-	va_start(fmt_list, fmt);
-	SetText(fmt, fmt_list);
-	va_end(fmt_list);
 }
 
 void GUILabel::SetFont(std::shared_ptr<Font> font)
@@ -66,7 +47,7 @@ void GUILabel::SetForegroundColor(SDL_Color new_color)
 void GUILabel::Reload()
 {
 	dirty = false;
-	SDL_Surface* text_surface = TTF_RenderText_Blended(font->GetPointer(), text.c_str(), fg_color);
+	SDL_Surface* text_surface = TTF_RenderText_Blended(font->GetPointer(), GetAttribute("text").c_str(), fg_color);
 	this->fg_texture = std::make_shared<Texture>(text_surface);
 	glm::vec2 wh{
 		text_surface->w / screen_dim.x * 2,
@@ -115,7 +96,7 @@ void GUILabel::Draw()
 	glEnable(GL_BLEND);
 	glActiveTexture(GL_TEXTURE0);
 	this->fg_texture->Bind();
-	BaseGUIElement::Draw();
+	GUIElement::Draw();
 	glDisable(GL_BLEND);
 }
 

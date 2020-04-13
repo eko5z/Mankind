@@ -21,7 +21,8 @@ Renderer::Renderer(Game& g, GraphXManager& graphics_manager) :
 	n_frames(0),
 	ms_accu(0),
 	last_time(0),
-	fps(0)
+	fps(0),
+	gui_root("root")
 {
 	LOG("Initializing renderer");
 
@@ -85,11 +86,11 @@ void Renderer::OpenWindow()
 
 	LOG("Loading labels");
 	SDL_GetWindowSize(window, &view_width, &view_height);
-	version_label = std::make_unique<GUILabel>("version",
+	version_label = std::make_unique<GUILabel>(gui_root, "version",
 	                glm::vec2{5, view_height - 30}, glm::vec2{view_width, view_height}, main_font, PACKAGE_STRING);
-	position_label = std::make_unique<GUILabel>("position",
+	position_label = std::make_unique<GUILabel>(gui_root, "position",
 	                 glm::vec2{5, view_height - 60}, glm::vec2{view_width, view_height}, main_font, "Position goes here");
-	fps_label = std::make_unique<GUILabel>("fps",
+	fps_label = std::make_unique<GUILabel>(gui_root, "fps",
 	                                       glm::vec2{view_width - 100, view_height - 30}, glm::vec2{view_width, view_height}, main_font, "fps");
 
 	LOG("Loading meshes...");
@@ -136,13 +137,13 @@ void Renderer::Render()
 		ms_accu -= 1000;
 		fps = n_frames;
 		n_frames = 0;
-		fps_label->SetText("fps %d", fps);
+		fps_label->SetAttribute("text", "fps %d", fps);
 	}
 	LoadChunks();
 
 	SDL_GetWindowSize(window, &view_width, &view_height);
 
-	position_label->SetText("(x,y,z) = %.2f %.2f %.2f", camera.position.x, camera.position.y, camera.position.z);
+	position_label->SetAttribute("text", "(x,y,z) = %.2f %.2f %.2f", camera.position.x, camera.position.y, camera.position.z);
 
 	glClear(GL_DEPTH_BUFFER_BIT);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
