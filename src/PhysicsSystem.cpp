@@ -19,8 +19,6 @@ bool PhysicsSystem::AABBTest(glm::vec3 v, glm::vec3 box, glm::vec3 whd)
 
 void PhysicsSystem::tick(ECS::World& ecs_world, float dt)
 {
-	struct timespec ts;
-	clock_gettime(CLOCK_REALTIME, &ts);
 	ecs_world.each<PhysicsComponent>(
 	[&](ECS::Entity& ent,ECS::ComponentHandle<PhysicsComponent> body) {
 		body->vel += glm::vec3(0, -G_VALUE, 0) * dt;

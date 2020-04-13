@@ -56,42 +56,55 @@ void Controller::Respawn()
 
 void Controller::GoForward()
 {
+	game.GetPlayerInputComponent()->go_forward = true;
 }
 
 void Controller::StopForward()
 {
+	game.GetPlayerInputComponent()->go_forward = false;
 }
 
 void Controller::GoLeftward()
 {
+	game.GetPlayerInputComponent()->go_leftward = true;
 }
 
 void Controller::StopLeftward()
 {
+	game.GetPlayerInputComponent()->go_leftward = false;
 }
 
 void Controller::GoBackward()
 {
+	game.GetPlayerInputComponent()->go_backward = true;
 }
 
 void Controller::StopBackward()
 {
+	game.GetPlayerInputComponent()->go_backward = false;
 }
 
 void Controller::GoRightward()
 {
+	game.GetPlayerInputComponent()->go_rightward = true;
 }
 
 void Controller::StopRightward()
 {
+	game.GetPlayerInputComponent()->go_rightward = false;
 }
 
 void Controller::TurnBy(glm::vec3 xy)
 {
+	auto player_rotation = game.GetPlayerRotation();
+	player_rotation += xy;
+	player_rotation.z = std::max(std::min(3.14592f/2.f, player_rotation.z), -3.141592f / 2.f);
+	game.SetPlayerRotation(player_rotation);
 }
 
 void Controller::Jump()
 {
+	game.GetPlayerInputComponent()->jump = true;
 }
 
 void Controller::Quit()

@@ -6,6 +6,7 @@ void Game::Start(int seed)
 {
 	this->keep_going = true;
 	this->ecs_world = ECS::World::createWorld();
+	this->ecs_world->registerSystem(new InputSystem());
 	this->ecs_world->registerSystem(new PhysicsSystem(this->terrain));
 	this->ecs_world->registerSystem(new GraphicsSystem(*this, graphics_manager));
 	this->CreatePlayer();
@@ -22,6 +23,7 @@ void Game::CreatePlayer()
 	player = ecs_world->create();
 	player->assign<TransformComponent>();
 	player->assign<PhysicsComponent>();
+	player->assign<InputComponent>();
 	player->get<PhysicsComponent>()->box_whd = glm::vec3(1.5, 3.2, 1.5);
 }
 

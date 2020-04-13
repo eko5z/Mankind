@@ -9,6 +9,8 @@
 #include "GraphicsComponent.hpp"
 #include "GraphicsSystem.hpp"
 #include "GraphXManager.hpp"
+#include "InputComponent.hpp"
+#include "InputSystem.hpp"
 
 class Game
 {
@@ -60,6 +62,11 @@ public:
 	{
 		player->get<PhysicsComponent>()->vel = v;
 	}
+	ECS::ComponentHandle<InputComponent> GetPlayerInputComponent()
+	{
+		return player->get<InputComponent>();
+	}
+
 	void Start(int seed);
 	void OnPunch(glm::vec3 position, glm::vec3 lookat);
 	void OnUse(glm::vec3 position, glm::vec3 lookat);
