@@ -2,6 +2,7 @@
 
 #include "Renderer.hpp"
 #include "Game.hpp"
+#include "GUI.hpp"
 #include "GUIInputMode.hpp"
 #include "MainInputMode.hpp"
 #include "InputManager.hpp"
@@ -19,6 +20,7 @@ private:
 	InputManager input_manager;
 	std::shared_ptr<GUIInputMode> gui_input_mode;
 	std::shared_ptr<MainInputMode> main_input_mode;
+	std::shared_ptr<GUI> hud, main_menu;
 
 	int ms_per_tick;
 	bool wireframe;

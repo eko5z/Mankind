@@ -11,7 +11,7 @@
 #include "ChunkMesh.hpp"
 #include "Texture.hpp"
 #include "Font.hpp"
-#include "GUILabel.hpp"
+#include "GUI.hpp"
 
 #include "Mesh.hpp"
 #include "QuadMesh.hpp"
@@ -28,7 +28,9 @@ public:
 	void OpenWindow();
 	void Render();
 	void AddChunk(int x, int y, int z, Chunk& c);
+	void SetGUI(std::shared_ptr<GUI> gui);
 private:
+	std::shared_ptr<GUI> gui;
 	Game& game;
 	GraphXManager& graphics_manager;
 	int n_frames;
@@ -42,15 +44,13 @@ private:
 	void DrawObjects();
 	void LoadChunks();
 	std::shared_ptr<Font> main_font;
-	GUIElement gui_root;
-	std::unique_ptr<GUILabel> position_label, version_label, fps_label;
 	std::unique_ptr<TileManager> tile_manager;
 	std::unique_ptr<HighlightMesh> highlight_mesh;
 	int view_height, view_width;
 	SDL_Window* window;
 	SDL_GLContext context;
 	std::unique_ptr<Program> default_program;
-	std::unique_ptr<Program> text_program;
+	std::unique_ptr<Program> gui_program;
 	std::unique_ptr<Program> sky_program;
 	std::unique_ptr<Program> highlight_program;
 	std::map<uint64_t, ChunkMesh> chunk_meshes;

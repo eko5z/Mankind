@@ -8,12 +8,13 @@ Controller::Controller(Game& game, Renderer& renderer) :
 	main_input_mode(std::make_shared<MainInputMode>(*this)),
 	gui_input_mode(std::make_shared<GUIInputMode>(*this))
 {
-
 	input_manager.SetInputMode(main_input_mode);
 }
 
 void Controller::StartUp()
 {
+	hud = std::make_shared<GUI>("res/gui/hud.xml");
+	renderer.SetGUI(hud);
 	game.Start(0);
 	LOG("Game started");
 }
@@ -98,7 +99,7 @@ void Controller::TurnBy(glm::vec3 xy)
 {
 	auto player_rotation = game.GetPlayerRotation();
 	player_rotation += xy;
-	player_rotation.z = std::max(std::min(3.14592f/2.f, player_rotation.z), -3.141592f / 2.f);
+	player_rotation.y = std::max(std::min(3.141592f/2.f, player_rotation.y), -3.141592f / 2.f);
 	game.SetPlayerRotation(player_rotation);
 }
 

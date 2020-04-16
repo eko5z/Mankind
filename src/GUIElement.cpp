@@ -2,53 +2,61 @@
 
 #include "Log.hpp"
 
-GUIElement::GUIElement(std::string id) :
-	background(nullptr),
-	foreground(nullptr),
-	id(id),
-	parent(*this)
+GUIElement::GUIElement(GUI& gui) :
+	parent(*this),
+	gui(gui),
+	drawer(nullptr)
 {
 }
 
-GUIElement::GUIElement(std::string id, GUIElement& p) :
-	background(nullptr),
-	foreground(nullptr),
-	id(id),
-	parent(p)
+GUIElement::GUIElement(GUI& gui, GUIElement& p) :
+	parent(p),
+	gui(gui),
+	drawer(nullptr)
 {
 }
 
-void GUIElement::Draw()
+void GUIElement::Draw(Program& program)
 {
-	if (background) {
-		background->Render();
+	program.SetVec2("element_offset", position);
+	if (drawer) {
+		if (dirty) {
+			drawer->Reload();
+			dirty = false;
+		}
+		drawer->Draw(program);
 	}
-
-	if (foreground) {
-		foreground->Render();
-	}
-
+	glm::vec2 current_offset(position);
 	for (auto& child : children) {
-		child.second->Draw();
+		child.second->SetPosition(current_offset);
+		child.second->Draw(program);
+		/* we must go in reverse because of pixel positions */
+		current_offset.y -= child.second->GetSize().y;
 	}
 }
 
 /* dumb depth-first search, performance shouldn't be an issue
-   unless we're dealing with hyper wide hierarchies (won't happen)
+   unless we're dealing with very large hierarchies
+   (hopefully won't happen)
    */
-std::shared_ptr<GUIElement> GUIElement::GetChildByID(std::string id)
+GUIElement* GUIElement::GetChildByID(std::string id)
 {
-	if (this->id == id) {
-		return std::shared_ptr<GUIElement>(this);
+	if (GetID() == id) {
+		return this;
 	}
 
-	std::shared_ptr<GUIElement> found(nullptr);
+	GUIElement* found(nullptr);
 	for (auto& child : children) {
-		std::shared_ptr<GUIElement> found = child.second->GetChildByID(id);
+		found = child.second->GetChildByID(id);
 		if (found != nullptr) {
 			return found;
 		}
 	}
 	return found;
+}
+
+GUIElement* GUIElement::GetRoot()
+{
+	return this->IsRoot() ? this : parent.GetRoot();
 }
 

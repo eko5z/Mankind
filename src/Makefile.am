@@ -28,7 +28,10 @@ mankind_SOURCES=\
 	Controller.cpp\
 	GUIInputMode.cpp\
 	InputSystem.cpp\
-	FormatString.cpp
+	FormatString.cpp\
+	GUI.cpp\
+	GUIDrawer.cpp\
+	GUIConstructor.cpp
 
 mankind_CPPFLAGS = @DEPS_CPPFLAGS@ --std=c++14 -g
 mankind_LDFLAGS  = @DEPS_LDFLAGS@

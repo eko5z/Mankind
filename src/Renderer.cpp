@@ -22,7 +22,7 @@ Renderer::Renderer(Game& g, GraphXManager& graphics_manager) :
 	ms_accu(0),
 	last_time(0),
 	fps(0),
-	gui_root("root")
+	gui(nullptr)
 {
 	LOG("Initializing renderer");
 
@@ -84,20 +84,13 @@ void Renderer::OpenWindow()
 	LOG("Loading fonts...");
 	main_font = std::make_shared<Font>("res/fonts/DejaVuSansMono.ttf", 16);
 
-	LOG("Loading labels");
-	SDL_GetWindowSize(window, &view_width, &view_height);
-	version_label = std::make_unique<GUILabel>(gui_root, "version",
-	                glm::vec2{5, view_height - 30}, glm::vec2{view_width, view_height}, main_font, PACKAGE_STRING);
-	position_label = std::make_unique<GUILabel>(gui_root, "position",
-	                 glm::vec2{5, view_height - 60}, glm::vec2{view_width, view_height}, main_font, "Position goes here");
-	fps_label = std::make_unique<GUILabel>(gui_root, "fps",
-	                                       glm::vec2{view_width - 100, view_height - 30}, glm::vec2{view_width, view_height}, main_font, "fps");
-
 	LOG("Loading meshes...");
 	this->sky = std::make_unique<QuadMesh>();
 	LOG ("Initialized sky.");
 	this->highlight_mesh = std::make_unique<HighlightMesh>();
 	LOG ("Initialized highlight mesh.");
+
+	SDL_GetWindowSize(window, &view_width, &view_height);
 
 	h_fov = 90.0f;
 	v_fov_rad = xfov_to_yfov(deg2rad(h_fov), (float)view_width / (float)view_height);
@@ -109,7 +102,7 @@ void Renderer::OpenWindow()
 	// Load default programs.
 	this->default_program = std::make_unique<Program>("res/shaders/default.vert", "res/shaders/default.frag");
 	this->sky_program = std::make_unique<Program>("res/shaders/sky.vert", "res/shaders/sky.frag");
-	this->text_program = std::make_unique<Program>("res/shaders/text.vert", "res/shaders/text.frag");
+	this->gui_program = std::make_unique<Program>("res/shaders/text.vert", "res/shaders/text.frag");
 	this->highlight_program = std::make_unique<Program>("res/shaders/default.vert", "res/shaders/highlight.frag");
 
 	LOG("Window correctly opened");
@@ -136,13 +129,11 @@ void Renderer::Render()
 		ms_accu -= 1000;
 		fps = n_frames;
 		n_frames = 0;
-		fps_label->SetAttribute("text", "fps %d", fps);
 	}
 	LoadChunks();
 
 	SDL_GetWindowSize(window, &view_width, &view_height);
 
-	position_label->SetAttribute("text", "(x,y,z) = %.2f %.2f %.2f", camera.position.x, camera.position.y, camera.position.z);
 
 	glClear(GL_DEPTH_BUFFER_BIT);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -152,7 +143,10 @@ void Renderer::Render()
 	DrawTerrain();
 	DrawHighlight();
 	DrawObjects();
-	DrawGUI();
+	if (gui != nullptr) {
+		gui_program->Use();
+		gui->Draw(*gui_program);
+	}
 
 	SDL_GL_SwapWindow(window);
 }
@@ -242,13 +236,12 @@ void Renderer::DrawObjects()
 	}
 }
 
-void Renderer::DrawGUI()
+void Renderer::SetGUI(std::shared_ptr<GUI> gui)
 {
-	text_program->Use();
-	position_label->Draw();
-	version_label->Draw();
-	fps_label->Draw();
+	this->gui = gui;
+	gui->GetElementByID("root")->SetScreenSizePx(glm::vec2{view_width, view_height});
 }
+
 
 void Renderer::DrawHighlight()
 {
