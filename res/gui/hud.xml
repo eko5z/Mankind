@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 
 <div id="root">
-	<label id="fps">FPS</label>
 	<label id="version">Version</label>
-	<label id="position">Position</label>
+	<label id="fps" float="right">FPS</label>
+	<label id="position" display="block">Position</label>
 </div>
 

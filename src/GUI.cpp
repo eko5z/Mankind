@@ -17,6 +17,7 @@ GUI::GUI(std::string xml_path) :
 	root = std::make_shared<GUIElement>(*this);
 	root->SetAttribute("font-family", "DejaVuSansMono");
 	root->SetAttribute("id", "root");
+	root->SetAttribute("float", "left");
 
 	GUIConstructor gui_constructor(*this);
 	doc.Accept(&gui_constructor);

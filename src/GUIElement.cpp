@@ -28,10 +28,21 @@ void GUIElement::Draw(Program& program)
 	}
 	glm::vec2 current_offset(position);
 	for (auto& child : children) {
+		std::string child_float(child.second->GetAttribute("float"));
+		std::string child_display(child.second->GetAttribute("display"));
+		if (child_float == "left") {
+			current_offset.x = -0.f;
+		} else if (child_float == "right") {
+			current_offset.x = 2.f - child.second->GetSize().x;
+		}
 		child.second->SetPosition(current_offset);
 		child.second->Draw(program);
 		/* we must go in reverse because of pixel positions */
-		current_offset.y -= child.second->GetSize().y;
+		if (child_display == "inline") {
+			current_offset.x += child.second->GetSize().x;
+		} else if (child_display == "block") {
+			current_offset.y -= child.second->GetSize().y;
+		}
 	}
 }
 

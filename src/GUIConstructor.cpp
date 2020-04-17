@@ -27,8 +27,10 @@ bool GUIConstructor::VisitEnter(const tinyxml2::XMLElement& element, const tinyx
 
 		if (elm_type == "label") {
 			gui_element->SetDrawer(std::make_unique<GUILabel>(*gui_element));
+			gui_element->SetAttribute("display", "inline");
 		} else if (elm_type == "div") {
 			gui_element->SetDrawer(nullptr);
+			gui_element->SetAttribute("display", "block");
 		} else {
 			throw std::runtime_error("Uknown GUI element type '"+elm_type+"'");
 		}
